@@ -35,7 +35,7 @@ namespace EventsWebsite.Models
 
         public int AccesLevel { get; set; }
         //Hier moet eigenlijk alle velden voor het adres bij staan, anders dan kan je het model niet aanmaken bij registeren, of we moeten dit idd het user model laten en nog een registratiemodel toevoegen met deze gegevens plus gegevens uit het adresmodel
-        public Address  Adress{ get; set; }
+        //public Address  Adress{ get; set; }
 
         public UserModel(string username, string password, string email, string name, int telnr, int acceslevel)
         {
