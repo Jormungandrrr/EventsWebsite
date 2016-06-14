@@ -167,6 +167,7 @@
     <Compile Include="Models\MaterialModel.cs" />
     <Compile Include="Models\ReservationModel.cs" />
     <Compile Include="Models\SocialMediaMessageModel.cs" />
+    <Compile Include="Models\Thumbnail.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\Thumbnail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
