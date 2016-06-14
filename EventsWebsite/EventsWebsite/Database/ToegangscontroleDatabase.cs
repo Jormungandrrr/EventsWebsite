@@ -10,7 +10,7 @@ namespace EventsWebsite.Database
     {
         public bool HasAccess(int barcode)
         {
-            return false;
+            return true;
         }
     }
 }
