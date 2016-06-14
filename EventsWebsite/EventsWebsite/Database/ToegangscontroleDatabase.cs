@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EventsWebsite.Database
 {
-    class ToegangscontroleDatabase : Database
+    public class ToegangscontroleDatabase : Database
     {
         public bool HasAccess(int barcode)
         {

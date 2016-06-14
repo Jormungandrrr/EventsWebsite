@@ -236,7 +236,7 @@ namespace EventsWebsite.Database
                         {
                             while (reader.Read())
                             {
-                                ReturnData = (int)reader[0];
+                                ReturnData = reader.GetInt32(0);
                             }
                         }
                     }
