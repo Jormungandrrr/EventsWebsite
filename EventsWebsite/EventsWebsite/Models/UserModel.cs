@@ -9,45 +9,45 @@ namespace EventsWebsite.Models
 {
     public class UserModel
     {
-        [Required]
+        [Required(ErrorMessage = "Vul een gebruikernaam in")]
         [Display(Name="Gebruikersnaam")]
         public string Username {get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een wachtwoord in")]
         [DataType(DataType.Password)]
         [Display(Name = "Wachtwoord")]
         public string Password { get; set; }
-
+        [Required(ErrorMessage = "Vul een bevestigings wachtwoord in")]
         [DataType(DataType.Password)]
         [Display(Name="Bevestig wachtwoord")]
         [Compare("Password",ErrorMessage = "De wachtwoorden komen niet met elkaar overeen")]
         public string PasswordCheck { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een E-mail adres in")]
         [DataType(DataType.EmailAddress)]
         [Display(Name="E-mail")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een naam in")]
         [Display(Name = "Naam")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een telefoonnummer in")]
         [Display(Name = "Telefoonnummer")]
         [DataType(DataType.PhoneNumber)]
         public int Telnr { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul de hoeveelheid rechten in")]
         [Display(Name = "Rechten")]
         public int AccesLevel { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een straat in")]
         [Display(Name = "Straat")]
         public string Street { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een huisnummer in")]
         [Display(Name = "HouseNumber")]
         public string HouseNumber { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een postcode in")]
         [Display(Name = "Zipcode")]
         public string Zipcode { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een stad in")]
         [Display(Name = "City")]
         public string City { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een land in")]
         [Display(Name = "Country")]
         public string Country { get; set; }
 

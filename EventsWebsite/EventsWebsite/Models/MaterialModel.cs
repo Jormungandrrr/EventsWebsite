@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,17 +8,25 @@ namespace EventsWebsite.Models
 {
     public class MaterialModel
     {
-        public string Naam { get; set; }
-        public string Omschrijving { get; set; }
-        public bool Beschadigd { get; set; }
-        public bool Gehuurd { get; set; }
+        [Required(ErrorMessage = "Vul een naam in")]
+        [Display(Name = "Naam")]
+        public string Name { get; set; }
+        [Required(ErrorMessage = "Vul een omschrijving in")]
+        [Display(Name = "Omschrijving")]
+        public string Description { get; set; }
+        [Required(ErrorMessage = "Vul in of het object beschadigd is")]
+        [Display(Name = "Beschadigd")]
+        public bool Damaged { get; set; }
+        [Required(ErrorMessage = "Vul in of het object is verhuurd")]
+        [Display(Name = "Gehuurd")]
+        public bool Rented { get; set; }
 
-        public MaterialModel(string naam, string omschrijving, bool beschadigd, bool gehuurd)
+        public MaterialModel(string name, string description, bool damaged, bool rented)
         {
-            Naam = naam;
-            Omschrijving = omschrijving;
-            Beschadigd = beschadigd;
-            Gehuurd = gehuurd;
+            Name = name;
+            Description = description;
+            Damaged = damaged;
+            Rented = rented;
         }
 
         public override string ToString()

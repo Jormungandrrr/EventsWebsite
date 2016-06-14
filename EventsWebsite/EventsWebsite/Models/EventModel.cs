@@ -8,30 +8,30 @@ namespace EventsWebsite.Models
 {
     public class EventModel
     {
-        [Required]
+        [Required(ErrorMessage = "Vul een naam in")]
         [Display(Name = "Name")]
         public string Name { get; set; }
-        [Required]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Vul een startdatum in")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd-hh-mm-ss}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start date")]
         public DateTime DateStart { get; set; }
-        [Required]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Vul een einddatum in")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd-hh-mm-ss}", ApplyFormatInEditMode = true)]
         [Display(Name = "End date")]
         public DateTime DateEnd { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een straat in")]
         [Display(Name = "Straat")]
         public string Street { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een huisnummer in")]
         [Display(Name = "HouseNumber")]
         public string HouseNumber { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een postcode in")]
         [Display(Name = "Zipcode")]
         public string Zipcode { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een stad in")]
         [Display(Name = "City")]
         public string City { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een land in")]
         [Display(Name = "Country")]
         public string Country { get; set; }
 
