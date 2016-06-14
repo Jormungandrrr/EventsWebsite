@@ -220,6 +220,41 @@ namespace EventsWebsite.Database
             } 
         }
 
+        public virtual List<string> ReadWithCondition(string table, List<string> data, string ConditionValue1, string ConditionValue2, Dictionary<string,string> Join)
+        {
+            string Joins = "";
+            char TableChar1 = 'A';
+            char TableChar2 = 'J';
+            string ColumNames = GetColumnNames(data);
+            List<string> ReturnData = new List<string>();
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                foreach (KeyValuePair<string,string> jointable in Join)
+                {
+                    Joins += " JOIN " + jointable.Key + " " + TableChar1 + " ON " + jointable.Value + " "  + TableChar1 + " = " + jointable.Value + " " + TableChar2;
+                    TableChar1 = (char)(Convert.ToUInt16(TableChar1) + 1);
+                    TableChar2 = (char)(Convert.ToUInt16(TableChar2) + 1);
+                }
+                using (OracleCommand command = new OracleCommand("SELECT " + ColumNames + " FROM " + table + Joins + " WHERE " + ConditionValue1 + " = :Condition2", conn))
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
+                    command.Connection.Open();
+                    using (OracleDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            foreach (string v in data)
+                            {
+                                ReturnData.Add(Convert.ToString(reader[v]));
+                            }
+                        }
+                        return ReturnData;
+                    }
+                }
+            }
+        }
+
         public virtual int Count(string table, string column, string condition1,int condition2)
         {
             int ReturnData = 0;
