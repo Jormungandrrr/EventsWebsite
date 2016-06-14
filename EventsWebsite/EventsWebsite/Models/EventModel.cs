@@ -12,9 +12,11 @@ namespace EventsWebsite.Models
         [Display(Name = "Name")]
         public string Name { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start date")]
         public DateTime DateStart { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "End date")]
         public DateTime DateEnd { get; set; }
         [Required]
@@ -32,5 +34,22 @@ namespace EventsWebsite.Models
         [Required]
         [Display(Name = "Country")]
         public string Country { get; set; }
+
+        public EventModel(string name, DateTime dateStart, DateTime dateEnd, string street, string housenumber, string zipcode, string city, string country)
+        {
+            Name = name;
+            DateStart = dateStart;
+            DateEnd = dateEnd;
+            Street = street;
+            HouseNumber = housenumber;
+            Zipcode = zipcode;
+            City = city;
+            Country = country;
+        }
+
+        public override string ToString()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

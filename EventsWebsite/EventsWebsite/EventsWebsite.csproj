@@ -157,10 +157,12 @@
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\ToegangscontroleDatabase.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Database\UserDB.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\EventModel.cs" />
+    <Compile Include="Models\MaterialModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

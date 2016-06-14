@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Oracle.ManagedDataAccess.Types;
 using Oracle.ManagedDataAccess.Client;
 
-
 namespace EventsWebsite.Database
 {
     public abstract class Database
@@ -37,7 +36,6 @@ namespace EventsWebsite.Database
                     {
 
                     }
-
                 }
             }
         }
@@ -220,6 +218,32 @@ namespace EventsWebsite.Database
                     }
                 }
             } 
+        }
+
+        public virtual string Count(string table, string column, string condition1,string condition2)
+        {
+            string ReturnData = "";
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("SELECT COUNT(" + column + ") as Aantal FROM " + table + " WHERE " + condition1 + " = :Condition2", conn))
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(new OracleParameter(":Condition2", condition2));
+                    try
+                    {
+                        command.Connection.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ReturnData = (Convert.ToString(reader["Aantal"]));
+                            }
+                        }
+                    }
+                    catch { }
+                    return ReturnData;
+                }
+            }
         }
 
 
