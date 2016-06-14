@@ -7,7 +7,7 @@ using Oracle.ManagedDataAccess.Types;
 using Oracle.ManagedDataAccess.Client;
 
 
-namespace Metal_Archives.Database
+namespace EventsWebsite.Database
 {
     public abstract class Database
     {
