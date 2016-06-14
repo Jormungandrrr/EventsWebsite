@@ -155,6 +155,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ToegangController.cs" />
     <Compile Include="Database\Database.cs" />
+    <Compile Include="Database\ToegangscontroleDatabase.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
