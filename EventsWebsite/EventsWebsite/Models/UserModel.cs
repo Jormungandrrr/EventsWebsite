@@ -35,7 +35,6 @@ namespace EventsWebsite.Models
         [Required]
         [Display(Name = "Rechten")]
         public int AccesLevel { get; set; }
-        public Address Adress { get; set; }
         [Required]
         [Display(Name = "Straat")]
         public string Street { get; set; }
@@ -61,10 +60,10 @@ namespace EventsWebsite.Models
             Name = name;
             Telnr = telnr;
             AccesLevel = acceslevel;
-            +Street = street;
-            +HouseNumber = houseNumber;
-            +Zipcode = zipcode;
-            +City = city;
+            Street = street;
+            HouseNumber = houseNumber;
+            Zipcode = zipcode;
+            City = city;
         }
 
         public override string ToString()
