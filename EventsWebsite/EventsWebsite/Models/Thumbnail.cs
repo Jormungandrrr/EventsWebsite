@@ -14,13 +14,14 @@ namespace EventsWebsite.Models
         public string Description { get; private set; } 
         public int Accesslevel { get; private set; }
 
-        public Thumbnail(int id, string imgsrc, string buttonlink, string description, int accesslevel)
+        public Thumbnail(int id, string imgsrc, string title, string buttonlink, string description, int accesslevel)
         {
             this.Id = id;
             this.ImgSource = imgsrc;
             this.ButtonLink = buttonlink;
             this.Description = description;
             this.Accesslevel = accesslevel;
+            this.Title = title;
         } 
 
     }

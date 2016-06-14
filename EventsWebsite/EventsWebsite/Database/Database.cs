@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EventsWebsite.Models;
 using Oracle.ManagedDataAccess.Types;
 using Oracle.ManagedDataAccess.Client;
 
@@ -149,7 +150,11 @@ namespace EventsWebsite.Database
                         {
                             while (reader.Read())
                             {
-
+                                if (type == "thumbnail")
+                                {
+                                    Thumbnail add = new Thumbnail(reader.GetInt32(0),reader.GetString(1),reader.GetString(2),reader.GetString(3),reader.GetString(4),reader.GetInt32(5));
+                                    ReturnData.Add(add);
+                                }
                             }
                             return ReturnData;
                         }
