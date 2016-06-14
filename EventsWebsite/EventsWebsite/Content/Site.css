@@ -197,3 +197,35 @@ p.copyright {
 .icon-home {
     height: 250px;
 }
+
+#login_body{
+    background: url(http://mymaplist.com/img/parallax/back.png);
+	background-color: #444;
+    background: url(http://mymaplist.com/img/parallax/pinlayer2.png),url(http://mymaplist.com/img/parallax/pinlayer1.png),url(http://mymaplist.com/img/parallax/back.png);    
+}
+
+.vertical-offset-100{
+    padding-top:100px;
+}
+
+html, body {
+	height: 100%;
+}
+.wrapper {
+	min-height: 100%;
+	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+	height: 100%;
+	margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
+}
+footer, .push {
+	height: 180px; /* .push must be the same height as .footer */
+} 
+
+.thumbnail {
+    margin-top:40px;
+}
+
+.thumbnail-image {
+    max-height: 250px; 
+    max-width: 250px;
+}

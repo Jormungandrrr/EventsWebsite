@@ -8,7 +8,8 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <!-- Navigation -->
+<div class="wrapper">
+<!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
         <div class="container topnav">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -39,7 +40,9 @@
         </div>
         <!-- /.container -->
     </nav>
-        @RenderBody()
+    @RenderBody()
+    <div class="push"> </div>
+    </div>
     <footer>
         <div class="container">
             <div class="row">
