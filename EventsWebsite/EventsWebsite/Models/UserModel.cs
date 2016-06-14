@@ -51,11 +51,12 @@ namespace EventsWebsite.Models
         [Display(Name = "Country")]
         public string Country { get; set; }
 
-        public UserModel(string username, string password, string email, string name, int telnr, int acceslevel, string street,
+        public UserModel(string username, string password, string passwordcheck, string email, string name, int telnr, int acceslevel, string street,
                           string houseNumber, string zipcode, string city, string country)
         {
             Username = username;
             Password = password;
+            PasswordCheck = passwordcheck;
             Email = email;
             Name = name;
             Telnr = telnr;

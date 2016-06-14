@@ -61,6 +61,11 @@
     <Compile Include="Database\ToegangTests.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EventModelTest.cs" />
+    <Compile Include="MeterialModelTest.cs" />
+    <Compile Include="ReservationModelTest.cs" />
+    <Compile Include="SocialMediaMessageModelTest.cs" />
+    <Compile Include="UserModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventsWebsite\EventsWebsite.csproj">

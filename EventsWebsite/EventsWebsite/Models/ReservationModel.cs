@@ -21,11 +21,12 @@ namespace EventsWebsite.Models
         [Display(Name = "Betalingsstatus")]
         public bool Paid { get; set; }
 
-        public ReservationModel(DateTime startDate, DateTime endDate, bool paid)
+        public ReservationModel(DateTime startDate, DateTime endDate, bool paid, int reservationid)
         {
             StartDate = startDate;
             EndDate = endDate;
             Paid = paid;
+            Reservationid = reservationid;
         }
 
         public override string ToString()
