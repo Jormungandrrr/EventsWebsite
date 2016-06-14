@@ -32,12 +32,27 @@ namespace EventsWebsite.Models
         [Display(Name = "Telefoonnummer")]
         [DataType(DataType.PhoneNumber)]
         public int Telnr { get; set; }
-
+        [Required]
+        [Display(Name = "Rechten")]
         public int AccesLevel { get; set; }
-        //Hier moet eigenlijk alle velden voor het adres bij staan, anders dan kan je het model niet aanmaken bij registeren, of we moeten dit idd het user model laten en nog een registratiemodel toevoegen met deze gegevens plus gegevens uit het adresmodel
-        //public Address  Adress{ get; set; }
+        [Required]
+        [Display(Name = "Straat")]
+        public string Street { get; set; }
+        [Required]
+        [Display(Name = "HouseNumber")]
+        public string HouseNumber { get; set; }
+        [Required]
+        [Display(Name = "Zipcode")]
+        public string Zipcode { get; set; }
+        [Required]
+        [Display(Name = "City")]
+        public string City { get; set; }
+        [Required]
+        [Display(Name = "Country")]
+        public string Country { get; set; }
 
-        public UserModel(string username, string password, string email, string name, int telnr, int acceslevel)
+        public UserModel(string username, string password, string email, string name, int telnr, int acceslevel, string street,
+                          string houseNumber, string zipcode, string city, string country)
         {
             Username = username;
             Password = password;
@@ -45,6 +60,10 @@ namespace EventsWebsite.Models
             Name = name;
             Telnr = telnr;
             AccesLevel = acceslevel;
+            Street = street;
+            HouseNumber = houseNumber;
+            Zipcode = zipcode;
+            City = city;
         }
 
         public override string ToString()
