@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Oracle.ManagedDataAccess.Types;
 using Oracle.ManagedDataAccess.Client;
 
-
 namespace EventsWebsite.Database
 {
     public abstract class Database
@@ -37,7 +36,6 @@ namespace EventsWebsite.Database
                     {
 
                     }
-
                 }
             }
         }
