@@ -29,5 +29,10 @@ namespace EventsWebsite.Models
             Messageid = messageid;
             Username = username;
         }
+
+        public override string ToString()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
