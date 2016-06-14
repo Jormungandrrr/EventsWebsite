@@ -9,7 +9,7 @@ using Oracle.ManagedDataAccess.Client;
 namespace EventsWebsite.Database
 {
     public abstract class Database
-    {
+    { 
         static string Connectionstring = @"Data Source = (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = fhictora01.fhict.local)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = fhictora))); User ID = dbi331842; PASSWORD =CZSKUvxUUs;";
 
         public virtual void Insert(string table, Dictionary<string, string> values)
@@ -220,9 +220,9 @@ namespace EventsWebsite.Database
             } 
         }
 
-        public virtual string Count(string table, string column, string condition1,string condition2)
+        public virtual int Count(string table, string column, string condition1,int condition2)
         {
-            string ReturnData = "";
+            int ReturnData = 0;
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
                 using (OracleCommand command = new OracleCommand("SELECT COUNT(" + column + ") as Aantal FROM " + table + " WHERE " + condition1 + " = :Condition2", conn))
@@ -236,7 +236,7 @@ namespace EventsWebsite.Database
                         {
                             while (reader.Read())
                             {
-                                ReturnData = (Convert.ToString(reader["Aantal"]));
+                                ReturnData = (int)reader[0];
                             }
                         }
                     }
