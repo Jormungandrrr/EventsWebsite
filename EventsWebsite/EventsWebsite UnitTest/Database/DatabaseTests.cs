@@ -10,7 +10,7 @@ using Oracle.ManagedDataAccess.Types;
 using Oracle.ManagedDataAccess.Client;
 
 
-namespace Metal_Archives.Database.Tests
+namespace EventsWebsite.Database
 {
     [TestClass()]
     public class DatabaseTests
