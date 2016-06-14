@@ -10,7 +10,7 @@ using Oracle.ManagedDataAccess.Client;
 namespace EventsWebsite.Database
 {
     public abstract class Database
-    {
+    { 
         static string Connectionstring = @"Data Source = (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = fhictora01.fhict.local)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = fhictora))); User ID = dbi331842; PASSWORD =CZSKUvxUUs;";
 
         public virtual void Insert(string table, Dictionary<string, string> values)
