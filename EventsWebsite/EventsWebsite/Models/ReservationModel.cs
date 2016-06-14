@@ -8,6 +8,9 @@ namespace EventsWebsite.Models
 {
     public class ReservationModel
     {
+        [Required(ErrorMessage = "Reserveringid")]
+        [Display(Name = "Reserveringid")]
+        public int Reservationid { get; set; }
         [Required(ErrorMessage = "Vul een start datum in")]
         [Display(Name = "Start datum")]
         public DateTime StartDate { get; set; }
