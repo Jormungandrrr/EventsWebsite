@@ -163,6 +163,7 @@
     </Compile>
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\MaterialModel.cs" />
+    <Compile Include="Models\SocialMediaMessageModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
