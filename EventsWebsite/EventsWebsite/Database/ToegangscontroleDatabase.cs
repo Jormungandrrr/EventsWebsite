@@ -10,7 +10,8 @@ namespace EventsWebsite.Database
     {
         public bool HasAccess(int barcode)
         {
-            return true;
+            int exists = Count("Reservering", "ReserveringID", "ReserveringID", barcode);
+            return exists == 1;
         }
     }
 }
