@@ -72,6 +72,20 @@ namespace EventsWebsite.Controllers
             return View(model);
         }
 
+<<<<<<< HEAD
 
+=======
+        //
+        // POST: /Account/LogOff
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            Session["Gebruikersnaam"] = null;
+            Session["Niveau"] = null;
+            return RedirectToAction("Index", "Home");
+        }
+>>>>>>> origin/master
     }
 }
