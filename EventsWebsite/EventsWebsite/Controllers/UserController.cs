@@ -71,5 +71,7 @@ namespace EventsWebsite.Controllers
             }
             return View(model);
         }
+
+
     }
 }
