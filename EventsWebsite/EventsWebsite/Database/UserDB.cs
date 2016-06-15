@@ -15,11 +15,7 @@ namespace EventsWebsite.Database
             PersonData.Add("straat", User.Street);
             PersonData.Add("huisnr", User.HouseNumber);
             PersonData.Add("woonplaats", User.City);
-<<<<<<< HEAD
-            
-=======
             PersonData.Add("banknr", User.banknr);
->>>>>>> origin/master
             Insert("Persoon",PersonData);
 
             Dictionary<string, string> AccountData = new Dictionary<string, string>();

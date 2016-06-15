@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-<<<<<<< HEAD
 using System.Windows.Forms;
-=======
 using System.Web.DynamicData;
->>>>>>> origin/master
 using EventsWebsite.Models;
 using Oracle.ManagedDataAccess.Types;
 using Oracle.ManagedDataAccess.Client;
