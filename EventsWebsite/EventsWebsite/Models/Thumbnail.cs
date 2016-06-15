@@ -10,15 +10,17 @@ namespace EventsWebsite.Models
         public int Id { get; private set; }
         public string ImgSource { get; private set; } 
         public string Title { get; private set; } 
-        public string ButtonLink { get; private set; }
+        public string ActionName { get; private set; }
+        public string ControllerName { get; private set; }
         public string Description { get; private set; } 
         public int Accesslevel { get; private set; }
 
-        public Thumbnail(int id, string imgsrc, string title, string buttonlink, string description, int accesslevel)
+        public Thumbnail(int id, string imgsrc, string title, string actionname, string controllername, string description, int accesslevel)
         {
             this.Id = id;
             this.ImgSource = imgsrc;
-            this.ButtonLink = buttonlink;
+            this.ActionName = actionname;
+            this.ControllerName = controllername;
             this.Description = description;
             this.Accesslevel = accesslevel;
             this.Title = title;

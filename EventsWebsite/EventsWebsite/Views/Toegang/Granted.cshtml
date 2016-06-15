@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Granted";
+}
+@Scripts.Render("~/bundles/jquery")
+<div>
+<div class="center-box">
+    <h1 class="text-center">@ViewBag.Title</h1>
+    <img src="../../images/success_kid.png"/>
+</div> 
+    </div>
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function(){
+            var seconds = 5;
+            setInterval(function() {
+                seconds--;
+                if (seconds == 0) {
+                    window.location = "@Url.Action("Index", "Toegang")";
+                }
+            }, 1000);
+        });
+</script>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Web.DynamicData;
 using EventsWebsite.Models;
 using Oracle.ManagedDataAccess.Types;
@@ -78,7 +79,7 @@ namespace EventsWebsite.Database
             }
         }
 
-        public virtual string ReadStringWithCondition(string table, string column, string ConditionValue1, string ConditionValue2)
+    public virtual string ReadStringWithCondition(string table, string column, string ConditionValue1, string ConditionValue2)
         {
             string ReturnData = "";
             using (OracleConnection conn = new OracleConnection(Connectionstring))
@@ -141,33 +142,85 @@ namespace EventsWebsite.Database
             string columnNames = GetColumnNames(data);
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE " + ConditionValue1 + " = :Condition2", conn))
+                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE " + ConditionValue1 +" = " + ConditionValue2, conn))
                 {
                     command.BindByName = true;
-                    command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
                     try
                     {
                         command.Connection.Open();
                         using (OracleDataReader reader = command.ExecuteReader())
                         {
-                            while (reader.Read())
+                            try
                             {
-                                if (type == "thumbnail")
+                                while (reader.Read())
                                 {
-                                    Thumbnail add = new Thumbnail(reader.GetInt32(0),reader.GetString(1),reader.GetString(2),reader.GetString(3),reader.GetString(4),reader.GetInt32(5));
+                                    Thumbnail add = new Thumbnail(reader.GetInt32(0), reader.GetString(1),
+                                        reader.GetString(2), reader.GetString(3), reader.GetString(4),
+                                        reader.GetString(5),
+                                        reader.GetInt32(6));
                                     ReturnData.Add(add);
                                 }
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show(e.Message);
                             }
                             return ReturnData;
                         }
                     }
 
-                    catch { }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                    }
+                    return ReturnData;
+                }
+
+            } 
+        }
+        public virtual List<Thumbnail> GetThumbnails(string table, List<string> data, string ConditionValue1, string ConditionValue2, string type)
+        {
+            List<Thumbnail> ReturnData = new List<Thumbnail>();
+            string columnNames = GetColumnNames(data);
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE " + ConditionValue1 + " <= " + ConditionValue2, conn))
+                {
+                    command.BindByName = true;
+                    try
+                    {
+                        command.Connection.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            try
+                            {
+                                while (reader.Read())
+                                {
+                                    Thumbnail add = new Thumbnail(reader.GetInt32(0), reader.GetString(1),
+                                        reader.GetString(2), reader.GetString(3), reader.GetString(4),
+                                        reader.GetString(5),
+                                        reader.GetInt32(6));
+                                    ReturnData.Add(add);
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show(e.Message);
+                            }
+                            return ReturnData;
+                        }
+                    }
+
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                    }
                     return ReturnData;
                 }
 
             }
         }
+
 
         public virtual object ReadObjectWithCondition(string table, List<string> data, string ConditionValue1, string ConditionValue2, string type)
         {
@@ -267,7 +320,34 @@ namespace EventsWebsite.Database
             } 
         }
 
-        public virtual int Count(string table, string column, string condition1,string condition2)
+        public virtual List<string> ReadWithCondition(string table, List<string> data, string ConditionValue1, string ConditionValue2, string ConditionValue3)
+        {
+            string ColumNames = GetColumnNames(data);
+            List<string> ReturnData = new List<string>();
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("SELECT " + ColumNames + " FROM " + table + " WHERE " + ConditionValue1 + " IN( SELECT :Condition2 FROM :Condition3)", conn))
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
+                    command.Parameters.Add(new OracleParameter(":Condition3", ConditionValue3));
+                    command.Connection.Open();
+                    using (OracleDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            foreach (string v in data)
+                            {
+                                ReturnData.Add(Convert.ToString(reader[v]));
+                            }
+                        }
+                        return ReturnData;
+                    }
+                }
+            }
+        }
+
+        public virtual int Count(string table, string column, string condition1,int condition2)
         {
             int ReturnData = 0;
             using (OracleConnection conn = new OracleConnection(Connectionstring))
