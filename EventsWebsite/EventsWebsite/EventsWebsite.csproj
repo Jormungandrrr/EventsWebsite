@@ -154,6 +154,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventBeheerController.cs" />
     <Compile Include="Controllers\GebruikerBeheerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -162,7 +163,6 @@
     <Compile Include="Controllers\ToegangController.cs" />
     <Compile Include="Database\DashboardDB.cs" />
     <Compile Include="Database\Database.cs" />
-    <Compile Include="Database\MateriaalverhuurDB.cs" />
     <Compile Include="Database\ToegangscontroleDatabase.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Database\UserDB.cs" />
@@ -230,6 +230,7 @@
     <Content Include="Views\GebruikerBeheer\Index.cshtml" />
     <Content Include="Views\Toegang\Index.cshtml" />
     <Content Include="Views\MateriaalBeheer\Index.cshtml" />
+    <Content Include="Views\Error\Forbidden.cshtml" />
     <None Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
