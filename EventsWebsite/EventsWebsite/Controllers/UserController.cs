@@ -24,20 +24,20 @@ namespace EventsWebsite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
-            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local"))
-            {
-                bool isValid = pc.ValidateCredentials(model.Gebruikersnaam, model.Password);
-                if (isValid)
-                {
+            //using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local"))
+            //{
+            //    bool isValid = pc.ValidateCredentials(model.Gebruikersnaam, model.Password);
+            //    if (isValid)
+            //    {
                     Session["Gebruikersnaam"] = model.Gebruikersnaam;
-                    //Session["Niveau"] = ;
+                    Session["Niveau"] = "1";
                     return RedirectToAction("Index", "Dashboard");
-                }
-                else
-                {
-                    return View(model);
-                }
-            }
+                //}
+                //else
+                //{
+                //    return View(model);
+                //}
+            //}
         }
         // GET: /Account/Register
         [AllowAnonymous]
@@ -53,19 +53,35 @@ namespace EventsWebsite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel model)
         {
-            using (var pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local"))
+            if (ModelState.IsValid)
             {
-                using (var up = new UserPrincipal(pc))
+                using (var pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local"))
                 {
-                    up.SamAccountName = model.Gebruikersnaam;
-                    up.SetPassword(model.Password);
-                    up.GivenName = model.Voornaam;
-                    up.Surname = model.Achternaam;
-                    up.Enabled = true;
-                    up.Save();
+                    using (var up = new UserPrincipal(pc))
+                    {
+                        up.SamAccountName = model.Gebruikersnaam;
+                        up.SetPassword(model.Password);
+                        up.GivenName = model.Voornaam;
+                        up.Surname = model.Achternaam;
+                        up.Enabled = true;
+                        up.Save();
+                    }
+                    return RedirectToAction("Login", "User");
                 }
-                return RedirectToAction("Login", "User");
             }
+            return View(model);
+        }
+
+        //
+        // POST: /Account/LogOff
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            Session["Gebruikersnaam"] = null;
+            Session["Niveau"] = null;
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -24,16 +24,38 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        @Html.ActionLink("Over ons","About","Home")
-                    </li>
-                    <li>
-                        @Html.ActionLink("Diensten","Services","Home")
-                    </li>
-                    <li>
-                        @Html.ActionLink("Login","Login","User")
-                    </li>
+                    @if (Session["Gebruikersnaam"] != null)
+                    {
+                        using (Html.BeginForm("LogOff", "User", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    @*@Html.ActionLink("Welkom " + Session["Gebruikersnaam"], "Manage", new { gebruikerid = (int)Session["GebruikerID"] }, htmlAttributes: new { id = "ManageLink" })*@
+                                    @Html.ActionLink("Dashboard","Index","Dashboard")
+                                </li>
+                                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                            </ul>
+                        }
+                    }
+
+                    else
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                @Html.ActionLink("Over ons", "About", "Home")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Diensten", "Services", "Home")
+                            </li>
+
+                            <li>
+                                @Html.ActionLink("Login", "Login", "User")
+                            </li>
+                        </ul>
+                    }
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
