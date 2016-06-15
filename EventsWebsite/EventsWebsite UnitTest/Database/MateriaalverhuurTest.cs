@@ -28,7 +28,12 @@ namespace EventsWebsite_UnitTest
         [TestMethod]
         public void GetAllFreeMaterial()
         {
-            
+            MateriaalverhuurDB m = new MateriaalverhuurDB();
+            List<MaterialModel> materialen = m.GetAllFreeMaterial(1);
+            List<MaterialModel> materials = new List<MaterialModel>();
+            MaterialModel mm = new MaterialModel("1", "33", true, true);
+            materials.Add(mm);
+            Assert.AreEqual(materials, materialen);
         }
     }
 }
