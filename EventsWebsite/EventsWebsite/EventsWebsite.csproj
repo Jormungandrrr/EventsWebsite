@@ -162,6 +162,7 @@
     <Compile Include="Controllers\ToegangController.cs" />
     <Compile Include="Database\DashboardDB.cs" />
     <Compile Include="Database\Database.cs" />
+    <Compile Include="Database\MateriaalverhuurDB.cs" />
     <Compile Include="Database\ToegangscontroleDatabase.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Database\UserDB.cs" />

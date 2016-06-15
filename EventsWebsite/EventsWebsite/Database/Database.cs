@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using System.Windows.Forms;
+=======
+using System.Web.DynamicData;
+>>>>>>> origin/master
 using EventsWebsite.Models;
 using Oracle.ManagedDataAccess.Types;
 using Oracle.ManagedDataAccess.Client;
@@ -53,7 +57,8 @@ namespace EventsWebsite.Database
 
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand("UPDATE " + table + " SET " + querUpdateValues + " WHERE " + condition1 + " = :Condition2", conn))
+                using (OracleCommand command = new OracleCommand($"update {table} set {querUpdateValues} where {condition1} = {condition2}", conn))
+                   
                 {
                     command.BindByName = true;
                     command.Parameters.Add(new OracleParameter(":Condition2", condition2));
@@ -337,6 +342,39 @@ namespace EventsWebsite.Database
                     return ReturnData;
                 }
             }
+        }
+
+        public virtual int CountAccess(int barcode)
+        {
+            int ReturnData = 0;
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (
+                    OracleCommand command =
+                        new OracleCommand(
+                            "SELECT COUNT(*) FROM EVENT e, LOCATIE l, PLEK p, PLEK_RESERVERING pr, RESERVERING r, RESERVERING_POLSBANDJE rp, POLSBANDJE pb WHERE e.LocatieID = L.LocatieID AND p.LocatieID = L.LocatieID AND pr.PlekID = p.PlekID AND r.ReserveringID = pr.ReserveringID AND rp.ReserveringID = r.ReserveringID AND pb.PolsbandjeID = rp.PolsbandjeID AND barcode = :bc",
+                            conn)
+                    )
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(":bc", barcode);
+                    try
+                    {
+                        conn.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ReturnData = reader.GetInt32(0);
+                            }
+                        } 
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return ReturnData;
         }
 
 
