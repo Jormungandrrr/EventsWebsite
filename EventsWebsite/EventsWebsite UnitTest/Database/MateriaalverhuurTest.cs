@@ -7,8 +7,8 @@ namespace EventsWebsite_UnitTest
     [TestClass]
     public class MateriaalverhuurTest
     {
-        [TestMethod]
-        public void ReserveMaterialTest()
+       /* [TestMethod]
+       public void ReserveMaterialTest()
         {
             MateriaalverhuurDB m = new MateriaalverhuurDB();
             m.ReserveMaterial(2, "10-11-2016");
@@ -21,6 +21,6 @@ namespace EventsWebsite_UnitTest
             MateriaalverhuurDB m = new MateriaalverhuurDB();
             m.ReturnMaterial(1, "10-11-2016");
             Assert.AreEqual("10-11-2016 00:00:00", m.ReadStringWithCondition("VERHUUR", "datumin", "verhuurID", "1"));
-        }
+        }*/
     }
 }
