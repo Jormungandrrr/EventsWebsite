@@ -13,7 +13,7 @@ namespace EventsWebsite.Controllers
         {
             if (Session.Count > 0)
             {
-                if ((int)Session["Admin"] == 3 || (int)Session["Admin"] == 4)
+                if ((int)Session["Niveau"] > 3)
                 {
                     return View();
                 }
