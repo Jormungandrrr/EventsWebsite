@@ -29,22 +29,20 @@ namespace EventsWebsite.Database
 
         public List<MaterialModel> GetAllFreeMaterial(int eventid)
         {
-            List<string> all = new List<string> { "*" };
+            List<string> values = new List<string> { "ExemplaarID" };
+            List<string> all = new List<string>();
+            all.Add("volgnummer");
+            all.Add("barcode");
             List<MaterialModel> materials = new List<MaterialModel>();
-            foreach (string s in ReadWithCondition("EXEMPLAAR", all, "ExemplaarID", "ExemplaarID","VERHUUR"))
+            List<int> ids = GetMaterial(eventid);
+            foreach(int i in ids)
             {
-                all.Add(s);
+                List<MaterialModel> models = ReadExemplaren("EXEMPLAAR", all, "ExemplaarID", i.ToString());
+                foreach(MaterialModel m in models)
+                {
+                    materials.Add(m);
+                }
             }
-            //MaterialModel m = new MaterialModel();
-            //materials = (List<MaterialModel>)ReadObjects("Product", all, "eventid", eventid.ToString(), "MaterialModel").Cast<MaterialModel>();
-            return materials;
-        }
-
-        public List<MaterialModel> GetAllLoanedMaterial(int eventid)
-        {
-            List<string> all = new List<string> { "*" };
-            List<MaterialModel> materials = new List<MaterialModel>();
-            //materials = ;
             return materials;
         }
     }
