@@ -230,6 +230,12 @@ footer, .push {
     max-width: 250px;
 }
 
+.center-box {
+    max-width: 330px;
+    padding: 50px;
+    margin: 0 auto;
+}
+
 .error-container{ 
   margin-top:10%;
 } 
@@ -238,6 +244,6 @@ footer, .push {
   color: red;
 } 
 
-.back-home{ 
-  margin-top: 30px;
+.back-home{
+    margin-top: 30px;
 }

@@ -2,17 +2,16 @@
 
 @{
     ViewBag.Title = "Toegang";
+    string t = "hello";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>@ViewBag.Title</title>
-</head>
-<body>
-<div>
-      
+<div class="container">
+    <div class="center-box">
+    <h1 class="text-center">Barcode</h1>
+        <img class="thumbnail-image" src="../../images/barcode.png"/>
+        @using (Html.BeginForm("Index","Toegang",FormMethod.Post))
+        {
+            <input class="form-control" type="text" value="@t">       
+        } 
+    </div>
 </div>
-</body>
-</html>

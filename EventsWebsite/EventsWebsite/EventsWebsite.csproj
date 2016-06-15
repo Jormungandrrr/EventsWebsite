@@ -188,6 +188,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\barcode.png" />
     <Content Include="Images\laptop.png" />
     <Content Include="Images\map-location-1.png" />
     <Content Include="Images\plus.png" />
