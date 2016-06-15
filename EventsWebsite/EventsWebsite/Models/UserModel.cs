@@ -39,17 +39,21 @@ namespace EventsWebsite.Models
         [Display(Name = "Straat")]
         public string Street { get; set; }
         [Required(ErrorMessage = "Vul een huisnummer in")]
-        [Display(Name = "HouseNumber")]
+        [Display(Name = "Huisnummer")]
         public string HouseNumber { get; set; }
         [Required(ErrorMessage = "Vul een postcode in")]
-        [Display(Name = "Zipcode")]
+        [Display(Name = "Postcode")]
         public string Zipcode { get; set; }
         [Required(ErrorMessage = "Vul een stad in")]
-        [Display(Name = "City")]
+        [Display(Name = "Stad")]
         public string City { get; set; }
         [Required(ErrorMessage = "Vul een land in")]
-        [Display(Name = "Country")]
+        [Display(Name = "Land")]
         public string Country { get; set; }
+        [Required(ErrorMessage = "Vul een banknummer in")]
+        [Display(Name = "Banknummer")]
+        public string banknr { get; set; }
+
 
         public UserModel(string username, string password, string passwordcheck, string email, string name, int telnr, int acceslevel, string street,
                           string houseNumber, string zipcode, string city, string country)
