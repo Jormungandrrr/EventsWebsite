@@ -1,11 +1,11 @@
-﻿@model dynamic
-
+﻿@using EventsWebsite.Models
+@model LoginViewModel
 @{
     ViewBag.Title = "title";
 
 }
 
-<script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
+
 <!-- This is a very simple parallax effect achieved by simple CSS 3 multiple backgrounds, made by http://twitter.com/msurguy -->
 
 <div class="container">
@@ -16,22 +16,40 @@
                     <h3 class="panel-title">Please sign in</h3>
                 </div>
                 <div class="panel-body">
-                    <form accept-charset="UTF-8" role="form">
-                        <fieldset>
+                        @using (Html.BeginForm("Login", "User" , FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                            @Html.AntiForgeryToken()
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="form-group">
-                                <input class="form-control" placeholder="E-mail" name="email" type="text">
+                                @Html.LabelFor(m => m.Gebruikersnaam, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Gebruikersnaam, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Gebruikersnaam, "", new { @class = "text-danger" })
+                                </div>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" type="checkbox" value="Remember Me"> Remember Me
-                                </label>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Log in" class="btn btn-default" />
+                                </div>
                             </div>
-                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
-                           <span><p>Nog niet aangemeld? @Html.ActionLink("Maak een account aan","Register","User")</p></span>
-                        </fieldset>
+                            <p>
+                                @Html.ActionLink("Register as a new user", "Register")
+                            </p>
+                            @* Enable this once you have account confirmation enabled for password reset functionality
+            <p>
+                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+            </p>*@
+                        } 
+
+                     
                     </form>
                 </div>
             </div>
