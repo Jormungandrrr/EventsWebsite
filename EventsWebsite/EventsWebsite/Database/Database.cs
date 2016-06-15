@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.DynamicData;
 using EventsWebsite.Models;
 using Oracle.ManagedDataAccess.Types;
 using Oracle.ManagedDataAccess.Client;
@@ -52,7 +53,8 @@ namespace EventsWebsite.Database
 
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand("UPDATE " + table + " SET " + querUpdateValues + " WHERE " + condition1 + " = :Condition2", conn))
+                using (OracleCommand command = new OracleCommand($"update {table} set {querUpdateValues} where {condition1} = {condition2}", conn))
+                   
                 {
                     command.BindByName = true;
                     command.Parameters.Add(new OracleParameter(":Condition2", condition2));
