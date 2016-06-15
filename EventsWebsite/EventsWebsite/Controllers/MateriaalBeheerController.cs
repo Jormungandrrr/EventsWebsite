@@ -11,6 +11,13 @@ namespace EventsWebsite.Controllers
         // GET: MateriaalBeheer
         public ActionResult Index()
         {
+            if (Session.Count > 0)
+            {
+                if ((int)Session["Admin"] == 3 || (int)Session["Admin"] == 4)
+                {
+                    return View();
+                }
+            }
             return View();
         }
     }
