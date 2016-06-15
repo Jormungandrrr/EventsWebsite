@@ -18,7 +18,7 @@ namespace EventsWebsite.Controllers
                     return View();
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Forbidden", "Error");
         }
     }
 }
