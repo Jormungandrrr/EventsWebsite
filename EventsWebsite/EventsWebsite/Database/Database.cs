@@ -288,6 +288,39 @@ namespace EventsWebsite.Database
             }
         }
 
+        public virtual int CountAccess(int barcode)
+        {
+            int ReturnData = 0;
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (
+                    OracleCommand command =
+                        new OracleCommand(
+                            "SELECT COUNT(*) FROM EVENT e, LOCATIE l, PLEK p, PLEK_RESERVERING pr, RESERVERING r, RESERVERING_POLSBANDJE rp, POLSBANDJE bp WHERE e.LocatieID = L.LocatieID AND p.LocatieID = L.LocatieID AND pr.PlekID = p.PlekID AND r.ReserveringID = pr.ReserveringID AND rp.ReserveringID = r.ReserveringID AND pb.PolsbandjeID = rp.PolsbandjeID AND barcode = :bc",
+                            conn)
+                    )
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(":bc", barcode);
+                    try
+                    {
+                        conn.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ReturnData = reader.GetInt32(0);
+                            }
+                        } 
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return ReturnData;
+        }
+
 
         protected string GetColumnParameter(Dictionary<string, string> values, bool Parameter)
         {
