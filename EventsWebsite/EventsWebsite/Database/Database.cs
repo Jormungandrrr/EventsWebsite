@@ -347,7 +347,7 @@ namespace EventsWebsite.Database
             }
         }
 
-        public virtual int Count(string table, string column, string condition1,int condition2)
+        public virtual int Count(string table, string column, string condition1,string condition2)
         {
             int ReturnData = 0;
             using (OracleConnection conn = new OracleConnection(Connectionstring))
