@@ -178,6 +178,48 @@ namespace EventsWebsite.Database
 
             } 
         }
+
+        public virtual List<MaterialModel> ReadExemplaren(string table, List<string> data, string ConditionValue1, string ConditionValue2)
+        {
+            List<MaterialModel> ReturnData = new List<MaterialModel>();
+            string columnNames = GetColumnNames(data);
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE " + ConditionValue1 + " = " + ConditionValue2, conn))
+                {
+                    command.BindByName = true;
+                    try
+                    {
+                        command.Connection.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            try
+                            {
+                                while (reader.Read())
+                                {
+                                    MaterialModel m = new MaterialModel(reader.GetInt32(0).ToString(), reader.GetInt32(1).ToString(),
+                                        true, true);
+                                    ReturnData.Add(m);
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show(e.Message);
+                            }
+                            return ReturnData;
+                        }
+                    }
+
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                    }
+                    return ReturnData;
+                }
+
+            }
+        }
+
         public virtual List<Thumbnail> GetThumbnails(string table, List<string> data, string ConditionValue1, string ConditionValue2, string type)
         {
             List<Thumbnail> ReturnData = new List<Thumbnail>();
@@ -241,10 +283,9 @@ namespace EventsWebsite.Database
                             {
                                 if (type == "User")
                                 {
-                                    UserModel user = new UserModel(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(5), reader.GetString(6), reader.GetString(7), reader.GetString(8));
+                                    UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), Convert.ToInt32(reader[7]), reader[8].ToString(), reader[9].ToString());
                                     ReturnData = user;
                                 }
-
                             }
                             return ReturnData;
                         }
@@ -252,47 +293,10 @@ namespace EventsWebsite.Database
 
                     catch { }
                     return ReturnData;
-                }
+            } 
 
-            }
         }
-
-        public virtual object ReadObjectWithJoinCondition(string join, List<string> data, string ConditionValue1, string ConditionValue2, string type)
-        {
-            object ReturnData = new object();
-            string columnNames = GetColumnNames(data);
-            using (OracleConnection conn = new OracleConnection(Connectionstring))
-            {
-                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + join + " WHERE " + ConditionValue1 + " = :Condition2", conn))
-                {
-                    command.BindByName = true;
-                    command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
-                    try
-                    {
-                        command.Connection.Open();
-                        using (OracleDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                if (type == "User")
-                                {
-                                    UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), reader[7].ToString(), reader[8].ToString());
-                                    ReturnData = user;
-                                }
-
-                            }
-                            return ReturnData;
-                        }
-                    }
-
-                    catch { }
-                    return ReturnData;
-                }
-
-            }
         }
-
-
 
         public virtual List<string> ReadWithCondition(string table, List<string> data, string ConditionValue1, string ConditionValue2)
         {
@@ -317,7 +321,7 @@ namespace EventsWebsite.Database
                         return ReturnData;
                     }
                 }
-            } 
+            }
         }
 
         public virtual List<string> ReadWithCondition(string table, List<string> data, string ConditionValue1, string ConditionValue2, string ConditionValue3)
@@ -406,7 +410,40 @@ namespace EventsWebsite.Database
             return ReturnData;
         }
 
-        
+        public virtual List<int> GetMaterial(int eventid)
+        {
+            List<int> ReturnData = new List<int>();
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (
+                    OracleCommand command =
+                        new OracleCommand(
+                            "SELECT ExemplaarID FROM VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND EventID = :ei",
+                            conn)
+                    )
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(":ei", eventid);
+                    try
+                    {
+                        conn.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ReturnData.Add(reader.GetInt32(0));
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return ReturnData;
+        }
+
+
 
         protected string GetColumnParameter(Dictionary<string, string> values, bool Parameter)
         {

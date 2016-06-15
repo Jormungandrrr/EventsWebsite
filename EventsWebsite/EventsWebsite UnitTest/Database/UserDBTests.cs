@@ -17,7 +17,7 @@ namespace EventsWebsite.Database.Tests
         [TestMethod()]
         public void InsertPersonTest()
         {
-            UserModel User = new UserModel("Marc", "Marc@Marc.nl", "Marc","Van","Gool", 1, "MarcWeg", "69", "MarcCity");
+            UserModel User = new UserModel("Mvg013", "Marc@Marc.nl", "Marc","Van","Gool", 1, "MarcWeg", 69,"A", "MarcCity");
             UDB.InsertPerson(User);
             Assert.IsTrue(UDB.Count("Persoon", "voornaam", "voornaam", User.Voornaam) > 0);
             Assert.IsTrue(UDB.Count("Account", "email", "email", User.Email) > 0);
@@ -26,7 +26,7 @@ namespace EventsWebsite.Database.Tests
         [TestMethod()]
         public void GetPersonTest()
         {
-            Assert.AreEqual(UDB.GetPerson("gebruiker").Voornaam, "naam");
+            Assert.AreEqual(UDB.GetPerson("Mvg013").Voornaam, "Marc");
         }
     }
 }

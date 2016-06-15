@@ -9,7 +9,7 @@ namespace EventsWebsite_UnitTest
         [TestMethod]
         public void ConstructorTest()
         {
-            UserModel u = new UserModel("Gebruiker1", "test@test.com", "Henk","Van","Henkert", 3, "Straat", "12a", "Tilburg");
+            UserModel u = new UserModel("Gebruiker1", "test@test.com", "Henk","Van","Henkert", 3, "Straat", 12,"B", "Tilburg");
             Assert.AreEqual("Gebruiker1", u.Username);
             Assert.AreEqual("wachtwoord123", u.Password);
             Assert.AreEqual("test@test.com", u.Email);

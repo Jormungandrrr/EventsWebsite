@@ -10,35 +10,38 @@ namespace EventsWebsite.Database
     {
         public void InsertPerson(UserModel User)
         {
+            Dictionary<string, string> AccountData = new Dictionary<string, string>();
+            AccountData.Add("gebruikersnaam", User.Username);
+            AccountData.Add("email", User.Email);
+            Insert("Account", AccountData);
+
             Dictionary<string, string> PersonData = new Dictionary<string, string>();
             PersonData.Add("voornaam",User.Voornaam);
             PersonData.Add("tussenvoegsel", User.tussenvoegsel);
             PersonData.Add("achternaam", User.Achternaam);
             PersonData.Add("straat", User.Street);
-            PersonData.Add("huisnr", User.HouseNumber);
+            PersonData.Add("huisnr", User.HouseNumber.ToString());
+            PersonData.Add("toevoeging", User.Toevoeging);
             PersonData.Add("woonplaats", User.City);
+            PersonData.Add("accountid", ReadStringWithCondition("Account","Accountid","gebruikersnaam",User.Username));
             Insert("Persoon",PersonData);
-
-            Dictionary<string, string> AccountData = new Dictionary<string, string>();
-            AccountData.Add("gebruikersnaam", User.Username);
-            AccountData.Add("email", User.Email);
-            Insert("Account", AccountData);
         }
 
         public UserModel GetPerson(string username)
         {
             List<string> PersonData = new List<string>();
             PersonData.Add("a.gebruikersnaam");
-            PersonData.Add("a.Email");
+            PersonData.Add("a.email");
             PersonData.Add("p.voornaam");
             PersonData.Add("p.tussenvoegsel");
             PersonData.Add("p.achternaam");
             PersonData.Add("a.accesslevel");
             PersonData.Add("p.straat");
             PersonData.Add("p.huisnr");
+            PersonData.Add("p.toevoeging");
             PersonData.Add("p.woonplaats");
-
-            UserModel User = (UserModel)ReadObjectWithJoinCondition("account a Join reservering_polsbandje rp on a.accountid = rp.accountid Join reservering r on rp.reserveringid = r.reserveringid Join Persoon p on r.persoonid = p.persoonid ", PersonData,"a.gebruikersnaam", username, "User");
+            //UserModel User = (UserModel)ReadObjectWithCondition("account a Join reservering_polsbandje rp on a.accountid = rp.accountid Join reservering r on rp.reserveringid = r.reserveringid Join Persoon p on r.persoonid = p.persoonid ", PersonData,"a.gebruikersnaam", username, "User");
+            UserModel User = (UserModel)ReadObjectWithCondition("account a Join Persoon p ON a.accountid = p.accountid", PersonData,"a.gebruikersnaam", username, "User");
             return User;
         }
 
