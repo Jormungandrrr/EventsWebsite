@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using EventsWebsite.Database;
+using EventsWebsite.Models;
 
 namespace EventsWebsite.Controllers
 {
@@ -11,7 +13,9 @@ namespace EventsWebsite.Controllers
         // GET: Dashboard
         public ActionResult Index()
         {
-            return View();
+            DashboardDB database = new DashboardDB();
+            List<Thumbnail> thumbnails = database.GetThumbnails(4);
+            return View(thumbnails);
         }
     }
 }
