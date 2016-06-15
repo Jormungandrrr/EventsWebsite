@@ -72,9 +72,6 @@ namespace EventsWebsite.Controllers
             return View(model);
         }
 
-<<<<<<< HEAD
-
-=======
         //
         // POST: /Account/LogOff
         [HttpPost]
@@ -86,6 +83,5 @@ namespace EventsWebsite.Controllers
             Session["Niveau"] = null;
             return RedirectToAction("Index", "Home");
         }
->>>>>>> origin/master
     }
 }
