@@ -18,7 +18,8 @@ namespace EventsWebsite.Controllers
                     return View();
                 }
             }
-            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Index", "Home"); 
+            return View();
         }
     }
 }
