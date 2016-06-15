@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.DirectoryServices;
-using System.DirectoryServices.AccountManagement;
+using System.DirectoryServices.AccountManagement; 
+using EventsWebsite.Database;
 using EventsWebsite.Models;
 
 namespace EventsWebsite.Controllers
@@ -30,7 +31,7 @@ namespace EventsWebsite.Controllers
             //    if (isValid)
             //    {
                     Session["Gebruikersnaam"] = model.Gebruikersnaam;
-                    Session["Niveau"] = "1";
+                    Session["Niveau"] = 4;
                     return RedirectToAction("Index", "Dashboard");
                 //}
                 //else
@@ -83,5 +84,13 @@ namespace EventsWebsite.Controllers
             Session["Niveau"] = null;
             return RedirectToAction("Index", "Home");
         }
-    }
+
+        public ActionResult Index()
+        {
+            UserDB udb = new UserDB();  
+            UserModel u = udb.GetPerson(Convert.ToString(Session["Gebruikersnaam"]));
+            return View(u);
+        }
+    } 
+
 }

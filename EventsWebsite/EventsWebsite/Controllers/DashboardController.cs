@@ -14,7 +14,8 @@ namespace EventsWebsite.Controllers
         public ActionResult Index()
         {
             DashboardDB database = new DashboardDB();
-            List<Thumbnail> thumbnails = database.GetThumbnails(4);
+            int niveau = Convert.ToInt32(Session["Niveau"]);
+            List<Thumbnail> thumbnails = database.GetThumbnails(niveau);
             return View(thumbnails);
         }
     }
