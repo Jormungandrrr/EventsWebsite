@@ -25,7 +25,18 @@ namespace EventsWebsite.Database
                 {"Plaats",model.City },
                 {"nr",model.HouseNumber}
             };
-            return false;
+            try
+            {
+                Insert("Locatie", locationdata);
+                string locatieid = ReadStringWithCondition("Locatie", "Locatieid", "naam", model.Name);
+                data.Add("locatiedb", locatieid);
+                Insert("Event", data);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool DeleteEvent(EventModel model)
