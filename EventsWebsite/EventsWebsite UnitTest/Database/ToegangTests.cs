@@ -12,7 +12,7 @@ namespace EventsWebsite_UnitTest
         public void TestCheckin()
         {
             ToegangscontroleDatabase db = new ToegangscontroleDatabase();
-            Assert.AreEqual(true, db.HasAccess(1),"Correct user has no access!");
+            Assert.AreEqual(true, db.HasAccess(554491472),"Correct user has no access!");
             Assert.AreEqual(false,db.HasAccess(544923811),"Non existing user has access!");
         }
     }
