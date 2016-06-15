@@ -24,6 +24,17 @@ namespace EventsWebsite.Controllers
             return View();
         }
 
+        public ActionResult Granted()
+        {
+            return View(); 
+        }
+
+        public ActionResult Denied()
+        {
+            return View();
+        }
+       
+
         [HttpPost]
         public ActionResult Index(FormCollection form)
         {
