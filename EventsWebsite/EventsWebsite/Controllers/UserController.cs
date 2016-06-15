@@ -32,8 +32,8 @@ namespace EventsWebsite.Controllers
             //    {
                     UserDB userdb = new UserDB();
                     UserModel user = userdb.GetPerson(model.Gebruikersnaam);
-                    
-                    Session["Acountid"] = user.AcountID;
+
+                    Session["Acountid"] = user.Accountid;
                     Session["Gebruikersnaam"] = model.Gebruikersnaam;
                     Session["Niveau"] = "1";
                     return RedirectToAction("Index", "Dashboard");
@@ -71,10 +71,11 @@ namespace EventsWebsite.Controllers
                         up.Enabled = true;
                         up.Save();
                     }
-                    return RedirectToAction("Login", "User");
+                    
                     UserDB userdb = new UserDB();
-                    UserModel user = new UserModel(userdb.GetPerson(model.Gebruikersnaam));
+                    UserModel user = userdb.GetPerson(model.Gebruikersnaam);
                     userdb.InsertPerson(user);
+                    return RedirectToAction("Login", "User");
                 }
             }
             return View(model);
