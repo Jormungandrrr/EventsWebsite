@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Database\DatabaseTests.cs" />
     <Compile Include="Database\ToegangTests.cs" />
+    <Compile Include="Database\UserDBTests.cs" />
     <Compile Include="Database\MateriaalverhuurTest.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

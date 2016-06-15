@@ -281,6 +281,11 @@ namespace EventsWebsite.Database
                         {
                             while (reader.Read())
                             {
+                                if (type == "User")
+                                {
+                                    UserModel user = new UserModel(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(5), reader.GetString(6), reader.GetString(7), reader.GetString(8));
+                                    ReturnData = user;
+                                }
 
                             }
                             return ReturnData;
@@ -294,6 +299,41 @@ namespace EventsWebsite.Database
             }
         }
 
+        public virtual object ReadObjectWithJoinCondition(string join, List<string> data, string ConditionValue1, string ConditionValue2, string type)
+        {
+            object ReturnData = new object();
+            string columnNames = GetColumnNames(data);
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + join + " WHERE " + ConditionValue1 + " = :Condition2", conn))
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
+                    try
+                    {
+                    command.Connection.Open();
+                    using (OracleDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                                if (type == "User")
+                            {
+                                    UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), reader[7].ToString(), reader[8].ToString());
+                                    ReturnData = user;
+                            }
+
+                        }
+                        return ReturnData;
+                    }
+                }
+
+                    catch { }
+                    return ReturnData;
+            } 
+
+        }
+        }
+
 
 
         public virtual List<string> ReadWithCondition(string table, List<string> data, string ConditionValue1, string ConditionValue2)
@@ -303,41 +343,6 @@ namespace EventsWebsite.Database
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
                 using (OracleCommand command = new OracleCommand("SELECT " + ColumNames + " FROM " + table + " WHERE " + ConditionValue1 + " = :Condition2", conn))
-                {
-                    command.BindByName = true;
-                    command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
-                    command.Connection.Open();
-                    using (OracleDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            foreach (string v in data)
-                            {
-                                ReturnData.Add(Convert.ToString(reader[v]));
-                            }
-                        }
-                        return ReturnData;
-                    }
-                }
-            } 
-        }
-
-        public virtual List<string> ReadWithCondition(string table, List<string> data, string ConditionValue1, string ConditionValue2, Dictionary<string,string> Join)
-        {
-            string Joins = "";
-            char TableChar1 = 'A';
-            char TableChar2 = 'J';
-            string ColumNames = GetColumnNames(data);
-            List<string> ReturnData = new List<string>();
-            using (OracleConnection conn = new OracleConnection(Connectionstring))
-            {
-                foreach (KeyValuePair<string,string> jointable in Join)
-                {
-                    Joins += " JOIN " + jointable.Key + " " + TableChar1 + " ON " + jointable.Value + " "  + TableChar1 + " = " + jointable.Value + " " + TableChar2;
-                    TableChar1 = (char)(Convert.ToUInt16(TableChar1) + 1);
-                    TableChar2 = (char)(Convert.ToUInt16(TableChar2) + 1);
-                }
-                using (OracleCommand command = new OracleCommand("SELECT " + ColumNames + " FROM " + table + Joins + " WHERE " + ConditionValue1 + " = :Condition2", conn))
                 {
                     command.BindByName = true;
                     command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
@@ -384,7 +389,7 @@ namespace EventsWebsite.Database
             }
         }
 
-        public virtual int Count(string table, string column, string condition1,int condition2)
+        public virtual int Count(string table, string column, string condition1,string condition2)
         {
             int ReturnData = 0;
             using (OracleConnection conn = new OracleConnection(Connectionstring))
@@ -475,6 +480,7 @@ namespace EventsWebsite.Database
             }
             return ReturnData;
         }
+
 
 
         protected string GetColumnParameter(Dictionary<string, string> values, bool Parameter)

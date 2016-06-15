@@ -15,7 +15,7 @@ namespace EventsWebsite.Controllers
         {
             if (Session.Count > 0)
             {
-                if ((int) Session["Admin"] == 2 || (int) Session["Admin"] == 4)
+                if ((int) Session["Niveau"] > 1)
                 {
                     return View();
                 }
@@ -45,6 +45,7 @@ namespace EventsWebsite.Controllers
                 bool granted = _db.HasAccess(bar);
                 if (granted)
                 {
+                    _db.UpdateTag(bar,"1");
                     return RedirectToAction("Granted", "Toegang");
                 }
                 return RedirectToAction("Denied", "Toegang");

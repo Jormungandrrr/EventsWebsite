@@ -27,11 +27,13 @@ namespace EventsWebsite.Models
         public string Email { get; set; }
         [Required(ErrorMessage = "Vul een naam in")]
         [Display(Name = "Naam")]
-        public string Name { get; set; }
-        [Required(ErrorMessage = "Vul een telefoonnummer in")]
-        [Display(Name = "Telefoonnummer")]
-        [DataType(DataType.PhoneNumber)]
-        public int Telnr { get; set; }
+        public string Voornaam { get; set; }
+        [Required(ErrorMessage = "Vul een achternaam in")]
+        [Display(Name = "Achternaam")]
+        public string tussenvoegsel { get; set; }
+        [Required(ErrorMessage = "Vul een tussenvoegsel in")]
+        [Display(Name = "Tussenvoegsel")]
+        public string Achternaam { get; set; }
         [Required(ErrorMessage = "Vul de hoeveelheid rechten in")]
         [Display(Name = "Rechten")]
         public int AccesLevel { get; set; }
@@ -41,33 +43,22 @@ namespace EventsWebsite.Models
         [Required(ErrorMessage = "Vul een huisnummer in")]
         [Display(Name = "Huisnummer")]
         public string HouseNumber { get; set; }
-        [Required(ErrorMessage = "Vul een postcode in")]
-        [Display(Name = "Postcode")]
-        public string Zipcode { get; set; }
         [Required(ErrorMessage = "Vul een stad in")]
         [Display(Name = "Stad")]
         public string City { get; set; }
-        [Required(ErrorMessage = "Vul een land in")]
-        [Display(Name = "Land")]
-        public string Country { get; set; }
         [Required(ErrorMessage = "Vul een banknummer in")]
         [Display(Name = "Banknummer")]
         public string banknr { get; set; }
 
 
-        public UserModel(string username, string password, string passwordcheck, string email, string name, int telnr, int acceslevel, string street,
-                          string houseNumber, string zipcode, string city, string country)
+        public UserModel(string username, string email, string voornaam,string tussenvoegsel,string achternaam, int acceslevel, string street,string houseNumber, string city)
         {
             Username = username;
-            Password = password;
-            PasswordCheck = passwordcheck;
             Email = email;
-            Name = name;
-            Telnr = telnr;
+            Voornaam = voornaam;
             AccesLevel = acceslevel;
             Street = street;
             HouseNumber = houseNumber;
-            Zipcode = zipcode;
             City = city;
         }
 
