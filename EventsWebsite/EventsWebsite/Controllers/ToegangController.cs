@@ -21,5 +21,16 @@ namespace EventsWebsite.Controllers
             //return RedirectToAction("Index", "Home"); 
             return View();
         }
+
+        public ActionResult Granted()
+        {
+            return View(); 
+        }
+
+        public ActionResult Denied()
+        {
+            return View();
+        }
+       
     }
 }

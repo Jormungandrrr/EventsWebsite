@@ -238,6 +238,7 @@
     <Content Include="Views\Toegang\Index.cshtml" />
     <Content Include="Views\MateriaalBeheer\Index.cshtml" />
     <Content Include="Views\Error\Forbidden.cshtml" />
+    <Content Include="Views\Toegang\Denied.cshtml" />
     <None Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
