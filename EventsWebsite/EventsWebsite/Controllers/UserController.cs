@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using EventsWebsite.Models;
+using EventsWebsite.Database;
 
 namespace EventsWebsite.Controllers
 {
@@ -29,6 +30,10 @@ namespace EventsWebsite.Controllers
             //    bool isValid = pc.ValidateCredentials(model.Gebruikersnaam, model.Password);
             //    if (isValid)
             //    {
+                    UserDB userdb = new UserDB();
+                    UserModel user = userdb.GetPerson(model.Gebruikersnaam);
+                    
+                    Session["Acountid"] = user.AcountID;
                     Session["Gebruikersnaam"] = model.Gebruikersnaam;
                     Session["Niveau"] = "1";
                     return RedirectToAction("Index", "Dashboard");
@@ -67,6 +72,9 @@ namespace EventsWebsite.Controllers
                         up.Save();
                     }
                     return RedirectToAction("Login", "User");
+                    UserDB userdb = new UserDB();
+                    UserModel user = new UserModel(userdb.GetPerson(model.Gebruikersnaam));
+                    userdb.InsertPerson(user);
                 }
             }
             return View(model);
