@@ -27,7 +27,13 @@ namespace EventsWebsite.Models
         public string Email { get; set; }
         [Required(ErrorMessage = "Vul een naam in")]
         [Display(Name = "Naam")]
-        public string Name { get; set; }
+        public string Voornaam { get; set; }
+        [Required(ErrorMessage = "Vul een achternaam in")]
+        [Display(Name = "Achternaam")]
+        public string tussenvoegsel { get; set; }
+        [Required(ErrorMessage = "Vul een tussenvoegsel in")]
+        [Display(Name = "Tussenvoegsel")]
+        public string Achternaam { get; set; }
         [Required(ErrorMessage = "Vul de hoeveelheid rechten in")]
         [Display(Name = "Rechten")]
         public int AccesLevel { get; set; }
@@ -45,21 +51,18 @@ namespace EventsWebsite.Models
         public string banknr { get; set; }
 
 
-        public UserModel(string username, string email, string name, int acceslevel, string street,string houseNumber, string city)
+        public UserModel(string username, string email, string voornaam,string tussenvoegsel,string achternaam, int acceslevel, string street,string houseNumber, string city)
         {
             Username = username;
             Email = email;
-            Name = name;
+            Voornaam = voornaam; 
             AccesLevel = acceslevel;
             Street = street;
             HouseNumber = houseNumber;
             City = city;
         }
 
-        public override string ToString()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 
     public class LoginViewModel
@@ -74,6 +77,7 @@ namespace EventsWebsite.Models
         public string Password { get; set; }
 
     }
+
     public class RegisterViewModel
     {
         [Required]
@@ -127,5 +131,10 @@ namespace EventsWebsite.Models
         [Required]
         [Display(Name = "Toevoeging")]
         public string Toevoeging { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Voornaam} {Tussenvoegsel} {Achternaam}";
+        }
     }
 }

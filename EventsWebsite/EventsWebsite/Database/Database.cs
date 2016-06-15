@@ -241,7 +241,7 @@ namespace EventsWebsite.Database
                             {
                                 if (type == "User")
                                 {
-                                    UserModel user = new UserModel(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4), reader.GetString(5), reader.GetString(6));
+                                    UserModel user = new UserModel(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(5), reader.GetString(6), reader.GetString(7), reader.GetString(8));
                                     ReturnData = user;
                                 }
 
@@ -276,7 +276,7 @@ namespace EventsWebsite.Database
                             {
                                 if (type == "User")
                                 {
-                                    UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), Convert.ToInt32(reader[3]), reader[4].ToString(), reader[5].ToString(), reader[6].ToString());
+                                    UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), reader[7].ToString(), reader[8].ToString());
                                     ReturnData = user;
                                 }
 

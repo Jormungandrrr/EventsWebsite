@@ -87,8 +87,9 @@ namespace EventsWebsite.Controllers
 
         public ActionResult Index()
         {
-            UserDB udb = new UserDB();  
-            UserModel u = udb.GetPerson(Convert.ToString(Session["Gebruikersnaam"]));
+            UserDB udb = new UserDB();
+            UserModel u = new UserModel("coenvc", "coenvc@gmail.com", "Coen", "van", "Campenhout", 4,
+                "Guido Gezellelaan", "21", "Berkel-Enschot");
             return View(u);
         }
     } 

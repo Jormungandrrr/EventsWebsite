@@ -11,7 +11,9 @@ namespace EventsWebsite.Database
         public void InsertPerson(UserModel User)
         {
             Dictionary<string, string> PersonData = new Dictionary<string, string>();
-            PersonData.Add("voornaam",User.Name);
+            PersonData.Add("voornaam",User.Voornaam);
+            PersonData.Add("tussenvoegsel", User.tussenvoegsel);
+            PersonData.Add("achternaam", User.Achternaam);
             PersonData.Add("straat", User.Street);
             PersonData.Add("huisnr", User.HouseNumber);
             PersonData.Add("woonplaats", User.City);
@@ -29,6 +31,8 @@ namespace EventsWebsite.Database
             PersonData.Add("a.gebruikersnaam");
             PersonData.Add("a.Email");
             PersonData.Add("p.voornaam");
+            PersonData.Add("p.tussenvoegsel");
+            PersonData.Add("p.achternaam");
             PersonData.Add("a.accesslevel");
             PersonData.Add("p.straat");
             PersonData.Add("p.huisnr");
@@ -36,6 +40,14 @@ namespace EventsWebsite.Database
 
             UserModel User = (UserModel)ReadObjectWithJoinCondition("account a Join reservering_polsbandje rp on a.accountid = rp.accountid Join reservering r on rp.reserveringid = r.reserveringid Join Persoon p on r.persoonid = p.persoonid ", PersonData,"a.gebruikersnaam", username, "User");
             return User;
+        }
+
+        public void UpdateUser(UserModel User)
+        {
+            Dictionary<string, string> UpdateData = new Dictionary<string, string>();
+            UpdateData.Add("gebruikersnaam", User.Username);
+            UpdateData.Add("email", User.Email);
+            Update("account",UpdateData,"accountid",ReadStringWithCondition("Account","accountid","gebruikersnaam",User.Username));
         }
     }
 }

@@ -17,16 +17,16 @@ namespace EventsWebsite.Database.Tests
         [TestMethod()]
         public void InsertPersonTest()
         {
-            UserModel User = new UserModel("Marc", "Marc@Marc.nl", "Klaas", 1, "MarcWeg", "69", "MarcCity");
+            UserModel User = new UserModel("Marc", "Marc@Marc.nl", "Marc","Van","Gool", 1, "MarcWeg", "69", "MarcCity");
             UDB.InsertPerson(User);
-            Assert.IsTrue(UDB.Count("Persoon", "voornaam", "voornaam", User.Name) > 0);
+            Assert.IsTrue(UDB.Count("Persoon", "voornaam", "voornaam", User.Voornaam) > 0);
             Assert.IsTrue(UDB.Count("Account", "email", "email", User.Email) > 0);
         }
 
         [TestMethod()]
         public void GetPersonTest()
         {
-            Assert.AreEqual(UDB.GetPerson("gebruiker").Name, "naam");
+            Assert.AreEqual(UDB.GetPerson("gebruiker").Voornaam, "naam");
         }
     }
 }
