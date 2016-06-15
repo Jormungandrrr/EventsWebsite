@@ -1,15 +1,16 @@
 ﻿@{
-    ViewBag.Title = "Denied";
+    ViewBag.Title = "Granted";
 }
 @Scripts.Render("~/bundles/jquery")
 <div>
-    <div class="center-box">
-        <h1 class="text-center">@ViewBag.Title</h1>
-        <img class="thumbnail-image" src="../../images/error.png"/>
+<div class="center-box">
+    <h1 class="text-center">@ViewBag.Title</h1>
+    <img src="../../images/success_kid.png"/>
+</div> 
     </div>
-</div>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
+
     jQuery(document).ready(function(){
             var seconds = 5;
             setInterval(function() {

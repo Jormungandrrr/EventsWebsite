@@ -1,8 +1,6 @@
 ﻿
-
 @{
     ViewBag.Title = "Toegang";
-    string t = "hello";
 }
 
 <div class="container">
@@ -11,7 +9,7 @@
         <img class="thumbnail-image" src="../../images/barcode.png"/>
         @using (Html.BeginForm("Index","Toegang",FormMethod.Post))
         {
-            <input class="form-control" type="text" name="barcode" value="@t">       
+            <input class="form-control" type="text" name="barcode" value="">       
         } 
     </div>
 </div>

@@ -188,6 +188,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\error.png" />
+    <Content Include="Images\success_kid.png" />
     <Content Include="Images\barcode.png" />
     <Content Include="Images\laptop.png" />
     <Content Include="Images\map-location-1.png" />
@@ -239,6 +241,7 @@
     <Content Include="Views\MateriaalBeheer\Index.cshtml" />
     <Content Include="Views\Error\Forbidden.cshtml" />
     <Content Include="Views\Toegang\Denied.cshtml" />
+    <Content Include="Views\Toegang\Granted.cshtml" />
     <None Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
