@@ -75,7 +75,13 @@ namespace EventsWebsite.Controllers
                     UserDB userdb = new UserDB();
                     UserModel user = new UserModel(model.Gebruikersnaam, model.Email, model.Voornaam, model.Tussenvoegsel, model.Achternaam, 1 , model.Straatnaam, model.Huisnummer,model.Toevoeging, model.Plaatsnaam);
                     userdb.InsertPerson(user);
-                    return RedirectToAction("Index", "Home");
+
+                    user = userdb.GetPerson(model.Gebruikersnaam);
+
+                    Session["Acountid"] = user.Accountid;
+                    Session["Gebruikersnaam"] = model.Gebruikersnaam;
+                    Session["Niveau"] = user.AccesLevel;
+                    return RedirectToAction("Index", "Dashboard");
                 }
             }
             return View(model);
