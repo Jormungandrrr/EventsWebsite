@@ -45,5 +45,11 @@ namespace EventsWebsite.Database
             }
             return materials;
         }
+
+        public List<MaterialModel> GetAllHiredMaterial(int eventid)
+        {
+            List<MaterialModel> materials = new List<MaterialModel>();
+            return materials;
+        }
     }
 }
