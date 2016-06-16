@@ -35,9 +35,9 @@ namespace EventsWebsite.Database
                     {
                         command.ExecuteNonQuery();
                     }
-                    catch
+                    catch(Exception e)
                     {
-
+                        Console.WriteLine(e.Message);
                     }
                 }
             }
@@ -197,8 +197,7 @@ namespace EventsWebsite.Database
                             {
                                 while (reader.Read())
                                 {
-                                    MaterialModel m = new MaterialModel(reader.GetInt32(0).ToString(), reader.GetInt32(1).ToString(),
-                                        true, true);
+                                    MaterialModel m = new MaterialModel(reader.GetInt32(0), reader.GetInt32(1));
                                     ReturnData.Add(m);
                                 }
                             }
@@ -331,6 +330,33 @@ namespace EventsWebsite.Database
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
                 using (OracleCommand command = new OracleCommand("SELECT " + ColumNames + " FROM " + table + " WHERE " + ConditionValue1 + " IN( SELECT :Condition2 FROM :Condition3)", conn))
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
+                    command.Parameters.Add(new OracleParameter(":Condition3", ConditionValue3));
+                    command.Connection.Open();
+                    using (OracleDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            foreach (string v in data)
+                            {
+                                ReturnData.Add(Convert.ToString(reader[v]));
+                            }
+                        }
+                        return ReturnData;
+                    }
+                }
+            }
+        }
+
+        public virtual List<string> ReadWithConditionNotIN(string table, List<string> data, string ConditionValue1, string ConditionValue2, string ConditionValue3)
+        {
+            string ColumNames = GetColumnNames(data);
+            List<string> ReturnData = new List<string>();
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("SELECT " + ColumNames + " FROM " + table + " WHERE " + ConditionValue1 + " NOT IN( SELECT :Condition2 FROM :Condition3)", conn))
                 {
                     command.BindByName = true;
                     command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));

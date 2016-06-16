@@ -35,20 +35,27 @@ namespace EventsWebsite.Database
             all.Add("barcode");
             List<MaterialModel> materials = new List<MaterialModel>();
             List<int> ids = GetMaterial(eventid);
-            foreach(int i in ids)
-            {
-                List<MaterialModel> models = ReadExemplaren("EXEMPLAAR", all, "ExemplaarID", i.ToString());
-                foreach(MaterialModel m in models)
-                {
-                    materials.Add(m);
-                }
-            }
+            //ReadWithConditionNotIN("EXEMPLAAR", all, "ExemplaarID", );
             return materials;
+
         }
 
         public List<MaterialModel> GetAllHiredMaterial(int eventid)
         {
+            List<string> values = new List<string> { "ExemplaarID" };
+            List<string> all = new List<string>();
+            all.Add("volgnummer");
+            all.Add("barcode");
             List<MaterialModel> materials = new List<MaterialModel>();
+            List<int> ids = GetMaterial(eventid);
+            foreach (int i in ids)
+            {
+                List<MaterialModel> models = ReadExemplaren("EXEMPLAAR", all, "ExemplaarID", i.ToString());
+                foreach (MaterialModel m in models)
+                {
+                    materials.Add(m);
+                }
+            }
             return materials;
         }
     }
