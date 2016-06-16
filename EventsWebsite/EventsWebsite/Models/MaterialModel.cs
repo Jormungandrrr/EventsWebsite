@@ -21,6 +21,10 @@ namespace EventsWebsite.Models
         [Display(Name = "Gehuurd")]
         public bool Rented { get; set; }
 
+        public int Number { get; set; }
+        public int Barcode { get; set; }
+
+
         public MaterialModel(string name, string description, bool damaged, bool rented)
         {
             Name = name;
@@ -29,9 +33,10 @@ namespace EventsWebsite.Models
             Rented = rented;
         }
 
-        public override string ToString()
+        public MaterialModel(int number, int barcode)
         {
-            throw new NotImplementedException();
+            Number = number;
+            Barcode = barcode;
         }
     }
 }
