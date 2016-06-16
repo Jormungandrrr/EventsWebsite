@@ -26,11 +26,11 @@ namespace EventsWebsite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
-            //using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local"))
-            //{
-            //    bool isValid = pc.ValidateCredentials(model.Gebruikersnaam, model.Password);
-            //    if (isValid)
-            //    {  
+            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local"))
+            {
+                bool isValid = pc.ValidateCredentials(model.Gebruikersnaam, model.Password);
+                if (isValid)
+                {
                     UserDB userdb = new UserDB();
                     UserModel user = userdb.GetPerson(model.Gebruikersnaam);
 
@@ -38,12 +38,12 @@ namespace EventsWebsite.Controllers
                     Session["Gebruikersnaam"] = model.Gebruikersnaam;
                     Session["Niveau"] = 4;
                     return RedirectToAction("Index", "Dashboard");
-                //}
-                //else
-                //{
-                //    return View(model);
-                //}
-            //}
+                }
+                else
+                {
+                    return View(model);
+                }
+            }
         }
         // GET: /Account/Register
         [AllowAnonymous]
