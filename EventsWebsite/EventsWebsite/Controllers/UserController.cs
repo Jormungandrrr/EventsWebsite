@@ -30,7 +30,7 @@ namespace EventsWebsite.Controllers
             //{
             //    bool isValid = pc.ValidateCredentials(model.Gebruikersnaam, model.Password);
             //    if (isValid)
-            //    {
+            //    {  
                     UserDB userdb = new UserDB();
                     UserModel user = userdb.GetPerson(model.Gebruikersnaam);
 
