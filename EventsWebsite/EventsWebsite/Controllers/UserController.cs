@@ -25,7 +25,7 @@ namespace EventsWebsite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
-            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local"))
+            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local" , "Administrator", "Eyect4events"))
             {
                 bool isValid = pc.ValidateCredentials(model.Gebruikersnaam, model.Password);
                 if (isValid)
