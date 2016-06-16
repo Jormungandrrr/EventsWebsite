@@ -443,6 +443,30 @@ namespace EventsWebsite.Database
             return ReturnData;
         }
 
+        public virtual bool Delete(string table, string where, string equals)
+        {
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("DELETE FROM :table WHERE :condition  = :value",conn))
+                {
+                    command.BindByName = true;
+                    try
+                    {
+                        conn.Open();
+                        command.Parameters.Add("table", table);
+                        command.Parameters.Add("condition", where);
+                        command.Parameters.Add("value", equals);
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
 
 
         protected string GetColumnParameter(Dictionary<string, string> values, bool Parameter)

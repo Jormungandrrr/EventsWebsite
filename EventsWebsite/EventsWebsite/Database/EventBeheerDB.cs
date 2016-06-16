@@ -39,7 +39,7 @@ namespace EventsWebsite.Database
             }
         }
 
-        public bool DeleteEvent(EventModel model)
+        public bool DeleteEvent(int EventID)
         {
             return false;
         }
