@@ -444,7 +444,74 @@ namespace EventsWebsite.Database
                 using (
                     OracleCommand command =
                         new OracleCommand(
-                            "SELECT ExemplaarID FROM VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND EventID = :ei",
+                            "SELECT ExemplaarID FROM VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND EventID = :ei;",
+                            conn)
+                    )
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(":ei", eventid);
+                    try
+                    {
+                        conn.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ReturnData.Add(reader.GetInt32(0));
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return ReturnData;
+        }
+
+        public virtual List<int> GetFreeMaterial(int eventid, int exemplaarid)
+        {
+            List<int> ReturnData = new List<int>();
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (
+                    OracleCommand command =
+                        new OracleCommand(
+                            "SELECT ex.ExemplaarID FROM EXEMPLAAR ex, VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE ex.ExemplaarID = v.ExemplaarID AND v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND EventID = :ei AND :exi NOT IN SELECT ExemplaarID FROM VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND EventID = :ei;",
+                            conn)
+                    )
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(":ei", eventid);
+                    command.Parameters.Add(":exi", eventid);
+                    try
+                    {
+                        conn.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ReturnData.Add(reader.GetInt32(0));
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return ReturnData;
+        }
+
+        public virtual List<int> GetAllMaterial(int eventid)
+        {
+            List<int> ReturnData = new List<int>();
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (
+                    OracleCommand command =
+                        new OracleCommand(
+                            "SELECT ex.ExemplaarID FROM EXEMPLAAR ex, VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE ex.ExemplaarID = v.ExemplaarID AND v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND EventID = 1",
                             conn)
                     )
                 {

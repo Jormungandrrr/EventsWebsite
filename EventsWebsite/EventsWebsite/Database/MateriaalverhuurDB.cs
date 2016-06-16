@@ -35,7 +35,7 @@ namespace EventsWebsite.Database
             all.Add("barcode");
             List<MaterialModel> materials = new List<MaterialModel>();
             List<int> ids = GetMaterial(eventid);
-            //ReadWithConditionNotIN("EXEMPLAAR", all, "ExemplaarID", );
+            ReadWithConditionNotIN("EXEMPLAAR", all, "ExemplaarID", );
             return materials;
 
         }
