@@ -73,9 +73,9 @@ namespace EventsWebsite.Controllers
                     }
                     
                     UserDB userdb = new UserDB();
-                    UserModel user = new UserModel(model.Gebruikersnaam, model.Email, model.Voornaam, model.Tussenvoegsel, model.Achternaam, 1, model.Straatnaam, model.Huisnummer,model.Toevoeging, model.Plaatsnaam);
+                    UserModel user = new UserModel(model.Gebruikersnaam, model.Email, model.Voornaam, model.Tussenvoegsel, model.Achternaam, 1 , model.Straatnaam, model.Huisnummer,model.Toevoeging, model.Plaatsnaam);
                     userdb.InsertPerson(user);
-                    return RedirectToAction("Login", "User");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View(model);
