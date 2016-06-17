@@ -58,6 +58,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Database\DatabaseTests.cs" />
+    <Compile Include="Database\EventbeheerTests.cs" />
     <Compile Include="Database\ToegangTests.cs" />
     <Compile Include="Database\UserDBTests.cs" />
     <Compile Include="Database\MateriaalverhuurTest.cs" />

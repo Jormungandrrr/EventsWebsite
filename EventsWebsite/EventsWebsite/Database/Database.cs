@@ -447,14 +447,14 @@ namespace EventsWebsite.Database
         {
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand("DELETE FROM :table WHERE :condition  = :value",conn))
+                using (OracleCommand command = new OracleCommand($"DELETE FROM {table} WHERE {where}  = :value",conn))
                 {
                     command.BindByName = true;
                     try
                     {
                         conn.Open();
-                        command.Parameters.Add("table", table);
-                        command.Parameters.Add("condition", where);
+                        //command.Parameters.Add("table", table);
+                        //command.Parameters.Add("condition", where);
                         command.Parameters.Add("value", equals);
                         command.ExecuteNonQuery();
                         return true;
