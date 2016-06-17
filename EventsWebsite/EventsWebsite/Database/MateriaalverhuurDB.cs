@@ -34,8 +34,19 @@ namespace EventsWebsite.Database
             all.Add("volgnummer");
             all.Add("barcode");
             List<MaterialModel> materials = new List<MaterialModel>();
-            List<int> ids = GetMaterial(eventid);
-            ReadWithConditionNotIN("EXEMPLAAR", all, "ExemplaarID", );
+            List<int> ids = new List<int>();
+            MaterialModel material;
+            List<string> idsfree = ReadWithConditionNotIN("EXEMPLAAR", values, "ExemplaarID", "ExemplaarID", "VERHUUR");
+            foreach (string id in idsfree)
+            {
+                int a = Convert.ToInt32(id);
+                ids.Add(a);
+            }
+            foreach (int id in ids)
+            {
+                material = ReadExemplarenModel("EXEMPLAAR", all, "ExemplaarID", id.ToString());
+                materials.Add(material);
+            }
             return materials;
 
         }

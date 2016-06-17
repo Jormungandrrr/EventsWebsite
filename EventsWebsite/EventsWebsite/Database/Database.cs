@@ -109,6 +109,35 @@ namespace EventsWebsite.Database
             }
         }
 
+        public virtual List<int> Read(string table, string column)
+        {
+            List<int> ReturnData = new List<int>();
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("SELECT " + column + " FROM " + table, conn))
+                {
+                    command.BindByName = true;
+                    try
+                    {
+                        command.Connection.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ReturnData.Add(Convert.ToInt32(reader[column]));
+                            }
+                            return ReturnData;
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                    return ReturnData;
+                }
+            }
+        }
+
         public virtual List<object> ReadObjects(string table, List<string> data,string type)
         {
             List<object> ReturnData = new List<object>();
@@ -199,6 +228,46 @@ namespace EventsWebsite.Database
                                 {
                                     MaterialModel m = new MaterialModel(reader.GetInt32(0), reader.GetInt32(1));
                                     ReturnData.Add(m);
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show(e.Message);
+                            }
+                            return ReturnData;
+                        }
+                    }
+
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                    }
+                    return ReturnData;
+                }
+
+            }
+        }
+
+        public virtual MaterialModel ReadExemplarenModel(string table, List<string> data, string ConditionValue1, string ConditionValue2)
+        {
+            MaterialModel ReturnData = null;
+            string columnNames = GetColumnNames(data);
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE " + ConditionValue1 + " = " + ConditionValue2, conn))
+                {
+                    command.BindByName = true;
+                    try
+                    {
+                        command.Connection.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            try
+                            {
+                                while (reader.Read())
+                                {
+                                    MaterialModel m = new MaterialModel(reader.GetInt32(0), reader.GetInt32(1));
+                                    ReturnData = m;
                                 }
                             }
                             catch (Exception e)
@@ -356,11 +425,12 @@ namespace EventsWebsite.Database
             List<string> ReturnData = new List<string>();
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand("SELECT " + ColumNames + " FROM " + table + " WHERE " + ConditionValue1 + " NOT IN( SELECT :Condition2 FROM :Condition3)", conn))
+                using (OracleCommand command = new OracleCommand("SELECT " + ColumNames + " FROM " + table + " WHERE " + ConditionValue1 + " NOT IN( SELECT " + ConditionValue2  + " FROM " + ConditionValue3 + ")", conn))
                 {
                     command.BindByName = true;
-                    command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
-                    command.Parameters.Add(new OracleParameter(":Condition3", ConditionValue3));
+                    command.Parameters.Add(new OracleParameter("Condition1", ConditionValue1));
+                    command.Parameters.Add(new OracleParameter("Condition2", ConditionValue2));
+                    command.Parameters.Add(new OracleParameter("Condition3", ConditionValue3));
                     command.Connection.Open();
                     using (OracleDataReader reader = command.ExecuteReader())
                     {
