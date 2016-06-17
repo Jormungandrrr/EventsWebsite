@@ -25,7 +25,7 @@ namespace EventsWebsite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
-            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local"))
+            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local" , "Administrator", "Eyect4events"))
             {
                 bool isValid = pc.ValidateCredentials(model.Gebruikersnaam, model.Password);
                 if (isValid)
@@ -60,7 +60,7 @@ namespace EventsWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local"))
+                using (var pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local", "Administrator", "Eyect4events"))
                 {
                     using (var up = new UserPrincipal(pc))
                     {
@@ -73,9 +73,15 @@ namespace EventsWebsite.Controllers
                     }
                     
                     UserDB userdb = new UserDB();
-                    UserModel user = userdb.GetPerson(model.Gebruikersnaam);
+                    UserModel user = new UserModel(model.Gebruikersnaam, model.Email, model.Voornaam, model.Tussenvoegsel, model.Achternaam, 1 , model.Straatnaam, model.Huisnummer,model.Toevoeging, model.Plaatsnaam);
                     userdb.InsertPerson(user);
-                    return RedirectToAction("Login", "User");
+
+                    user = userdb.GetPerson(model.Gebruikersnaam);
+
+                    Session["Acountid"] = user.Accountid;
+                    Session["Gebruikersnaam"] = model.Gebruikersnaam;
+                    Session["Niveau"] = user.AccesLevel;
+                    return RedirectToAction("Index", "Dashboard");
                 }
             }
             return View(model);

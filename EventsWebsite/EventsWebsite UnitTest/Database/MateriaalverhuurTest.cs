@@ -26,14 +26,32 @@ namespace EventsWebsite_UnitTest
         }
 
         [TestMethod]
-        public void GetAllFreeMaterial()
+        public void GetAllHiredMaterialTest()
+        {
+            MateriaalverhuurDB m = new MateriaalverhuurDB();
+            List<MaterialModel> materialen = m.GetAllHiredMaterial(1);
+            List<MaterialModel> materials = new List<MaterialModel>();
+            MaterialModel mm = new MaterialModel(1, 33);
+            MaterialModel mm2 = new MaterialModel(1, 33);
+            materials.Add(mm);
+            Assert.AreEqual(materialen[0].Barcode, materials[0].Barcode);
+            Assert.AreEqual(materialen[0].Number, materials[0].Number);
+        }
+
+        [TestMethod]
+        public void GetAllFreeMaterialTest()
         {
             MateriaalverhuurDB m = new MateriaalverhuurDB();
             List<MaterialModel> materialen = m.GetAllFreeMaterial(1);
             List<MaterialModel> materials = new List<MaterialModel>();
-            MaterialModel mm = new MaterialModel("1", "33", true, true);
+            MaterialModel mm = new MaterialModel(2, 66);
+            MaterialModel mm2 = new MaterialModel(3, 14);
             materials.Add(mm);
-            Assert.AreEqual(materials, materialen);
+            materials.Add(mm2);
+            Assert.AreEqual(materials[0].Barcode, materialen[0].Barcode);
+            Assert.AreEqual(materials[0].Number, materialen[0].Number);
+            Assert.AreEqual(materials[1].Barcode, materialen[1].Barcode);
+            Assert.AreEqual(materials[1].Number, materialen[1].Number);
         }
     }
 }

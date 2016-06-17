@@ -50,7 +50,18 @@ namespace EventsWebsite.Database
             Dictionary<string, string> UpdateData = new Dictionary<string, string>();
             UpdateData.Add("gebruikersnaam", User.Username);
             UpdateData.Add("email", User.Email);
+            UpdateData.Add("accesslevel", User.AccesLevel.ToString());
             Update("account",UpdateData,"accountid",ReadStringWithCondition("Account","accountid","gebruikersnaam",User.Username));
+
+            UpdateData.Clear();
+            UpdateData.Add("voornaam", User.Voornaam);
+            UpdateData.Add("tussenvoegsel", User.tussenvoegsel);
+            UpdateData.Add("achternaam", User.Achternaam);
+            UpdateData.Add("straat", User.Street);
+            UpdateData.Add("huisnr", User.HouseNumber.ToString());
+            UpdateData.Add("toevoeging", User.Toevoeging);
+            UpdateData.Add("woonplaats", User.City);
+            Update("persoon", UpdateData, "accountid", ReadStringWithCondition("Account", "accountid", "gebruikersnaam", User.Username));
         }
     }
 }
