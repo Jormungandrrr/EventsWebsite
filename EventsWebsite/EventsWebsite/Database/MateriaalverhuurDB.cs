@@ -29,14 +29,14 @@ namespace EventsWebsite.Database
 
         public List<MaterialModel> GetAllFreeMaterial(int eventid)
         {
-            List<string> values = new List<string> { "ExemplaarID" };
+            List<string> values = new List<string> { "DISTINCT(E.ExemplaarID)" };
             List<string> all = new List<string>();
             all.Add("volgnummer");
             all.Add("barcode");
             List<MaterialModel> materials = new List<MaterialModel>();
             List<int> ids = new List<int>();
             MaterialModel material;
-            List<string> idsfree = ReadWithConditionNotIN("EXEMPLAAR", values, "ExemplaarID", "ExemplaarID", "VERHUUR");
+            List<string> idsfree = ReadWithConditionNotIN("EXEMPLAAR E, VERHUUR V", values, " V.datumin = null OR E.ExemplaarID", "ExemplaarID", "VERHUUR");
             foreach (string id in idsfree)
             {
                 int a = Convert.ToInt32(id);

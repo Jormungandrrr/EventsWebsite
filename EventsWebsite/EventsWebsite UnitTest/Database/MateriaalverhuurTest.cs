@@ -44,8 +44,8 @@ namespace EventsWebsite_UnitTest
             MateriaalverhuurDB m = new MateriaalverhuurDB();
             List<MaterialModel> materialen = m.GetAllFreeMaterial(1);
             List<MaterialModel> materials = new List<MaterialModel>();
-            MaterialModel mm = new MaterialModel(3, 14);
-            MaterialModel mm2 = new MaterialModel(2, 66);
+            MaterialModel mm = new MaterialModel(2, 66);
+            MaterialModel mm2 = new MaterialModel(3, 14);
             materials.Add(mm);
             materials.Add(mm2);
             Assert.AreEqual(materials[0].Barcode, materialen[0].Barcode);
