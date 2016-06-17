@@ -30,5 +30,39 @@ namespace EventsWebsite_UnitTest
             Assert.AreEqual("a", u.Toevoeging);
             Assert.AreEqual("Tilburg", u.City);
         }
+
+        [TestMethod]
+        public void SocialMediaMessageTest()
+        {
+            SocialMediaMessageModel s = new SocialMediaMessageModel("Hallo", Convert.ToDateTime("2016-6-15"), 1, "Gebruiker1");
+            Assert.AreEqual("Hallo", s.Message);
+            Assert.AreEqual("2016-6-15", s.UploadTime);
+            Assert.AreEqual(1, s.Messageid);
+            Assert.AreEqual("Gebruiker1", s.Username);
+        }
+
+        [TestMethod]
+        public void ReservationTest()
+        {
+            ReservationModel r = new ReservationModel(Convert.ToDateTime("2016-6-14"), Convert.ToDateTime("2016-6-15"), true, 1);
+            Assert.AreEqual("Monitor", r.StartDate);
+            Assert.AreEqual("24 inch monitor", r.EndDate);
+            Assert.AreEqual(false, r.Paid);
+            Assert.AreEqual(1, r.Reservationid);
+        }
+
+        [TestMethod]
+        public void EventTest()
+        {
+            EventModel e = new EventModel("EyeCT4Events", Convert.ToDateTime("2016-6-14"), Convert.ToDateTime("2016-6-15"), "straat", "2", "5050AA", "tilburg", "Nederland");
+            Assert.AreEqual("EyeCT4Events", e.Name);
+            Assert.AreEqual("2016-6-14", e.DateStart);
+            Assert.AreEqual("2016-6-14", e.DateEnd);
+            Assert.AreEqual("straat", e.Street);
+            Assert.AreEqual("2", e.HouseNumber);
+            Assert.AreEqual("5050AA", e.Zipcode);
+            Assert.AreEqual("tilburg", e.City);
+            Assert.AreEqual("Nederland", e.Country);
+        }
     }
 }
