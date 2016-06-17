@@ -111,10 +111,6 @@ namespace EventsWebsite.Models
         public string Achternaam { get; set; }
 
         [Required]
-        [Display(Name = "Postcode")]
-        public string Postcode { get; set; }
-
-        [Required]
         [Display(Name = "Plaatsnaam")]
         public string Plaatsnaam { get; set; }
 
