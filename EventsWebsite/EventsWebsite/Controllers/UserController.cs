@@ -25,15 +25,18 @@ namespace EventsWebsite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
-            using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local"))
-            {
-                bool isValid = pc.ValidateCredentials(model.Gebruikersnaam, model.Password);
+            //using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, "Eyect4events.local"))
+            //{
+                //bool isValid = pc.ValidateCredentials(model.Gebruikersnaam, model.Password); 
+                bool isValid = true;
                 if (isValid)
                 {
-                    UserDB userdb = new UserDB();
-                    UserModel user = userdb.GetPerson(model.Gebruikersnaam);
+                UserDB userdb = new UserDB();
+                UserModel user = userdb.GetPerson(model.Gebruikersnaam);
+                //UserModel user = new UserModel("coenvc", "coenvc@gmail.com", "Coen", "van", "Campenhout", 4,
+                //   "GuidoGezellelaan", 21, " ", "Berkel Enschot");
 
-                    Session["Acountid"] = user.Accountid;
+                Session["Acountid"] = user.Accountid;
                     Session["Gebruikersnaam"] = model.Gebruikersnaam;
                     Session["Niveau"] = user.AccesLevel;
                     return RedirectToAction("Index", "Dashboard");
@@ -43,7 +46,8 @@ namespace EventsWebsite.Controllers
                     return View(model);
                 }
             }
-        }
+        //}
+
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -71,7 +75,7 @@ namespace EventsWebsite.Controllers
                         up.Enabled = true;
                         up.Save();
                     }
-                    
+
                     UserDB userdb = new UserDB();
                     UserModel user = userdb.GetPerson(model.Gebruikersnaam);
                     userdb.InsertPerson(user);
@@ -91,6 +95,30 @@ namespace EventsWebsite.Controllers
             Session["Gebruikersnaam"] = null;
             Session["Niveau"] = null;
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Index()
+        {
+            //UserModel u = new UserModel("coenvc", "coenvc@gmail.com", "Coen", "van", "Campenhout", 1,
+            //    "GuidoGezellelaan", 21, " ", "Berkel Enschot");
+
+            //if (u.AccesLevel < 4)
+            //{
+            //    return View(u);
+            //}
+
+            //else
+            //{
+                return View("Accountmanagement");
+            //}
+
+        }
+
+        public ActionResult EditProfile()
+        {
+            //UserModel u = new UserModel("coenvc", "coenvc@gmail.com", "Coen", "van", "Campenhout", 1,
+            //    "GuidoGezellelaan", 21, " ", "Berkel Enschot");
+            return View(/*u*/);
         }
     }
 }
