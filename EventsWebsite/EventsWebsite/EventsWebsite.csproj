@@ -247,6 +247,7 @@
     <Content Include="Views\Toegang\Denied.cshtml" />
     <Content Include="Views\Toegang\Granted.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\MateriaalBeheer\HiredMaterials.cshtml" />
     <None Include="Views\User\Accountmanagement.cshtml" />
     <None Include="Views\User\EditProfile.cshtml" />
     <Content Include="Views\EventBeheer\CreateEvent.cshtml" />
