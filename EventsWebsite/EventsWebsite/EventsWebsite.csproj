@@ -162,13 +162,17 @@
     <Compile Include="Controllers\GebruikerBeheerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MateriaalBeheerController.cs" />
+    <Compile Include="Controllers\ReserveerController.cs" />
     <Compile Include="Controllers\SocialMediaController.cs" />
     <Compile Include="Controllers\ToegangController.cs" />
     <Compile Include="Database\DashboardDB.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\EventBeheerDB.cs" />
     <Compile Include="Database\MateriaalverhuurDB.cs" />
+    <Compile Include="Database\SocialMediaDB.cs" />
     <Compile Include="Database\ToegangscontroleDatabase.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Database\ReserveerDB.cs" />
     <Compile Include="Database\UserController.cs" />
     <Compile Include="Database\UserDB.cs" />
     <Compile Include="Global.asax.cs">
@@ -245,8 +249,12 @@
     <Content Include="Views\Toegang\Denied.cshtml" />
     <Content Include="Views\Toegang\Granted.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\MateriaalBeheer\HiredMaterials.cshtml" />
     <None Include="Views\User\Accountmanagement.cshtml" />
     <None Include="Views\User\EditProfile.cshtml" />
+    <Content Include="Views\EventBeheer\CreateEvent.cshtml" />
+    <Content Include="Views\Reserveer\Index.cshtml" />
+    <Content Include="Views\Reserveer\Event.cshtml" />
     <None Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>

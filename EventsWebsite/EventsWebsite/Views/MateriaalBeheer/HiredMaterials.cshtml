@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<EventsWebsite.Models.MaterialModel>
 
 @{
-    ViewBag.Title = "Materiaal Beheer";
+    ViewBag.Title = "Verhuurde materialen";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>HiredMaterials</h2>
 
 <p>
-    @Html.ActionLink("Hired material", "HiredMaterials")
+    @Html.ActionLink("Free material", "Index")
 </p>
 
 <table class="table">
@@ -30,15 +30,8 @@
             @Html.DisplayFor(modelItem => item.Number)
         </td>
         <td>
-            @Html.ActionLink("Rent", "RentMaterial", new { number = item.Number })
+            @Html.ActionLink("Return", "ReturnMaterials", new { number = item.Number })
         </td>
     </tr>
 }
-</table>
-<table class="table">
-    <tr>
-        <th>
-
-        </th>
-    </tr>
 </table>

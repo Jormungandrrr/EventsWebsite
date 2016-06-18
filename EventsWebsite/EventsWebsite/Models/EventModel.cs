@@ -35,6 +35,8 @@ namespace EventsWebsite.Models
         [Display(Name = "Land")]
         public string Country { get; set; }
 
+        public int EventID { get; set; }
+
         public EventModel(string name, DateTime dateStart, DateTime dateEnd, string street, string housenumber, string zipcode, string city, string country)
         {
             Name = name;
@@ -45,6 +47,10 @@ namespace EventsWebsite.Models
             Zipcode = zipcode;
             City = city;
             Country = country;
+        }
+
+        public EventModel()
+        {
         }
 
         public override string ToString()

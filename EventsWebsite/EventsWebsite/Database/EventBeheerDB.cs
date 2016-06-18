@@ -19,7 +19,7 @@ namespace EventsWebsite.Database
             };
             Dictionary<string, string> locationdata = new Dictionary<string, string>
             {
-                { "Naam",model.Name},
+                {"Naam",model.Name},
                 {"Straat",model.Street },
                 {"postcode",model.Zipcode },
                 {"Plaats",model.City },
@@ -51,6 +51,11 @@ namespace EventsWebsite.Database
             {
             }
             return success;
+        }
+
+        public List<EventModel> GetEvents()
+        {
+            return GetAllEvents();
         }
     }
 }

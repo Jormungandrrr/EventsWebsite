@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -183,51 +184,12 @@ namespace EventsWebsite.Database
                             {
                                 while (reader.Read())
                                 {
-                                    Thumbnail add = new Thumbnail(reader.GetInt32(0), reader.GetString(1),
-                                        reader.GetString(2), reader.GetString(3), reader.GetString(4),
-                                        reader.GetString(5),
-                                        reader.GetInt32(6));
-                                    ReturnData.Add(add);
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                MessageBox.Show(e.Message);
-                            }
-                            return ReturnData;
-                        }
-                    }
-
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message);
-                    }
-                    return ReturnData;
-                }
-
-            } 
-        }
-
-        public virtual List<MaterialModel> ReadExemplaren(string table, List<string> data, string ConditionValue1, string ConditionValue2)
-        {
-            List<MaterialModel> ReturnData = new List<MaterialModel>();
-            string columnNames = GetColumnNames(data);
-            using (OracleConnection conn = new OracleConnection(Connectionstring))
-            {
-                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE " + ConditionValue1 + " = " + ConditionValue2, conn))
-                {
-                    command.BindByName = true;
-                    try
-                    {
-                        command.Connection.Open();
-                        using (OracleDataReader reader = command.ExecuteReader())
-                        {
-                            try
-                            {
-                                while (reader.Read())
-                                {
-                                    MaterialModel m = new MaterialModel(reader.GetInt32(0), reader.GetInt32(1));
-                                    ReturnData.Add(m);
+                                    if (type == "Materiaal")
+                                    {
+                                        MaterialModel m = new MaterialModel(reader.GetInt32(0).ToString(), reader.GetInt32(1).ToString(), true, true);
+                                        ReturnData.Add(m);
+                                    }
+                                    
                                 }
                             }
                             catch (Exception e)
@@ -285,7 +247,7 @@ namespace EventsWebsite.Database
                     return ReturnData;
                 }
 
-            }
+            } 
         }
 
         public virtual List<Thumbnail> GetThumbnails(string table, List<string> data, string ConditionValue1, string ConditionValue2, string type)
@@ -606,6 +568,38 @@ namespace EventsWebsite.Database
             return ReturnData;
         }
 
+        public virtual List<EventModel> GetAllEvents()
+        {
+            List<EventModel> returnData = new List<EventModel>();
+            try
+            {
+                using (OracleConnection conn = new OracleConnection(Connectionstring))
+                {
+                    conn.Open();
+                    using (
+                        OracleCommand command =
+                            new OracleCommand(
+                                "SELECT eventid, event.naam, datumstart,datumeinde, plaats FROM event, locatie WHERE event.locatieid = locatie.locatieid",
+                                conn))
+                    {
+                        OracleDataReader dr = command.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            EventModel add = new EventModel();
+                            add.EventID = dr.GetInt32(0);
+                            add.Name = dr.GetString(1);
+                            add.DateStart = dr.GetDateTime(2);
+                            add.DateEnd = dr.GetDateTime(3);
+                            add.City = dr.GetString(4);
+                            returnData.Add(add);
+                        }
+                    }
+                }
+            }
+            catch { }
+            return returnData;
+        }
+
         public virtual bool Delete(string table, string where, string equals)
         {
             using (OracleConnection conn = new OracleConnection(Connectionstring))
@@ -616,8 +610,6 @@ namespace EventsWebsite.Database
                     try
                     {
                         conn.Open();
-                        //command.Parameters.Add("table", table);
-                        //command.Parameters.Add("condition", where);
                         command.Parameters.Add("value", equals);
                         command.ExecuteNonQuery();
                         return true;
@@ -630,7 +622,26 @@ namespace EventsWebsite.Database
             }
         }
 
+        public virtual bool ExecuteProcedure(string procedure)
+        {
+            using (OracleConnection con = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand(procedure,con))
+                {
+                    try
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
 
+            }
+        }
 
         protected string GetColumnParameter(Dictionary<string, string> values, bool Parameter)
         {
