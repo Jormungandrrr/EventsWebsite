@@ -13,7 +13,7 @@ namespace EventsWebsite.Database
             Dictionary<string, string> ReserveData = new Dictionary<string, string>();
             //ReserveData.Add("VerhuurID", id.ToString());
             ReserveData.Add("Reservering_PolsbandjeID", "1");
-            ReserveData.Add("ExemplaarID", ReadStringWithCondition("EXEMPLAAR", "ExemplaarID", "Number" , id.ToString()));
+            ReserveData.Add("ExemplaarID", ReadStringWithCondition("EXEMPLAAR", "ExemplaarID", "Volgnummer" , id.ToString()));
             ReserveData.Add("datumuit", date);
             ReserveData.Add("prijs", "60");
             ReserveData.Add("betaald", "1");
