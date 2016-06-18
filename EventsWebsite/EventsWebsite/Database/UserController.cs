@@ -120,6 +120,7 @@ namespace EventsWebsite.Controllers
             UserDB db = new UserDB();
             UserModel u = db.GetPerson(Convert.ToString(Session["Gebruikersnaam"]));
             return View(u);
+            //commit flipt
         } 
 
         [HttpPost]
