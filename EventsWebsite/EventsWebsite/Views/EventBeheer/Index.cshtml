@@ -1,7 +1,49 @@
-﻿@model dynamic
+﻿@model IEnumerable<EventsWebsite.Models.EventModel>
 
 @{
-    ViewBag.Title = "Event Beheer";
+    ViewBag.Title = "Index";
 }
 
+<h2>EventBeheer</h2>
 
+<p>
+    @Html.ActionLink("Create New", "CreateEvent")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateEnd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "DeleteEvent", new { id=item.EventID }, new { onclick = "return confirm('Weet je zeker dat je dit evenement wilt verwijderen?');"})
+        </td>
+    </tr>
+}
+
+</table>
