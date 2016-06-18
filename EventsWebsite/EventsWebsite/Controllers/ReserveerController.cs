@@ -24,5 +24,13 @@ namespace EventsWebsite.Controllers
             EventModel Event = ResDB.GetEventByID(ID);
             return View(Event);
         }
+
+        public ActionResult Reservering(int AccountID , int EventID , int PersoonID)
+        {
+            AccountID = (int)Session["Acountid"];
+
+            return View();
+        }
+
     }
 }
