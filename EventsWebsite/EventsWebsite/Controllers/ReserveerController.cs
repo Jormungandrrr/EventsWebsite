@@ -37,7 +37,7 @@ namespace EventsWebsite.Controllers
         [HttpPost]
         public ActionResult Reservering(ReserveringUsers Users)
         {
-            //int AccountID = (int)Session["Acountid"];
+            int AccountID = (int)Session["Acountid"];
             //int PersoonID = userdb.GetPersoonIDByAccountID(AccountID);
             //int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID , Aantal);
 
