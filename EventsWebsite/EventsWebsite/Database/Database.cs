@@ -183,51 +183,12 @@ namespace EventsWebsite.Database
                             {
                                 while (reader.Read())
                                 {
-                                    Thumbnail add = new Thumbnail(reader.GetInt32(0), reader.GetString(1),
-                                        reader.GetString(2), reader.GetString(3), reader.GetString(4),
-                                        reader.GetString(5),
-                                        reader.GetInt32(6));
-                                    ReturnData.Add(add);
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                MessageBox.Show(e.Message);
-                            }
-                            return ReturnData;
-                        }
-                    }
-
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message);
-                    }
-                    return ReturnData;
-                }
-
-            } 
-        }
-
-        public virtual List<MaterialModel> ReadExemplaren(string table, List<string> data, string ConditionValue1, string ConditionValue2)
-        {
-            List<MaterialModel> ReturnData = new List<MaterialModel>();
-            string columnNames = GetColumnNames(data);
-            using (OracleConnection conn = new OracleConnection(Connectionstring))
-            {
-                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE " + ConditionValue1 + " = " + ConditionValue2, conn))
-                {
-                    command.BindByName = true;
-                    try
-                    {
-                        command.Connection.Open();
-                        using (OracleDataReader reader = command.ExecuteReader())
-                        {
-                            try
-                            {
-                                while (reader.Read())
-                                {
-                                    MaterialModel m = new MaterialModel(reader.GetInt32(0), reader.GetInt32(1));
-                                    ReturnData.Add(m);
+                                    if (type == "Materiaal")
+                                    {
+                                        MaterialModel m = new MaterialModel(reader.GetInt32(0).ToString(), reader.GetInt32(1).ToString(), true, true);
+                                        ReturnData.Add(m);
+                                    }
+                                    
                                 }
                             }
                             catch (Exception e)
@@ -285,7 +246,7 @@ namespace EventsWebsite.Database
                     return ReturnData;
                 }
 
-            }
+            } 
         }
 
         public virtual List<Thumbnail> GetThumbnails(string table, List<string> data, string ConditionValue1, string ConditionValue2, string type)

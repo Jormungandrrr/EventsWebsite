@@ -61,8 +61,7 @@ namespace EventsWebsite.Database
             List<int> ids = GetMaterial(eventid);
             foreach (int i in ids)
             {
-                List<MaterialModel> models = ReadExemplaren("EXEMPLAAR", all, "ExemplaarID", i.ToString());
-                foreach (MaterialModel m in models)
+                foreach(MaterialModel m in ReadObjects("EXEMPLAAR", all, "ExemplaarID", i.ToString(), "Materiaal"))
                 {
                     materials.Add(m);
                 }
