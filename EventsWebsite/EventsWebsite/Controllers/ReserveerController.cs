@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EventsWebsite.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,7 @@ namespace EventsWebsite.Controllers
         // GET: Reserveer
         public ActionResult Index()
         {
+            ReserveerDB ResDB = new ReserveerDB();
             return View();
         }
 
