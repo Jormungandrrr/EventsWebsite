@@ -32,6 +32,7 @@ namespace EventsWebsite.Controllers
             int PersoonID = userdb.GetPersoonIDByAccountID(AccountID);
             int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID);
 
+            List<UserModel> Users = new List<UserModel>();
 
             foreach (UserModel user in Users)
             {
