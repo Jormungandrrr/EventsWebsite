@@ -38,6 +38,8 @@ namespace EventsWebsite.Controllers
 
         public ActionResult ReturnMaterial(int number)
         {
+            
+            database.ReturnMaterial(database.GetMaterial(1), DateTime.Now.ToString());
             return View("HiredMaterials", database.GetAllHiredMaterial(1));
         }
     }
