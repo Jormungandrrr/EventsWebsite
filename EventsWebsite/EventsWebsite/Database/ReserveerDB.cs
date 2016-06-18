@@ -8,14 +8,22 @@ namespace EventsWebsite.Database
 {
     public class ReserveerDB : Database
     {
-        public void GetEvents()
+        public List<EventModel> GetEvents()
         {
+            List<EventModel> Events = new List<EventModel>();
 
+
+
+            EventModel Event = new EventModel();
+            Events.Add(Event);
+            return Events;
         }
 
-        public void GetEventByID()
+        public EventModel GetEventByID(int ID)
         {
 
+            EventModel Event = new EventModel();
+            return Event;
         }
     }
 }
