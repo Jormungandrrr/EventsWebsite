@@ -27,7 +27,7 @@ namespace EventsWebsite.Database
         {
             return 1;
         }
-        public void Insertbandjes(int ReserveringID, int AccountID, int PersoonID)
+        public void Insertbandjes(int ReserveringID, string Gebruikersnaam)
         {
 
 

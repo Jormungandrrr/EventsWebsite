@@ -27,11 +27,6 @@ namespace EventsWebsite.Database
             Insert("Persoon",PersonData);
         }
 
-        public List<UserModel> GetAllUsers()
-        {
-            List<UserModel> users = 
-        }
-
         public UserModel GetPerson(string username)
         {
             List<string> PersonData = new List<string>();
