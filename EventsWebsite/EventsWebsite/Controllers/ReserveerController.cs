@@ -30,9 +30,11 @@ namespace EventsWebsite.Controllers
         // GET: /Reserveer/LoginReservering
         public ActionResult Reservering()
         {
-            AccountID = (int)Session["Acountid"];
-            int PersoonID = Convert.ToInt32(userdb.ReadStringWithCondition("account","persoonid","accountid", AccountID.ToString()));
-            int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID);
+            //AccountID = (int)Session["Acountid"];
+            //int PersoonID = Convert.ToInt32(userdb.ReadStringWithCondition("account", "persoonid", "accountid", AccountID.ToString()));
+            //int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID);
+            return View();
+        }
 
         // POST: /Reserveer/LoginReservering
         [HttpPost]
