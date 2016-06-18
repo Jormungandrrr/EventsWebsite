@@ -36,7 +36,7 @@ namespace EventsWebsite.Controllers
                 //UserModel user = new UserModel("coenvc", "coenvc@gmail.com", "Coen", "van", "Campenhout", 4,
                 //   "GuidoGezellelaan", 21, " ", "Berkel Enschot");
 
-                Session["Acountid"] = user.Accountid;
+                    Session["Acountid"] = user.Accountid;
                     Session["Gebruikersnaam"] = model.Gebruikersnaam;
                     Session["Niveau"] = user.AccesLevel;
                     return RedirectToAction("Index", "Dashboard");

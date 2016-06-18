@@ -62,7 +62,6 @@ namespace EventsWebsite.Models
                 case 4:
                     accessName = "Admin";
                     break;
-
             }
 
             return accessName;

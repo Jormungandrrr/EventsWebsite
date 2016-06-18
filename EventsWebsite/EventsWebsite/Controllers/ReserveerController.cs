@@ -23,7 +23,7 @@ namespace EventsWebsite.Controllers
 
         public ActionResult Event(int ID)
         {
-            EventModel Event = eventdb.GetEventByID(ID);
+            EventModel Event = eventdb.GetEventById(ID);
             return View(Event);
         }
 
@@ -76,13 +76,13 @@ namespace EventsWebsite.Controllers
 
             int AccountID = (int)Session["Acountid"];
             int PersoonID = Convert.ToInt32(userdb.ReadStringWithCondition("account", "persoonid", "accountid", AccountID.ToString()));
-            int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID , Aantal);
+            //int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID , Aantal);
 
 
-            foreach (string Gebruiker in Gebruikers)
-            {
-                ResDB.Insertbandjes(ReserveringID ,Gebruiker);
-            }
+            //foreach (string Gebruiker in Gebruikers)
+            //{
+            //    ResDB.Insertbandjes(ReserveringID ,Gebruiker);
+            //}
 
             return View();
         }
