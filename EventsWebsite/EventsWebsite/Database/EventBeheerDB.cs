@@ -57,5 +57,14 @@ namespace EventsWebsite.Database
         {
             return GetAllEvents();
         }
+        public List<object> GetOngoingEvents()
+        {
+            List<string> data = new List<string>();
+            data.Add("naam");
+            data.Add("datumstart");
+            data.Add("datumeinde");
+            data.Add("maxbezoekers");
+            return ReadObjects("Event", data, "datumeinde < " + "'"+ DateTime.Now.ToString("dd/MMM/yyyy") + "'", "Event");
+        }
     }
 }

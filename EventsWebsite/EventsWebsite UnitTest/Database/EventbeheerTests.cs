@@ -7,6 +7,22 @@ using EventsWebsite.Database;
 using EventsWebsite.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+namespace EventsWebsite.Database.Tests
+{
+    [TestClass()]
+    public class EventbeheerTests
+    {
+        [TestMethod()]
+        public void GetOngoingEventsTest()
+        {
+            List<EventModel> events = new List<EventModel>();
+            EventBeheerDB edb = new EventBeheerDB();
+            edb.GetOngoingEvents();
+            Assert.Fail();
+        }
+    }
+}
+
 namespace EventsWebsite_UnitTest.Database
 {
     [TestClass]

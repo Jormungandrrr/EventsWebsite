@@ -63,5 +63,20 @@ namespace EventsWebsite.Database
             UpdateData.Add("woonplaats", User.City);
             Update("persoon", UpdateData, "accountid", ReadStringWithCondition("Account", "accountid", "gebruikersnaam", User.Username));
         }
+        public List<object> GetAllUsers()
+        {
+            List<string> PersonData = new List<string>();
+            PersonData.Add("a.gebruikersnaam");
+            PersonData.Add("a.email");
+            PersonData.Add("p.voornaam");
+            PersonData.Add("p.tussenvoegsel");
+            PersonData.Add("p.achternaam");
+            PersonData.Add("a.accesslevel");
+            PersonData.Add("p.straat");
+            PersonData.Add("p.huisnr");
+            PersonData.Add("p.toevoeging");
+            PersonData.Add("p.woonplaats");
+            return ReadObjects("account a Join Persoon p ON a.accountid = p.accountid", PersonData, "User");
+        }
     }
 }

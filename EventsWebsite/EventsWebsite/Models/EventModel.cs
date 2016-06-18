@@ -26,6 +26,7 @@ namespace EventsWebsite.Models
         public string Country { get; set; }
 
         public int EventID { get; set; }
+        public int MaxBezoekers { get; set; }
 
         public EventModel(string name, DateTime dateStart, DateTime dateEnd, string street, string housenumber, string zipcode, string city, string country)
         {
@@ -41,6 +42,13 @@ namespace EventsWebsite.Models
 
         public EventModel()
         {
+        }
+        public EventModel(string naam, DateTime start, DateTime einde, int maxBezoekers )
+        {
+            this.Name = naam;
+            this.DateStart = start;
+            this.DateEnd = einde;
+            this.MaxBezoekers = maxBezoekers;
         }
 
         public override string ToString()

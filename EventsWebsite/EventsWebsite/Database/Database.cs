@@ -152,7 +152,11 @@ namespace EventsWebsite.Database
                         {
                             while (reader.Read())
                             {
-
+                                if (type == "User")
+                                {
+                                    UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), Convert.ToInt32(reader[7]), reader[8].ToString(), reader[9].ToString());
+                                    ReturnData.Add(user);
+                                }
                             }
                             return ReturnData;
                         }
@@ -189,6 +193,55 @@ namespace EventsWebsite.Database
                                         ReturnData.Add(m);
                                     }
                                     
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show(e.Message);
+                            }
+                            return ReturnData;
+                        }
+                    }
+
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                    }
+                    return ReturnData;
+                }
+
+            }
+        }
+
+        public virtual List<object> ReadObjects(string table, List<string> data, string Where, string type)
+        {
+            List<object> ReturnData = new List<object>();
+            string columnNames = GetColumnNames(data);
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE " + Where, conn))
+                {
+                    command.BindByName = true;
+                    try
+                    {
+                        command.Connection.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            try
+                            {
+                                while (reader.Read())
+                                {
+                                    if (type == "Materiaal")
+                                    {
+                                        MaterialModel m = new MaterialModel(reader.GetInt32(0).ToString(), reader.GetInt32(1).ToString(), true, true);
+                                        ReturnData.Add(m);
+                                    }
+                                    else if (type == "Event")
+                                    {
+                                        EventModel e = new EventModel(reader.GetString(0),reader.GetDateTime(1),reader.GetDateTime(2),reader.GetInt32(3));
+                                        ReturnData.Add(e);
+                                    }
+
                                 }
                             }
                             catch (Exception e)
