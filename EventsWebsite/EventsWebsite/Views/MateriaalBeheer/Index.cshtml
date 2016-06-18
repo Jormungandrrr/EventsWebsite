@@ -1,5 +1,44 @@
-﻿@{
+﻿@model IEnumerable<EventsWebsite.Models.MaterialModel>
+
+@{
     ViewBag.Title = "Materiaal Beheer";
 }
 
 <h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Hired material", "HiredMaterials")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Barcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Number)
+        </th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Barcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @Html.ActionLink("Rent", "RentMaterial", new { number = item.Number })
+        </td>
+    </tr>
+}
+</table>
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+    </tr>
+</table>
