@@ -11,6 +11,7 @@ namespace EventsWebsite.Controllers
     public class ReserveerController : Controller
     {
         ReserveerDB ResDB = new ReserveerDB();
+        UserDB userdb = new UserDB();
 
 
         public ActionResult Index()
@@ -24,5 +25,15 @@ namespace EventsWebsite.Controllers
             EventModel Event = ResDB.GetEventByID(ID);
             return View(Event);
         }
+
+        public ActionResult Reservering(int AccountID , int EventID)
+        {
+
+            int persoonid = userdb.GetPersoonIDByAccountID(AccountID);
+            AccountID = (int)Session["Acountid"];
+
+            return View();
+        }
+
     }
 }

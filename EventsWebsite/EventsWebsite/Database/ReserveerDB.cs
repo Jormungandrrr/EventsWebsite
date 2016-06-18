@@ -21,9 +21,13 @@ namespace EventsWebsite.Database
 
         public EventModel GetEventByID(int ID)
         {
-
             EventModel Event = new EventModel();
             return Event;
+        }
+
+        public void InsertReservering()
+        {
+
         }
     }
 }

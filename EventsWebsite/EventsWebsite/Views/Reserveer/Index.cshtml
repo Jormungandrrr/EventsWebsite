@@ -1,0 +1,13 @@
+﻿
+@using EventsWebsite.Models;
+@model List<EventModel>
+@{
+    ViewBag.Title = "Events";
+}
+
+<h2>Events</h2>
+
+@foreach (EventModel Events in Model)
+{
+    <a href="@Url.Action("Reserveer","Event",new { id = Events.EventID})">@Events.Name></a>
+}

@@ -186,7 +186,7 @@ namespace EventsWebsite.Database
                                 {
                                     if (type == "Materiaal")
                                     {
-                                        MaterialModel m = new MaterialModel(reader.GetInt32(0), reader.GetInt32(1));
+                                        MaterialModel m = new MaterialModel(reader.GetInt32(0).ToString(), reader.GetInt32(1).ToString(), true, true);
                                         ReturnData.Add(m);
                                     }
                                     
@@ -476,7 +476,7 @@ namespace EventsWebsite.Database
                 using (
                     OracleCommand command =
                         new OracleCommand(
-                            "SELECT ExemplaarID FROM VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND v.datumin IS null",
+                            "SELECT ExemplaarID FROM VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND EventID = :ei",
                             conn)
                     )
                 {

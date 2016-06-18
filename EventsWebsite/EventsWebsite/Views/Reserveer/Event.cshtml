@@ -1,13 +1,21 @@
 ﻿@using EventsWebsite.Models;
-@model List<EventModel>
+@model EventModel
 @{
     ViewBag.Title = "Event";
 }
 
-<h2>Event</h2>
+<h2>@Model.Name</h2>
+<p>
+   Startdatum:  @Model.DateStart
+   Einddatum:   @Model.DateEnd
+   Land:        @Model.Country
+   Plaats:      @Model.City
+   Straat:      @Model.Street
+   Postcode:    @Model.Zipcode
+   Huisnummer:  @Model.HouseNumber
 
-@foreach (EventModel Events in Model)
-{
-    <a href="@Url.Action("Reserveer","Event",new { id = Events.ID})">@Events.Name></a>
-}
+    <a href="@Url.Action("Reserveer", "Reservering",new { gebruikerid = Session["Acountid"], eventid = Model.EventID})">Reserveer!></a>
+    
+</p>
+
 
