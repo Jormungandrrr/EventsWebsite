@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -621,7 +622,26 @@ namespace EventsWebsite.Database
             }
         }
 
+        public virtual bool ExecuteProcedure(string procedure)
+        {
+            using (OracleConnection con = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand(procedure,con))
+                {
+                    try
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
 
+            }
+        }
 
         protected string GetColumnParameter(Dictionary<string, string> values, bool Parameter)
         {

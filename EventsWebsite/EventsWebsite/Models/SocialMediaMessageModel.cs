@@ -11,9 +11,6 @@ namespace EventsWebsite.Models
         [Required(ErrorMessage = "Vul een bericht in")]
         [Display(Name = "Bericht")]
         public string Message { get; set; }
-        [Required(ErrorMessage = "Vul een datum in")]
-        [Display(Name = "Datum")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd-hh-mm-ss}", ApplyFormatInEditMode = true)]
         public DateTime UploadTime { get; set; }
         [Required(ErrorMessage = "Vul een berichtid in")]
         [Display(Name = "Berichtid")]

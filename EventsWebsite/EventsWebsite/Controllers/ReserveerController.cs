@@ -1,4 +1,5 @@
 ﻿using EventsWebsite.Database;
+using EventsWebsite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,19 @@ namespace EventsWebsite.Controllers
 {
     public class ReserveerController : Controller
     {
-        // GET: Reserveer
+        ReserveerDB ResDB = new ReserveerDB();
+
+
         public ActionResult Index()
         {
-            ReserveerDB ResDB = new ReserveerDB();
-            return View();
+            List<EventModel> Events = ResDB.GetEvents();
+            return View(Events);
         }
 
-        // GET: Reserveer
-        public ActionResult Event()
+        public ActionResult Event(int ID)
         {
-            return View();
+            EventModel Event = ResDB.GetEventByID(ID);
+            return View(Event);
         }
     }
 }
