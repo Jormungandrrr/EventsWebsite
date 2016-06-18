@@ -25,9 +25,17 @@ namespace EventsWebsite.Database
             return Event;
         }
 
-        public void InsertReservering()
+        public int InsertReservering(int EventID , int AccountID , int PersoonID)
         {
+            return 1;
 
         }
+        public void Insertbandjes(int ReserveringID, int AccountID, int PersoonID)
+        {
+
+
+        }
+
+
     }
 }

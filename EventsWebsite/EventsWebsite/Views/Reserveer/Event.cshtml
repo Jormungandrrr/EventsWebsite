@@ -14,7 +14,14 @@
    Postcode:    @Model.Zipcode
    Huisnummer:  @Model.HouseNumber
 
-    <a href="@Url.Action("Reserveer", "Reservering",new { gebruikerid = Session["Acountid"], eventid = Model.EventID})">Reserveer!></a>
+    Aantal personen: 
+
+
+
+    <a href="@Url.Action("Reserveer", "Reservering",new { AccountID = Session["Acountid"], eventid = Model.EventID})">Reserveer!></a>
+
+
+
     
 </p>
 

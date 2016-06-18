@@ -135,8 +135,9 @@ namespace EventsWebsite.Controllers
 
             UserDB db = new UserDB();
             db.UpdateUser(u);
-            return View("Index");
+            return View("Index",u);
 
         }
+
     }
 }

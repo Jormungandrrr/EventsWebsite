@@ -28,9 +28,16 @@ namespace EventsWebsite.Controllers
 
         public ActionResult Reservering(int AccountID , int EventID)
         {
-
-            int persoonid = userdb.GetPersoonIDByAccountID(AccountID);
             AccountID = (int)Session["Acountid"];
+            int PersoonID = userdb.GetPersoonIDByAccountID(AccountID);
+            int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID);
+
+            List<UserModel> Users = new List<UserModel>();
+
+            foreach (UserModel user in Users)
+            {
+                ResDB.Insertbandjes(ReserveringID, user.Accountid, user.PersoonId);
+            }
 
             return View();
         }
