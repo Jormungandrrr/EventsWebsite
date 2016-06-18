@@ -9,5 +9,5 @@
 
 @foreach (EventModel Events in Model)
 {
-    <a href="@Url.Action("Reserveer","Event",new { id = Events.EventID})">@Events.Name></a>
+    <a href="@Url.Action("Event","Reserveer",new { id = Events.EventID})">@Events.Name></a>
 }
