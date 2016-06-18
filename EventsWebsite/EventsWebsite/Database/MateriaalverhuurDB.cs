@@ -11,9 +11,9 @@ namespace EventsWebsite.Database
         public void ReserveMaterial(int id, string date)
         {
             Dictionary<string, string> ReserveData = new Dictionary<string, string>();
-            ReserveData.Add("VerhuurID", id.ToString());
+            //ReserveData.Add("VerhuurID", id.ToString());
             ReserveData.Add("Reservering_PolsbandjeID", "1");
-            ReserveData.Add("ExemplaarID", "1");
+            ReserveData.Add("ExemplaarID", ReadStringWithCondition("EXEMPLAAR", "ExemplaarID", "Volgnummer" , id.ToString()));
             ReserveData.Add("datumuit", date);
             ReserveData.Add("prijs", "60");
             ReserveData.Add("betaald", "1");
@@ -27,7 +27,7 @@ namespace EventsWebsite.Database
             Update("VERHUUR", ReturnData, "VerhuurID", id.ToString());
         }
 
-        public List<MaterialModel> GetAllFreeMaterial(int eventid)
+        public List<MaterialModel> GetAllFreeMaterial()
         {
             List<string> values = new List<string> { "DISTINCT(E.ExemplaarID)" };
             List<string> all = new List<string>();

@@ -8,22 +8,12 @@ namespace EventsWebsite.Models
 {
     public class MaterialModel
     {
-        [Required(ErrorMessage = "Vul een naam in")]
-        [Display(Name = "Naam")]
-        public string Name { get; set; }
-        [Required(ErrorMessage = "Vul een omschrijving in")]
-        [Display(Name = "Omschrijving")]
-        public string Description { get; set; }
-        [Required(ErrorMessage = "Vul in of het object beschadigd is")]
-        [Display(Name = "Beschadigd")]
-        public bool Damaged { get; set; }
-        [Required(ErrorMessage = "Vul in of het object is verhuurd")]
-        [Display(Name = "Gehuurd")]
-        public bool Rented { get; set; }
-
         public int Number { get; set; }
         public int Barcode { get; set; }
-
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool Damaged { get; set; }
+        public bool Rented { get; set; }
 
         public MaterialModel(string name, string description, bool damaged, bool rented)
         {
