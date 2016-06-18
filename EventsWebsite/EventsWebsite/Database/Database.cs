@@ -139,33 +139,6 @@ namespace EventsWebsite.Database
             }
         }
 
-        public virtual List<object> ReadObjects(string table, List<string> data,string type)
-        {
-            List<object> ReturnData = new List<object>();
-            string columnNames = GetColumnNames(data);
-            using (OracleConnection conn = new OracleConnection(Connectionstring))
-            {
-                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table, conn))
-                {
-                    try{
-                        command.Connection.Open();
-                        using (OracleDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-
-                            }
-                            return ReturnData;
-                        }
-                    }
-
-                    catch{}
-                    return ReturnData;
-                }
-
-            }
-        }
-
         public virtual List<object> ReadObjects(string table, List<string> data, string ConditionValue1, string ConditionValue2, string type)
         {
             List<object> ReturnData = new List<object>();

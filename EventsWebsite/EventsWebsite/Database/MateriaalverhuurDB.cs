@@ -11,7 +11,6 @@ namespace EventsWebsite.Database
         public void ReserveMaterial(int id, string date)
         {
             Dictionary<string, string> ReserveData = new Dictionary<string, string>();
-            //ReserveData.Add("VerhuurID", id.ToString());
             ReserveData.Add("Reservering_PolsbandjeID", "1");
             ReserveData.Add("ExemplaarID", ReadStringWithCondition("EXEMPLAAR", "ExemplaarID", "Volgnummer" , id.ToString()));
             ReserveData.Add("datumuit", date);
