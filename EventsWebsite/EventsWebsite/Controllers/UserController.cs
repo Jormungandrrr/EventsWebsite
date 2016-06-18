@@ -107,11 +107,11 @@ namespace EventsWebsite.Controllers
             }
 
             else
-            {
+            { 
                 return View("Accountmanagement");
         }
 
-    }
+        }
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
@@ -129,8 +129,9 @@ namespace EventsWebsite.Controllers
 
             UserDB db = new UserDB();
             db.UpdateUser(u);
-            return View("Index");
+            return View("Index",u);
 
         }
+
     }
 }
