@@ -1,0 +1,86 @@
+﻿@using EventsWebsite.Database
+@model EventsWebsite.Models.UserModel
+
+@{ 
+    
+    @Scripts.Render("~/Scripts/edit-user.js")
+    ViewBag.Title = "title";
+    UserDB userdb = new UserDB();
+    string user = $"{Model.Voornaam} {Model.tussenvoegsel} {Model.Achternaam}";
+    string address = $"{Model.Street} {Model.HouseNumber} {Model.Toevoeging}";
+    string test = Model.AccesLevelNaarNaam(1);
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Model.Username</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="../../images/user.png" class="img-circle img-responsive"> </div>
+
+                        <div class=" col-md-9 col-lg-9 ">
+                            <table class="table table-user-information">
+                                <tbody>
+                                    <tr>
+                                        <td>Naam:</td>
+                                        <td>
+                                            <p class="name">@user
+
+                                            </p>
+                                        </td>
+                                        <td>
+                                             <span><a href="#" data-original-title="Edit this user" id="name" class="edit name" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon" class="name"></i></a></span> 
+                                        </td>
+                                    </tr> 
+                                    <tr>
+                                        <td>Address:</td>
+                                        <td>
+                                            <p class="address">@address</p>
+
+                                        </td>
+                                        <td>
+                                            <span><a href="#" data-original-title="Edit this user" id="address" class="edit name" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a></span> 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Stad</td>
+                                        <td>
+                                            <p class="city">@Model.City
+
+                                            </p>
+                                        <td>
+                                            <span><a href="#" data-original-title="Edit this user" id="city" class="edit name" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a></span> 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>
+                                            <p class="email"><a href="mailto:info@support.com">@Model.Email</a>
+
+                                            </p></td>
+                                        <td>
+                                            <span><a href="#" data-original-title="Edit this user" id="email" class="edit name" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a></span> 
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel-footer">
+                  
+                        <span ><a href="edit.html" data-original-title="Edit this user"  data-toggle="tooltip" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-ok"></i> Bevestig</a></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

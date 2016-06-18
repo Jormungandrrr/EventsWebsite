@@ -39,6 +39,29 @@ namespace EventsWebsite.Models
             this.Toevoeging = toevoeging;
             this.City = city;
         }
+
+        public string AccesLevelNaarNaam(int acceslevel)
+        {
+            string accessName = "default";
+            switch (acceslevel)
+            {
+                case 1:
+                    accessName = "Gebruiker";
+                    break;
+                case 2:
+                    accessName = "Beveiliging";
+                    break;
+                case 3:
+                    accessName = "Verhuurder";
+                    break;
+                case 4:
+                    accessName = "Admin";
+                    break;
+
+            }
+
+            return accessName;
+        }
     }
 
     public class LoginViewModel
@@ -88,10 +111,6 @@ namespace EventsWebsite.Models
         public string Achternaam { get; set; }
 
         [Required]
-        [Display(Name = "Postcode")]
-        public string Postcode { get; set; }
-
-        [Required]
         [Display(Name = "Plaatsnaam")]
         public string Plaatsnaam { get; set; }
 
@@ -106,5 +125,7 @@ namespace EventsWebsite.Models
         [Required]
         [Display(Name = "Toevoeging")]
         public string Toevoeging { get; set; }
+
+
     }
 }

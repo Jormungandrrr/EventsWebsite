@@ -7,19 +7,19 @@ using EventsWebsite.Models;
 
 namespace EventsWebsite.Database
 {
-    class EventBeheerDB : Database
+    public class EventBeheerDB : Database
     {
         public bool AddEvent(EventModel model)
         {
             Dictionary<string, string> data = new Dictionary<string, string>
             {
                 {"Naam", model.Name},
-                {"Datumstart", model.DateStart.ToString()},
-                {"Datumeinde", model.DateEnd.ToString()}
+                {"Datumstart", model.DateStart.ToShortDateString()},
+                {"Datumeinde", model.DateEnd.ToShortDateString()}
             };
             Dictionary<string, string> locationdata = new Dictionary<string, string>
             {
-                { "Naam",model.Name},
+                {"Naam",model.Name},
                 {"Straat",model.Street },
                 {"postcode",model.Zipcode },
                 {"Plaats",model.City },
@@ -29,7 +29,7 @@ namespace EventsWebsite.Database
             {
                 Insert("Locatie", locationdata);
                 string locatieid = ReadStringWithCondition("Locatie", "Locatieid", "naam", model.Name);
-                data.Add("locatiedb", locatieid);
+                data.Add("locatieid", locatieid);
                 Insert("Event", data);
                 return true;
             }
@@ -41,7 +41,21 @@ namespace EventsWebsite.Database
 
         public bool DeleteEvent(int EventID)
         {
-            return false;
+            bool success = false;
+            try
+            {
+                success = Delete("Event", "EventID", EventID.ToString());
+                
+            }
+            catch
+            {
+            }
+            return success;
+        }
+
+        public List<EventModel> GetEvents()
+        {
+            return GetAllEvents();
         }
     }
 }
