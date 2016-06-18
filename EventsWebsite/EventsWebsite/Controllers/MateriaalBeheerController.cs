@@ -21,10 +21,10 @@ namespace EventsWebsite.Controllers
             return View(database.GetAllFreeMaterial());
         }
 
-        public ActionResult HireMaterial(int number)
+        public ActionResult RentMaterial(int number)
         {
             database.ReserveMaterial(number, "06-06-2016");
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", database.GetAllFreeMaterial());
         }
 
         public ActionResult HiredMaterials()
