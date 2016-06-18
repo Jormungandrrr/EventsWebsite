@@ -12,7 +12,7 @@ namespace EventsWebsite.Controllers
 {
     public class UserController : Controller
     {
-        //// GET: /Account/Login
+        // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login()
         {

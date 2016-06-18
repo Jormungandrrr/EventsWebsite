@@ -172,7 +172,7 @@
     <Compile Include="Database\SocialMediaDB.cs" />
     <Compile Include="Database\ToegangscontroleDatabase.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Database\ReserveerDB.cs" /> 
+    <Compile Include="Database\ReserveerDB.cs" />
     <Compile Include="Database\UserDB.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -249,6 +249,7 @@
     <Content Include="Views\Toegang\Granted.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\MateriaalBeheer\HiredMaterials.cshtml" />
+    <Content Include="Views\Reserveer\Reservering.cshtml" />
     <None Include="Views\User\Accountmanagement.cshtml" />
     <None Include="Views\User\EditProfile.cshtml" />
     <Content Include="Views\EventBeheer\CreateEvent.cshtml" />

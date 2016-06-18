@@ -26,18 +26,25 @@ namespace EventsWebsite.Controllers
             return View(Event);
         }
 
-        public ActionResult Reservering(int AccountID , int EventID)
+
+        // GET: /Reserveer/LoginReservering
+        public ActionResult Reservering()
         {
-            AccountID = (int)Session["Acountid"];
-            int PersoonID = userdb.GetPersoonIDByAccountID(AccountID);
-            int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID);
+            return View();
+        }
 
-            List<UserModel> Users = new List<UserModel>();
+        // POST: /Reserveer/LoginReservering
+        [HttpPost]
+        public ActionResult Reservering(ReserveringUsers Users)
+        {
+            //int AccountID = (int)Session["Acountid"];
+            //int PersoonID = userdb.GetPersoonIDByAccountID(AccountID);
+            //int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID , Aantal);
 
-            foreach (UserModel user in Users)
-            {
-                ResDB.Insertbandjes(ReserveringID, user.Accountid, user.PersoonId);
-            }
+            //foreach (ReserveringUsers Gebruiker in Gebruikers)
+            //{
+            //    ResDB.Insertbandjes(ReserveringID, user.Accountid, user.PersoonId);
+            //}
 
             return View();
         }
