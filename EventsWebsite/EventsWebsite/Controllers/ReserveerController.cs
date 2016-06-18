@@ -11,6 +11,7 @@ namespace EventsWebsite.Controllers
     public class ReserveerController : Controller
     {
         ReserveerDB ResDB = new ReserveerDB();
+        UserDB userdb = new UserDB();
 
 
         public ActionResult Index()
@@ -24,5 +25,22 @@ namespace EventsWebsite.Controllers
             EventModel Event = ResDB.GetEventByID(ID);
             return View(Event);
         }
+
+        public ActionResult Reservering(int AccountID , int EventID)
+        {
+            AccountID = (int)Session["Acountid"];
+            int PersoonID = userdb.GetPersoonIDByAccountID(AccountID);
+            int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID);
+
+            List<UserModel> Users = new List<UserModel>();
+
+            foreach (UserModel user in Users)
+            {
+                ResDB.Insertbandjes(ReserveringID, user.Accountid, user.PersoonId);
+            }
+
+            return View();
+        }
+
     }
 }

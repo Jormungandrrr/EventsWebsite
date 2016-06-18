@@ -68,5 +68,11 @@ namespace EventsWebsite.Database
             UpdateData.Add("woonplaats", User.City);
             Update("persoon", UpdateData, "accountid", ReadStringWithCondition("Account", "accountid", "gebruikersnaam", User.Username));
         }
+
+        public int GetPersoonIDByAccountID(int AccountID)
+        {
+            int PersoonID = 1;
+            return PersoonID;
+        }
     }
 }
