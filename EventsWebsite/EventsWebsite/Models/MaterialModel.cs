@@ -11,6 +11,14 @@ namespace EventsWebsite.Models
         public int Number { get; set; }
         public int Barcode { get; set; }
 
+        public MaterialModel(string name, string description, bool damaged, bool rented)
+        {
+            Name = name;
+            Description = description;
+            Damaged = damaged;
+            Rented = rented;
+        }
+
         public MaterialModel(int number, int barcode)
         {
             Number = number;
