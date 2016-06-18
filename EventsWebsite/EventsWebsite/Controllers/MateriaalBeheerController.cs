@@ -23,7 +23,7 @@ namespace EventsWebsite.Controllers
 
         public ActionResult RentMaterial(int number)
         {
-            database.ReserveMaterial(number, "06-06-2016");
+            database.ReserveMaterial(number, DateTime.Now.ToString("d"));
             return RedirectToAction("Index", database.GetAllFreeMaterial());
         }
 
@@ -38,8 +38,10 @@ namespace EventsWebsite.Controllers
 
         public ActionResult ReturnMaterial(int number)
         {
-            
-            database.ReturnMaterial(database.GetMaterial(1), DateTime.Now.ToString());
+            string exemplaarid = database.ReadStringWithCondition("EXEMPLAAR", "ExemplaarID", "Volgnummer", number.ToString());
+            string test = (exemplaarid + " AND datumin IS NULL");
+            string verhuurid = database.ReadStringWithCondition("VERHUUR", "verhuurid", "ExemplaarID", test);
+            database.ReturnMaterial(Convert.ToInt32(verhuurid), DateTime.Now.ToString("d"));
             return View("HiredMaterials", database.GetAllHiredMaterial(1));
         }
     }
