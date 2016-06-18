@@ -12,7 +12,7 @@ namespace EventsWebsite.Controllers
 {
     public class UserController : Controller
     {
-        //// GET: /Account/Login
+        // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login()
         {
@@ -135,8 +135,9 @@ namespace EventsWebsite.Controllers
 
             UserDB db = new UserDB();
             db.UpdateUser(u);
-            return View("Index");
+            return View("Index",u);
 
         }
+
     }
 }

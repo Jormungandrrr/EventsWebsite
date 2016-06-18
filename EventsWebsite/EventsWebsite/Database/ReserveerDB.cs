@@ -12,8 +12,6 @@ namespace EventsWebsite.Database
         {
             List<EventModel> Events = new List<EventModel>();
 
-
-
             EventModel Event = new EventModel();
             Events.Add(Event);
             return Events;
@@ -25,10 +23,9 @@ namespace EventsWebsite.Database
             return Event;
         }
 
-        public int InsertReservering(int EventID , int AccountID , int PersoonID)
+        public int InsertReservering(int EventID , int AccountID , int PersoonID , int aantal)
         {
             return 1;
-
         }
         public void Insertbandjes(int ReserveringID, int AccountID, int PersoonID)
         {
