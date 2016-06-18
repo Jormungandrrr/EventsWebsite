@@ -1,7 +1,12 @@
 ﻿@using EventsWebsite.Models;
 @model UserModel
 @{
-    UserModel u = Model; 
+        string user = $"{Model.Voornaam} {Model.tussenvoegsel} {Model.Achternaam}";
+        string address = $"{Model.Street} {Model.HouseNumber} {Model.Toevoeging}";
+        string test =  Model.AccesLevelNaarNaam(1);
+}
+
+
 }
 
 <div class="container">
@@ -15,49 +20,40 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
+                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="../../images/user.png" class="img-circle img-responsive"> </div>
 
                         <div class=" col-md-9 col-lg-9 ">
                             <table class="table table-user-information">
                                 <tbody>
                                     <tr>
                                         <td>Naam:</td>
-                                        <td></td>
+                                        <td>@user</td>
                                     </tr>
                                     <tr>
-                                        <td>Hire date:</td>
-                                        <td></td>
+                                        <td>Address:</td>
+                                        <td>@address</td>
                                     </tr>
                                     <tr>
                                         <td>Stad</td>
-                                        <td></td>
+                                        <td>@Model.City</td>
                                     </tr>
-
-                                    <tr>
                                     <tr>
                                         <td>Address</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Home Address</td>
-                                        <td>Metro Manila,Philippines</td>
+                                        <td>@address</td>
                                     </tr>
                                     <tr>
                                         <td>Email</td>
-                                        <td><a href="mailto:info@support.com">info@support.com</a></td>
+                                        <td><a href="mailto:info@support.com">@Model.Email</a></td>
                                     </tr>
-                                <td>Phone Number</td>
+                                <td>Rol</td>
                                 <td>
-                                    123-4567-890(Landline)<br><br>555-4567-890(Mobile)
+                                    @test
                                 </td>
 
-                                </tr>
 
                                 </tbody>
                             </table>
 
-                            <a href="#" class="btn btn-primary">My Sales Performance</a>
-                            <a href="#" class="btn btn-primary">Team Sales Performance</a>
                         </div>
                     </div>
                 </div>

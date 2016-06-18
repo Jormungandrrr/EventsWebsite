@@ -207,6 +207,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\edit-user.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -244,6 +245,8 @@
     <Content Include="Views\Toegang\Denied.cshtml" />
     <Content Include="Views\Toegang\Granted.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <None Include="Views\User\Accountmanagement.cshtml" />
+    <None Include="Views\User\EditProfile.cshtml" />
     <Content Include="Views\EventBeheer\CreateEvent.cshtml" />
     <None Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
