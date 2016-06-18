@@ -169,6 +169,7 @@
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\EventBeheerDB.cs" />
     <Compile Include="Database\MateriaalverhuurDB.cs" />
+    <Compile Include="Database\SocialMediaDB.cs" />
     <Compile Include="Database\ToegangscontroleDatabase.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Database\ReserveerDB.cs" />
