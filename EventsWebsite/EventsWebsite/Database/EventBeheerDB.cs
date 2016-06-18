@@ -57,14 +57,26 @@ namespace EventsWebsite.Database
         {
             return GetAllEvents();
         }
-        public List<object> GetOngoingEvents()
+        public List<EventModel> GetOngoingEvents()
         {
             List<string> data = new List<string>();
+            List<EventModel> events = new List<EventModel>();
+            data.Add("eventid");
             data.Add("naam");
             data.Add("datumstart");
             data.Add("datumeinde");
             data.Add("maxbezoekers");
-            return ReadObjects("Event", data, "datumeinde < " + "'"+ DateTime.Now.ToString("dd/MMM/yyyy") + "'", "Event");
+            foreach (EventModel e in ReadObjects("Event", data, "datumeinde < " + "'" + DateTime.Now.ToString("dd/MMM/yyyy") + "'", "Event"))
+            {
+               int bezoekers = Count("reservering r join plek_reservering pr on r.reserveringid = pr.reserveringid join plek p on pr.plekid = p.plekid join locatie l on p.locatieid = l.locatieid join event e on l.locatieid = e.locatieid", "*", "e.eventid", e.EventID.ToString());
+                if (bezoekers < e.MaxBezoekers)
+                {
+                    events.Add(e);
+                }
+            }
+            return events;
         }
+
+
     }
 }

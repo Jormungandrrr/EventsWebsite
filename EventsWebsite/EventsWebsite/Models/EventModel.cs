@@ -53,8 +53,9 @@ namespace EventsWebsite.Models
         public EventModel()
         {
         }
-        public EventModel(string naam, DateTime start, DateTime einde, int maxBezoekers )
+        public EventModel(int id, string naam, DateTime start, DateTime einde, int maxBezoekers )
         {
+            this.EventID = id;
             this.Name = naam;
             this.DateStart = start;
             this.DateEnd = einde;

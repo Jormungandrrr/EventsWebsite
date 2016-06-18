@@ -44,7 +44,7 @@ namespace EventsWebsite.Database
             }
             foreach (int id in ids)
             {
-                material = ReadExemplarenModel("EXEMPLAAR", all, "ExemplaarID", id.ToString());
+                material = (MaterialModel)ReadObjectWithCondition("EXEMPLAAR", all, "ExemplaarID", id.ToString(),"Exemplaar");
                 materials.Add(material);
             }
             return materials;

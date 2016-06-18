@@ -15,10 +15,14 @@ namespace EventsWebsite.Database.Tests
         [TestMethod()]
         public void GetOngoingEventsTest()
         {
+            int countevents = 0;
             List<EventModel> events = new List<EventModel>();
             EventBeheerDB edb = new EventBeheerDB();
-            edb.GetOngoingEvents();
-            Assert.Fail();
+            foreach (EventModel em in edb.GetOngoingEvents())
+            {
+                countevents++;
+            }
+            Assert.AreEqual(1,countevents);
         }
     }
 }

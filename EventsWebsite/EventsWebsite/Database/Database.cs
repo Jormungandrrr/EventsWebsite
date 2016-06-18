@@ -193,6 +193,11 @@ namespace EventsWebsite.Database
                                         MaterialModel m = new MaterialModel(reader.GetInt32(0).ToString(), reader.GetInt32(1).ToString(), true, true);
                                         ReturnData.Add(m);
                                     }
+                                    if (type == "thumbnail")
+                                    {
+                                        Thumbnail add = new Thumbnail(reader.GetInt32(0), reader.GetString(1),reader.GetString(2), reader.GetString(3), reader.GetString(4),reader.GetString(5),reader.GetInt32(6));
+                                        ReturnData.Add(add);
+                                    }
                                     
                                 }
                             }
@@ -239,7 +244,7 @@ namespace EventsWebsite.Database
                                     }
                                     else if (type == "Event")
                                     {
-                                        EventModel e = new EventModel(reader.GetString(0),reader.GetDateTime(1),reader.GetDateTime(2),reader.GetInt32(3));
+                                        EventModel e = new EventModel(reader.GetInt32(0),reader.GetString(1),reader.GetDateTime(2),reader.GetDateTime(3),reader.GetInt32(4));
                                         ReturnData.Add(e);
                                     }
 
@@ -261,46 +266,6 @@ namespace EventsWebsite.Database
                 }
 
             }
-        }
-
-        public virtual MaterialModel ReadExemplarenModel(string table, List<string> data, string ConditionValue1, string ConditionValue2)
-        {
-            MaterialModel ReturnData = null;
-            string columnNames = GetColumnNames(data);
-            using (OracleConnection conn = new OracleConnection(Connectionstring))
-            {
-                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE " + ConditionValue1 + " = " + ConditionValue2, conn))
-                {
-                    command.BindByName = true;
-                    try
-                    {
-                        command.Connection.Open();
-                        using (OracleDataReader reader = command.ExecuteReader())
-                        {
-                            try
-                            {
-                                while (reader.Read())
-                                {
-                                    MaterialModel m = new MaterialModel(reader.GetInt32(0), reader.GetInt32(1));
-                                    ReturnData = m;
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                MessageBox.Show(e.Message);
-                            }
-                            return ReturnData;
-                        }
-                    }
-
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message);
-                    }
-                    return ReturnData;
-                }
-
-            } 
         }
 
         public virtual List<Thumbnail> GetThumbnails(string table, List<string> data, string ConditionValue1, string ConditionValue2, string type)
@@ -369,6 +334,12 @@ namespace EventsWebsite.Database
                                     UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), Convert.ToInt32(reader[7]), reader[8].ToString(), reader[9].ToString());
                                     ReturnData = user;
                                 }
+                                if (type == "Exemplaar")
+                                {
+                                    MaterialModel m = new MaterialModel(reader.GetInt32(0), reader.GetInt32(1));
+                                    ReturnData = m;
+                                }
+                                
                             }
                             return ReturnData;
                         }

@@ -29,7 +29,7 @@ namespace EventsWebsite.Controllers
         public ActionResult Reservering(int AccountID , int EventID)
         {
             AccountID = (int)Session["Acountid"];
-            int PersoonID = userdb.GetPersoonIDByAccountID(AccountID);
+            int PersoonID = Convert.ToInt32(userdb.ReadStringWithCondition("account","persoonid","accountid", AccountID.ToString()));
             int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID);
 
             List<UserModel> Users = new List<UserModel>();
