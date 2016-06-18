@@ -8,16 +8,25 @@ namespace EventsWebsite.Models
 {
     public class SocialMediaMessageModel
     {
+        [Required(ErrorMessage = "Vul een titel voor je bericht in")]
+        [Display(Name = "Titel")]
+        public string Title { get; set; }
         [Required(ErrorMessage = "Vul een bericht in")]
         [Display(Name = "Bericht")]
+        [DataType(DataType.MultilineText)]
         public string Message { get; set; }
+
+        [DataType(DataType.Upload)]
+        [Display(Name="Bijlage")]
+        public HttpPostedFileBase FileUpload { get; set; }
+
         public DateTime UploadTime { get; set; }
-        [Required(ErrorMessage = "Vul een berichtid in")]
-        [Display(Name = "Berichtid")]
         public int Messageid { get; set; }
-        [Required(ErrorMessage = "Vul een gebruikernaam in")]
-        [Display(Name = "Gebruikernaam")]
         public string Username { get; set; }
+
+        public SocialMediaMessageModel()
+        {
+        }
 
         public SocialMediaMessageModel(string message, DateTime uploadTime, int messageid, string username)
         {

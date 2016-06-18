@@ -621,18 +621,49 @@ namespace EventsWebsite.Database
                 }
             }
         }
-
-        public virtual bool ExecuteProcedure(string procedure)
+        public virtual bool AddMessage(string procedure, string titel, string inhoud, int userid)
         {
             using (OracleConnection con = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand(procedure,con))
+                using (OracleCommand command = new OracleCommand(procedure, con))
                 {
                     try
                     {
+                        con.Open();
                         command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("Return", OracleDbType.Int32, ParameterDirection.ReturnValue);
+                        command.Parameters.Add("t_title", OracleDbType.Varchar2, titel, ParameterDirection.Input);
+                        command.Parameters.Add("t_message", OracleDbType.Varchar2, inhoud, ParameterDirection.Input);
+                        command.Parameters.Add("t_sender", OracleDbType.Int32, userid, ParameterDirection.Input);
                         command.ExecuteNonQuery();
-                        return true;
+                        int ret = Convert.ToInt32(command.Parameters["Return"].ToString());
+                        return ret == 1;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+
+            }
+        }
+        public virtual bool AddFile(string procedure, string floc, int fsize, int userid)
+        {
+            using (OracleConnection con = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand(procedure, con))
+                {
+                    try
+                    {
+                        con.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("Return", OracleDbType.Int32, ParameterDirection.ReturnValue);
+                        command.Parameters.Add("t_bestandlocatie", OracleDbType.Varchar2, floc, ParameterDirection.Input);
+                        command.Parameters.Add("t_message", OracleDbType.Int32, fsize, ParameterDirection.Input);
+                        command.Parameters.Add("t_sender", OracleDbType.Int32, userid, ParameterDirection.Input);
+                        command.ExecuteNonQuery();
+                        int ret = Convert.ToInt32(command.Parameters["Return"].ToString());
+                        return ret == 1;
                     }
                     catch
                     {
