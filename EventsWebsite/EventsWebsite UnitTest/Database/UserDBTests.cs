@@ -37,5 +37,16 @@ namespace EventsWebsite.Database.Tests
             UDB.UpdateUser(testuser);
             Assert.AreEqual(UDB.GetPerson("Mvg013").Email, "Marc@Marc.com");
         }
+
+        [TestMethod()]
+        public void GetAllUsersTest()
+        {
+            int usercount = 0;
+            foreach (UserModel user in UDB.GetAllUsers())
+            {
+                usercount++;
+            }
+            Assert.AreEqual(12, usercount);
+        }
     }
 }

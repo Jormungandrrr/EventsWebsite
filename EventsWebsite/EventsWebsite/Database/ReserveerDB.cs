@@ -8,22 +8,18 @@ namespace EventsWebsite.Database
 {
     public class ReserveerDB : Database
     {
-        public List<EventModel> GetEvents()
+
+        public int InsertReservering(int EventID , int AccountID , int PersoonID , int aantal)
         {
-            List<EventModel> Events = new List<EventModel>();
-
-
-
-            EventModel Event = new EventModel();
-            Events.Add(Event);
-            return Events;
+            int ReserveringID = 1; // = databasemethode
+            return ReserveringID;
         }
-
-        public EventModel GetEventByID(int ID)
+        public void Insertbandjes(int ReserveringID, string Gebruikersnaam)
         {
 
-            EventModel Event = new EventModel();
-            return Event;
+
         }
+
+
     }
 }

@@ -85,7 +85,7 @@ namespace EventsWebsite.Database
             string ReturnData = "";
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand("SELECT " + column + " FROM " + table + " WHERE " + ConditionValue1 + " = :Condition2", conn))
+                using (OracleCommand command = new OracleCommand("SELECT " + column + " FROM " + table + " WHERE " + ConditionValue1 + " = " + ConditionValue2, conn))
                 {
                     command.BindByName = true;
                     command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
@@ -153,7 +153,11 @@ namespace EventsWebsite.Database
                         {
                             while (reader.Read())
                             {
-
+                                if (type == "User")
+                                {
+                                    UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), Convert.ToInt32(reader[7]), reader[8].ToString(), reader[9].ToString());
+                                    ReturnData.Add(user);
+                                }
                             }
                             return ReturnData;
                         }
@@ -186,8 +190,13 @@ namespace EventsWebsite.Database
                                 {
                                     if (type == "Materiaal")
                                     {
-                                        MaterialModel m = new MaterialModel(reader.GetInt32(0).ToString(), reader.GetInt32(1).ToString(), true, true);
+                                        MaterialModel m = new MaterialModel(reader.GetInt32(0), reader.GetInt32(1));
                                         ReturnData.Add(m);
+                                    }
+                                    else if (type == "thumbnail")
+                                    {
+                                        Thumbnail add = new Thumbnail(reader.GetInt32(0), reader.GetString(1),reader.GetString(2), reader.GetString(3), reader.GetString(4),reader.GetString(5),reader.GetInt32(6));
+                                        ReturnData.Add(add);
                                     }
                                     
                                 }
@@ -210,13 +219,13 @@ namespace EventsWebsite.Database
             }
         }
 
-        public virtual MaterialModel ReadExemplarenModel(string table, List<string> data, string ConditionValue1, string ConditionValue2)
+        public virtual List<object> ReadObjects(string table, List<string> data, string Where, string type)
         {
-            MaterialModel ReturnData = null;
+            List<object> ReturnData = new List<object>();
             string columnNames = GetColumnNames(data);
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE " + ConditionValue1 + " = " + ConditionValue2, conn))
+                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE " + Where, conn))
                 {
                     command.BindByName = true;
                     try
@@ -228,8 +237,17 @@ namespace EventsWebsite.Database
                             {
                                 while (reader.Read())
                                 {
-                                    MaterialModel m = new MaterialModel(reader.GetInt32(0), reader.GetInt32(1));
-                                    ReturnData = m;
+                                    if (type == "Materiaal")
+                                    {
+                                        MaterialModel m = new MaterialModel(reader.GetInt32(0).ToString(), reader.GetInt32(1).ToString(), true, true);
+                                        ReturnData.Add(m);
+                                    }
+                                    else if (type == "Event")
+                                    {
+                                        EventModel e = new EventModel(reader.GetInt32(0),reader.GetString(1),reader.GetDateTime(2),reader.GetDateTime(3),reader.GetInt32(4));
+                                        ReturnData.Add(e);
+                                    }
+
                                 }
                             }
                             catch (Exception e)
@@ -247,7 +265,7 @@ namespace EventsWebsite.Database
                     return ReturnData;
                 }
 
-            } 
+            }
         }
 
         public virtual List<Thumbnail> GetThumbnails(string table, List<string> data, string ConditionValue1, string ConditionValue2, string type)
@@ -316,6 +334,17 @@ namespace EventsWebsite.Database
                                     UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), Convert.ToInt32(reader[7]), reader[8].ToString(), reader[9].ToString());
                                     ReturnData = user;
                                 }
+                                else if (type == "Exemplaar")
+                                {
+                                    MaterialModel m = new MaterialModel(reader.GetInt32(0), reader.GetInt32(1));
+                                    ReturnData = m;
+                                }
+                                else if (type == "Event")
+                                {
+                                    EventModel e = new EventModel(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetInt32(4));
+                                    ReturnData = e;
+                                }
+
                             }
                             return ReturnData;
                         }
@@ -326,32 +355,6 @@ namespace EventsWebsite.Database
             } 
 
         }
-        }
-
-        public virtual List<string> ReadWithCondition(string table, List<string> data, string ConditionValue1, string ConditionValue2)
-        {
-            string ColumNames = GetColumnNames(data);
-            List<string> ReturnData = new List<string>();
-            using (OracleConnection conn = new OracleConnection(Connectionstring))
-            {
-                using (OracleCommand command = new OracleCommand("SELECT " + ColumNames + " FROM " + table + " WHERE " + ConditionValue1 + " = :Condition2", conn))
-                {
-                    command.BindByName = true;
-                    command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
-                    command.Connection.Open();
-                    using (OracleDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            foreach (string v in data)
-                            {
-                                ReturnData.Add(Convert.ToString(reader[v]));
-                            }
-                        }
-                        return ReturnData;
-                    }
-                }
-            }
         }
 
         public virtual List<string> ReadWithCondition(string table, List<string> data, string ConditionValue1, string ConditionValue2, string ConditionValue3)
@@ -476,7 +479,7 @@ namespace EventsWebsite.Database
                 using (
                     OracleCommand command =
                         new OracleCommand(
-                            "SELECT ExemplaarID FROM VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND EventID = :ei",
+                            "SELECT DISTINCT(ExemplaarID) FROM VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND v.datumin IS NULL",
                             conn)
                     )
                 {

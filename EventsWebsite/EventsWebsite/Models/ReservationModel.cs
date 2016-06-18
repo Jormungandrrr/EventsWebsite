@@ -34,4 +34,27 @@ namespace EventsWebsite.Models
             throw new NotImplementedException();
         }
     }
+        public class ReserveringUsers
+        {
+            [Display(Name = "Gebruikersnaam")]
+            public string Gebruikersnaam1 { get; set; }
+
+            [Display(Name = "Gebruikersnaam")]
+            public string Gebruikersnaam2 { get; set; }
+
+            [Display(Name = "Gebruikersnaam")]
+            public string Gebruikersnaam3 { get; set; }
+        
+            [Display(Name = "Gebruikersnaam")]
+            public string Gebruikersnaam4 { get; set; }
+
+            [Display(Name = "Gebruikersnaam")]
+            public string Gebruikersnaam5 { get; set; }
+
+            [Display(Name = "Gebruikersnaam")]
+            public string Gebruikersnaam6 { get; set; }
+
+            [Display(Name = "Gebruikersnaam")]
+            public string Gebruikersnaam7 { get; set; }
+        }
 }

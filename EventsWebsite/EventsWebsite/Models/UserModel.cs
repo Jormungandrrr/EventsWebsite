@@ -40,6 +40,11 @@ namespace EventsWebsite.Models
             this.City = city;
         }
 
+        public UserModel()
+        {
+            
+        }
+
         public string AccesLevelNaarNaam(int acceslevel)
         {
             string accessName = "default";
@@ -57,7 +62,6 @@ namespace EventsWebsite.Models
                 case 4:
                     accessName = "Admin";
                     break;
-
             }
 
             return accessName;

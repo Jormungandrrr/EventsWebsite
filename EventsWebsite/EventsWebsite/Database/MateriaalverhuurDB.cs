@@ -11,9 +11,8 @@ namespace EventsWebsite.Database
         public void ReserveMaterial(int id, string date)
         {
             Dictionary<string, string> ReserveData = new Dictionary<string, string>();
-            //ReserveData.Add("VerhuurID", id.ToString());
             ReserveData.Add("Reservering_PolsbandjeID", "1");
-            ReserveData.Add("ExemplaarID", ReadStringWithCondition("EXEMPLAAR", "ExemplaarID", "Number" , id.ToString()));
+            ReserveData.Add("ExemplaarID", ReadStringWithCondition("EXEMPLAAR", "ExemplaarID", "Volgnummer" , id.ToString()));
             ReserveData.Add("datumuit", date);
             ReserveData.Add("prijs", "60");
             ReserveData.Add("betaald", "1");
@@ -29,14 +28,14 @@ namespace EventsWebsite.Database
 
         public List<MaterialModel> GetAllFreeMaterial()
         {
-            List<string> values = new List<string> { "DISTINCT(E.ExemplaarID)" };
+            List<string> values = new List<string> { "DISTINCT(V.ExemplaarID)" };
             List<string> all = new List<string>();
             all.Add("volgnummer");
             all.Add("barcode");
             List<MaterialModel> materials = new List<MaterialModel>();
             List<int> ids = new List<int>();
             MaterialModel material;
-            List<string> idsfree = ReadWithConditionNotIN("EXEMPLAAR E, VERHUUR V", values, " V.datumin = null OR E.ExemplaarID", "ExemplaarID", "VERHUUR");
+            List<string> idsfree = ReadWithConditionNotIN("EXEMPLAAR E, VERHUUR V", values, " V.ExemplaarID NOT IN(SELECT ExemplaarID FROM VERHUUR WHERE datumin is null) OR E.ExemplaarID ", "ExemplaarID", "VERHUUR");
             foreach (string id in idsfree)
             {
                 int a = Convert.ToInt32(id);
@@ -44,7 +43,7 @@ namespace EventsWebsite.Database
             }
             foreach (int id in ids)
             {
-                material = ReadExemplarenModel("EXEMPLAAR", all, "ExemplaarID", id.ToString());
+                material = (MaterialModel)ReadObjectWithCondition("EXEMPLAAR", all, "ExemplaarID", id.ToString(),"Exemplaar");
                 materials.Add(material);
             }
             return materials;
