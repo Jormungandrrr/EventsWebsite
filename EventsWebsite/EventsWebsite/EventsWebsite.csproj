@@ -162,6 +162,7 @@
     <Compile Include="Controllers\GebruikerBeheerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MateriaalBeheerController.cs" />
+    <Compile Include="Controllers\ReserveerController.cs" />
     <Compile Include="Controllers\SocialMediaController.cs" />
     <Compile Include="Controllers\ToegangController.cs" />
     <Compile Include="Database\DashboardDB.cs" />
@@ -244,6 +245,8 @@
     <Content Include="Views\Toegang\Denied.cshtml" />
     <Content Include="Views\Toegang\Granted.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Reserveer\Reserveer.cshtml" />
+    <Content Include="Views\Reserveer\Event.cshtml" />
     <None Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
