@@ -12,17 +12,25 @@ namespace EventsWebsite.Database.Tests
     [TestClass()]
     public class EventbeheerTests
     {
+        EventBeheerDB edb = new EventBeheerDB();
         [TestMethod()]
         public void GetOngoingEventsTest()
         {
             int countevents = 0;
             List<EventModel> events = new List<EventModel>();
-            EventBeheerDB edb = new EventBeheerDB();
             foreach (EventModel em in edb.GetOngoingEvents())
             {
                 countevents++;
             }
-            Assert.AreEqual(1,countevents);
+            Assert.AreEqual(1, countevents);
+        }
+
+        [TestMethod()]
+        public void GetEventByIdTest()
+        {
+           EventModel evenement = edb.GetEventById(1);
+           Assert.AreEqual("Testevent",evenement.Name);
+           
         }
     }
 }

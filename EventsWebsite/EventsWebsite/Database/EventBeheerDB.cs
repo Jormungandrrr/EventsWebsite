@@ -77,6 +77,15 @@ namespace EventsWebsite.Database
             return events;
         }
 
-
+        public EventModel GetEventById(int eventid)
+        {
+            List<string> eventdata = new List<string>();
+            eventdata.Add("eventid");
+            eventdata.Add("naam");
+            eventdata.Add("datumstart");
+            eventdata.Add("datumeinde");
+            eventdata.Add("maxbezoekers");
+            return (EventModel)ReadObjectWithCondition("Event", eventdata, "eventid",eventid.ToString(),"Event");
+        }
     }
 }
