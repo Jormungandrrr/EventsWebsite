@@ -606,6 +606,38 @@ namespace EventsWebsite.Database
             return ReturnData;
         }
 
+        public virtual List<EventModel> GetAllEvents()
+        {
+            List<EventModel> returnData = new List<EventModel>();
+            try
+            {
+                using (OracleConnection conn = new OracleConnection(Connectionstring))
+                {
+                    conn.Open();
+                    using (
+                        OracleCommand command =
+                            new OracleCommand(
+                                "SELECT eventid, event.naam, datumstart,datumeinde, plaats FROM event, locatie WHERE event.locatieid = locatie.locatieid",
+                                conn))
+                    {
+                        OracleDataReader dr = command.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            EventModel add = new EventModel();
+                            add.EventID = dr.GetInt32(0);
+                            add.Name = dr.GetString(1);
+                            add.DateStart = dr.GetDateTime(2);
+                            add.DateEnd = dr.GetDateTime(3);
+                            add.City = dr.GetString(4);
+                            returnData.Add(add);
+                        }
+                    }
+                }
+            }
+            catch { }
+            return returnData;
+        }
+
         public virtual bool Delete(string table, string where, string equals)
         {
             using (OracleConnection conn = new OracleConnection(Connectionstring))
@@ -616,8 +648,6 @@ namespace EventsWebsite.Database
                     try
                     {
                         conn.Open();
-                        //command.Parameters.Add("table", table);
-                        //command.Parameters.Add("condition", where);
                         command.Parameters.Add("value", equals);
                         command.ExecuteNonQuery();
                         return true;
