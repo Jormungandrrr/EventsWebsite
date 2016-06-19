@@ -10,7 +10,7 @@ namespace EventsWebsite.Database
     {
         public bool HasAccess(int barcode)
         {
-            int exists = CountAccess(barcode);
+            int exists = Count("EVENT e, LOCATIE l, PLEK p, PLEK_RESERVERING pr, RESERVERING r, RESERVERING_POLSBANDJE rp, POLSBANDJE pb WHERE e.LocatieID = L.LocatieID AND p.LocatieID = L.LocatieID AND pr.PlekID = p.PlekID AND r.ReserveringID = pr.ReserveringID AND rp.ReserveringID = r.ReserveringID AND pb.PolsbandjeID = rp.PolsbandjeID","*","barcode",barcode.ToString());
             return exists == 1;
         }
 

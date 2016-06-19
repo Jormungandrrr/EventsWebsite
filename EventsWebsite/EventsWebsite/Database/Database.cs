@@ -14,7 +14,7 @@ namespace EventsWebsite.Database
 {
     public abstract class Database
     { 
-        static string Connectionstring = @"Data Source = (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = fhictora01.fhict.local)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = fhictora))); User ID = dbi331842; PASSWORD =CZSKUvxUUs;";
+        public static string Connectionstring = @"Data Source = (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = fhictora01.fhict.local)(PORT = 1521)))(CONNECT_DATA = (SERVER = DEDICATED)(SERVICE_NAME = fhictora))); User ID = dbi331842; PASSWORD =CZSKUvxUUs;";
 
         public virtual void Insert(string table, Dictionary<string, string> values)
         {
@@ -352,13 +352,13 @@ namespace EventsWebsite.Database
         }
 
 
-        public virtual object ReadObjectWithCondition(string table, List<string> data, string ConditionValue1, string ConditionValue2, string type)
+        public virtual object ReadObjectWithCondition(string table, List<string> data, string ConditionValue1,string operation, string ConditionValue2, string type)
         {
             object ReturnData = new object();
             string columnNames = GetColumnNames(data);
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE "+ ConditionValue1 + " = :Condition2", conn))
+                using (OracleCommand command = new OracleCommand("SELECT " + columnNames + " FROM " + table + " WHERE "+ ConditionValue1 + " "+operation+" " + ":Condition2", conn))
                 {
                     command.BindByName = true;
                     command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
@@ -478,71 +478,7 @@ namespace EventsWebsite.Database
             }
         }
 
-        public virtual int CountAccess(int barcode)
-        {
-            int ReturnData = 0;
-            using (OracleConnection conn = new OracleConnection(Connectionstring))
-            {
-                using (
-                    OracleCommand command =
-                        new OracleCommand(
-                            "SELECT COUNT(*) FROM EVENT e, LOCATIE l, PLEK p, PLEK_RESERVERING pr, RESERVERING r, RESERVERING_POLSBANDJE rp, POLSBANDJE pb WHERE e.LocatieID = L.LocatieID AND p.LocatieID = L.LocatieID AND pr.PlekID = p.PlekID AND r.ReserveringID = pr.ReserveringID AND rp.ReserveringID = r.ReserveringID AND pb.PolsbandjeID = rp.PolsbandjeID AND barcode = :bc",
-                            conn)
-                    )
-                {
-                    command.BindByName = true;
-                    command.Parameters.Add(":bc", barcode);
-                    try
-                    {
-                        conn.Open();
-                        using (OracleDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                ReturnData = reader.GetInt32(0);
-                            }
-                        } 
-                    }
-                    catch
-                    {
-                    }
-                }
-            }
-            return ReturnData;
-        }
-
-        public virtual List<int> GetMaterial(int eventid)
-        {
-            List<int> ReturnData = new List<int>();
-            using (OracleConnection conn = new OracleConnection(Connectionstring))
-            {
-                using (
-                    OracleCommand command =
-                        new OracleCommand(
-                            "SELECT DISTINCT(ExemplaarID) FROM VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND v.datumin IS NULL",
-                            conn)
-                    )
-                {
-                    command.BindByName = true;
-                    command.Parameters.Add(":ei", eventid);
-                    try
-                    {
-                        conn.Open();
-                        using (OracleDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                ReturnData.Add(reader.GetInt32(0));
-                            }
-                        }
-                    }
-                    catch
-                    {
-                    }
-                }
-            }
-            return ReturnData;
-        }
+        
 
         public virtual bool Delete(string table, string where, string equals)
         {
@@ -565,244 +501,7 @@ namespace EventsWebsite.Database
                 }
             }
         }
-        public virtual bool AddMessage(string procedure, string titel, string inhoud, int userid)
-        {
-            using (OracleConnection con = new OracleConnection(Connectionstring))
-            {
-                using (OracleCommand command = new OracleCommand(procedure, con))
-                {
-                    try
-                    {
-                        con.Open();
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.BindByName = true;
-                        command.Parameters.Add("t_title", OracleDbType.Varchar2, titel, ParameterDirection.Input);
-                        command.Parameters.Add("t_message", OracleDbType.Varchar2, inhoud, ParameterDirection.Input);
-                        command.Parameters.Add("t_sender", OracleDbType.Int32, userid, ParameterDirection.Input);
-                        command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
-                        command.ExecuteNonQuery();
-                        string rt = command.Parameters["return"].Value.ToString();
-                        int ret;
-                        if (int.TryParse(rt, out ret))
-                        {
-                            return ret == 1;
-                        }
-                        return false;
-
-                    }
-                    catch
-                    {
-                        return false;
-                    }
-                }
-
-            }
-        }
-        public virtual bool AddFile(string procedure, string floc, int fsize, int userid)
-        {
-            using (OracleConnection con = new OracleConnection(Connectionstring))
-            {
-                using (OracleCommand command = new OracleCommand(procedure, con))
-                {
-                    try
-                    {
-                        con.Open();
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.BindByName = true;
-                        command.Parameters.Add("t_bestandlocatie", OracleDbType.Varchar2, floc, ParameterDirection.Input);
-                        command.Parameters.Add("t_message", OracleDbType.Int32, fsize, ParameterDirection.Input);
-                        command.Parameters.Add("t_sender", OracleDbType.Int32, userid, ParameterDirection.Input);
-                        command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
-                        command.ExecuteNonQuery();
-                        string rt = command.Parameters["return"].Value.ToString();
-                        int ret;
-                        if (int.TryParse(rt, out ret))
-                        {
-                            return ret == 1;
-                        }
-                        return false;
-                    }
-                    catch
-                    {
-                        return false;
-                    }
-                }
-
-            }
-        }
-        public virtual int ReserveringNieuw(int EventID, int AccountID, int PersoonID, int aantal)
-        {
-            using (OracleConnection con = new OracleConnection(Connectionstring))
-            {
-                using (OracleCommand command = new OracleCommand("ReserveringNieuw", con))
-                {
-                    try
-                    {
-                        con.Open();
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.BindByName = true;
-                        command.Parameters.Add("t_eventID", OracleDbType.Int32, EventID, ParameterDirection.Input);
-                        command.Parameters.Add("t_accountID", OracleDbType.Int32, AccountID, ParameterDirection.Input);
-                        command.Parameters.Add("t_persoonID", OracleDbType.Int32, PersoonID, ParameterDirection.Input);
-                        command.Parameters.Add("n_aantal", OracleDbType.Int32, aantal, ParameterDirection.Input);
-                        command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
-                        command.ExecuteNonQuery();
-                        string rt = command.Parameters["return"].Value.ToString();
-                        int ret;
-                        if (int.TryParse(rt, out ret))
-                        {
-                            if(ret > 0)
-                                return ret;
-                        }
-                        return 0;
-                    }
-                    catch
-                    {
-                        return 0;
-                    }
-                }
-
-            }
-        }
-
-        public virtual int ReserveringToevoegen(int ReserveringID, string Gebruikersnaam)
-        {
-            using (OracleConnection con = new OracleConnection(Connectionstring))
-            {
-                using (OracleCommand command = new OracleCommand("ReserveringToevoegen", con))
-                {
-                    try
-                    {
-                        con.Open();
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.BindByName = true;
-                        command.Parameters.Add("t_reserveringID", OracleDbType.Int32, ReserveringID, ParameterDirection.Input);
-                        command.Parameters.Add("t_gebruikersnaam", OracleDbType.Varchar2, Gebruikersnaam, ParameterDirection.Input);
-                        command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
-                        command.ExecuteNonQuery();
-                        string rt = command.Parameters["return"].Value.ToString();
-                        int ret;
-                        if (int.TryParse(rt, out ret))
-                        {
-                            if (ret == 1)
-                                return ret;
-                        }
-                        return 0;
-                    }
-                    catch
-                    {
-                        return 0;
-                    }
-                }
-            }
-        }
-
-        public virtual
-            bool AddReply(string procedure, string titel, string inhoud, int userid, int messageid)
-        {
-            using (OracleConnection con = new OracleConnection())
-            {
-                using (OracleCommand command = new OracleCommand(procedure, con))
-                {
-                    try
-                    {
-                        con.Open();
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.BindByName = true;
-                        command.Parameters.Add("t_title", OracleDbType.Varchar2, titel, ParameterDirection.Input);
-                        command.Parameters.Add("t_message", OracleDbType.Varchar2, inhoud, ParameterDirection.Input);
-                        command.Parameters.Add("t_sender", OracleDbType.Int32, userid, ParameterDirection.Input);
-                        command.Parameters.Add("bijdrage", OracleDbType.Int32, messageid, ParameterDirection.Input);
-                        command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
-                        command.ExecuteNonQuery();
-                        string rt = command.Parameters["return"].Value.ToString();
-                        int ret;
-                        if (int.TryParse(rt, out ret))
-                        {
-                            return ret == 1;
-                        }
-                        return false;
-
-                    }
-                    catch
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
-        public virtual List<SocialMediaMessageModel> AllPosts()
-        {
-            List<SocialMediaMessageModel> ret = new List<SocialMediaMessageModel>();
-            using (OracleConnection con = new OracleConnection(Connectionstring))
-            {
-                using (OracleCommand command = new OracleCommand("SELECT b.titel,a.gebruikersnaam, b.bijdrageid FROM bericht b, bijdrage bd, account a WHERE b.bijdrageid = bd.bijdrageID AND bd.accountid = a.accountid ORDER BY b.bijdrageID DESC", con))
-                {
-                    try
-                    {
-                        con.Open();
-                        OracleDataReader dr = command.ExecuteReader();
-                        while (dr.Read())
-                        {
-                            SocialMediaMessageModel add = new SocialMediaMessageModel
-                            {
-                                Title = dr.GetString(0),
-                                Username = dr.GetString(1),
-                                Messageid = dr.GetInt32(2)
-                            };
-                            ret.Add(add);
-                        }
-                    }
-                    catch { }
-                }
-            }
-            return ret;
-            }
-        public virtual List<SocialMediaMessageModel> DetailPost(int messageid)
-        {
-            List<SocialMediaMessageModel> ret = new List<SocialMediaMessageModel>();
-            using (OracleConnection con = new OracleConnection(Connectionstring))
-            {
-                using (OracleCommand command = new OracleCommand())
-                {
-                    try
-                    {
-                        command.Connection = con;
-                        con.Open();
-                        command.CommandText =
-                           $"SELECT b.titel, b.inhoud,a.gebruikersnaam, b.bijdrageid FROM bericht b, bijdrage bd, account a WHERE b.bijdrageid = bd.bijdrageID AND bd.accountid = a.accountid AND b.bijdrageid = {messageid}";
-                        OracleDataReader reader = command.ExecuteReader();
-                        if (reader.Read())
-                        {
-                            SocialMediaMessageModel add = new SocialMediaMessageModel
-                            {
-                                Title = reader.GetString(0),
-                                Username = reader.GetString(2),
-                                Messageid = reader.GetInt32(3),
-                                Message = reader.GetString(1)
-                            };
-                            ret.Add(add);
-                        }
-                        command.CommandText =
-                            $"SELECT b.titel, b.inhoud,a.gebruikersnaam, b.bijdrageid FROM bericht b, bijdrage bd, account a, bijdrage_bericht bb WHERE b.bijdrageid = bd.bijdrageID AND bd.accountid = a.accountid AND bb.bijdrageid = b.bijdrageid AND b.bijdrageid ={messageid} OR bb.bijdrageid={messageid} ORDER BY b.bijdrageID DESC";
-                        OracleDataReader dr = command.ExecuteReader();
-                        while (dr.Read())
-                        {
-                            SocialMediaMessageModel add = new SocialMediaMessageModel
-                            {
-                                Title = dr.GetString(0),
-                                Username = dr.GetString(2),
-                                Messageid = dr.GetInt32(3),
-                                Message = dr.GetString(1)
-                            };
-                            ret.Add(add);
-                        }
-                    }
-                    catch { }
-                }
-            }
-            return ret;
-        }
+        
         protected string GetColumnParameter(Dictionary<string, string> values, bool Parameter)
         {
             if (!Parameter)

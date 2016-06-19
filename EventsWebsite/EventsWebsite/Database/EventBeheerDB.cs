@@ -65,8 +65,9 @@ namespace EventsWebsite.Database
             data.Add("locatieid");
             foreach (EventModel e in ReadObjects("Event", data, "Event"))
             {
-                    EventModel evenement = GetEventLocation(e);
-                    events.Add(evenement);
+                EventModel evenement = GetEventLocation(e);
+
+                events.Add(evenement);
             }
             return events;
 
@@ -102,7 +103,7 @@ namespace EventsWebsite.Database
             eventdata.Add("datumeinde");
             eventdata.Add("maxbezoekers");
             eventdata.Add("locatieid");
-            EventModel e = (EventModel)ReadObjectWithCondition("Event", eventdata, "eventid",eventid.ToString(),"Event");
+            EventModel e = (EventModel)ReadObjectWithCondition("Event", eventdata, "eventid","=",eventid.ToString(),"Event");
             e = GetEventLocation(e);
             return e;
         }
