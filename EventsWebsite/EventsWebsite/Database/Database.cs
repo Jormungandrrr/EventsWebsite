@@ -85,7 +85,7 @@ namespace EventsWebsite.Database
             string ReturnData = "";
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand("SELECT " + column + " FROM " + table + " WHERE " + ConditionValue1 + " = " + ConditionValue2, conn))
+                using (OracleCommand command = new OracleCommand("SELECT " + column + " FROM " + table + " WHERE " + ConditionValue1 + " = " + "'" + ConditionValue2 + "'", conn))
                 {
                     command.BindByName = true;
                     command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));

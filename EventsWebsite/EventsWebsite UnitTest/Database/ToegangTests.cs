@@ -16,6 +16,7 @@ namespace EventsWebsite_UnitTest
             Assert.AreEqual(false,db.HasAccess(544923811),"Non existing user has access!");
         }
 
+        [TestMethod]
         public void TestActivation()
         {
             ToegangscontroleDatabase db = new ToegangscontroleDatabase();

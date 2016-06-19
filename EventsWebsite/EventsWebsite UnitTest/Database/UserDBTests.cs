@@ -27,6 +27,7 @@ namespace EventsWebsite.Database.Tests
         public void GetPersonTest()
         {
             Assert.AreEqual(UDB.GetPerson("Mvg013").Voornaam, "Marc");
+            Assert.AreEqual(UDB.GetPerson("Mvg013").Accountid, 1);
         }
 
         [TestMethod()]
