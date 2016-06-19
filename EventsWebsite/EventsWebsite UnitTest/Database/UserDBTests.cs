@@ -34,9 +34,9 @@ namespace EventsWebsite.Database.Tests
         public void UpdateUserTest()
         {
             UserModel testuser = UDB.GetPerson("Mvg013");
-            testuser.Email = "Marc@Marc.com";
+            testuser.Email = "Marc@Marc.nl";
             UDB.UpdateUser(testuser);
-            Assert.AreEqual(UDB.GetPerson("Mvg013").Email, "Marc@Marc.com");
+            Assert.AreEqual(UDB.GetPerson("Mvg013").Email, "Marc@Marc.nl");
         }
 
         [TestMethod()]
