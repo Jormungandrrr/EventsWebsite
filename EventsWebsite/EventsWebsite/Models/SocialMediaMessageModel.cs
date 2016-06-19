@@ -23,6 +23,7 @@ namespace EventsWebsite.Models
         public DateTime UploadTime { get; set; }
         public int Messageid { get; set; }
         public string Username { get; set; }
+        public string Filepath { get; set; }
 
         public SocialMediaMessageModel()
         {

@@ -7,6 +7,7 @@ using System.Web.ModelBinding;
 using EventsWebsite.Models;
 using Oracle.ManagedDataAccess.Client;
 using System.Data;
+using System.Web.UI.WebControls;
 
 namespace EventsWebsite.Database
 {
@@ -153,6 +154,20 @@ namespace EventsWebsite.Database
                                 Title = dr.GetString(0),
                                 Username = dr.GetString(1),
                                 Messageid = dr.GetInt32(2)
+                            };
+                            ret.Add(add);
+                        }
+                        command.CommandText =
+                            "SELECT b.bestandslocatie, b.bijdrageid,a.gebruikersnaam FROM bestand b, bijdrage bd, account a WHERE b.bijdrageid = bd.bijdrageid AND bd.accountID = a.accountid ORDER BY b.bijdrageID DESC";
+                        OracleDataReader dr2 = command.ExecuteReader();
+                        while (dr2.Read())
+                        {
+                            SocialMediaMessageModel add = new SocialMediaMessageModel
+                            {
+                                Title = "Mediapost",
+                                Username = dr2.GetString(2),
+                                Messageid = dr2.GetInt32(1),
+                                Filepath = dr2.GetString(0)
                             };
                             ret.Add(add);
                         }

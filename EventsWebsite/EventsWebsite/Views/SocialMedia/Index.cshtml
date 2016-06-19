@@ -32,6 +32,10 @@
                     </td>
                     <td>
                         @Html.ActionLink("Details", "ShowFullPost", new { id = item.Messageid })
+                        @if (item.Filepath != null)
+                        {
+                            <a class="btn btn-success" href="@Url.Content(item.Filepath)"><i class="glyphicon gliphicon-edit"></i>Download!</a>
+                        }
                     </td>
                 </tr>
             }
