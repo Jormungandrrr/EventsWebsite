@@ -61,7 +61,8 @@ h6 {
     text-align: center;
     color: #f8f8f8;
     background: url(http://www.eventenmeer.nl/wp-content/uploads/2015/01/download.jpg) no-repeat center center;
-    background-size: cover;
+    background-size: cover; 
+    margin-bottom: 10px;
 }
 
 .intro-message {

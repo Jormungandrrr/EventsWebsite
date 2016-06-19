@@ -112,6 +112,39 @@ namespace EventsWebsite.Database
             }
         }
 
+        public virtual string ReadStringWith2Conditions(string table, string column, string ConditionValue1, string ConditionValue2, string ConditionValue3)
+        {
+            string ReturnData = "";
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                string query = ("SELECT " + column + " FROM " + table + " WHERE " + ConditionValue1 + " = " + ConditionValue2 + " AND " + ConditionValue3 + " IS NULL");
+
+                using (OracleCommand command = new OracleCommand(query, conn))
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
+                    try
+                    {
+                        command.Connection.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ReturnData = (Convert.ToString(reader[column]));
+                            }
+                            return ReturnData;
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                    return ReturnData;
+                }
+
+            }
+        }
+
         public virtual List<int> Read(string table, string column)
         {
             List<int> ReturnData = new List<int>();

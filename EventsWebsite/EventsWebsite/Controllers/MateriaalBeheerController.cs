@@ -39,9 +39,10 @@ namespace EventsWebsite.Controllers
         public ActionResult ReturnMaterial(int number)
         {
             string exemplaarid = database.ReadStringWithCondition("EXEMPLAAR", "ExemplaarID", "Volgnummer", number.ToString());
-            string test = (exemplaarid + " AND datumin IS NULL");
-            string verhuurid = database.ReadStringWithCondition("VERHUUR", "verhuurid", "ExemplaarID", test);
-            database.ReturnMaterial(Convert.ToInt32(verhuurid), DateTime.Now.ToString("d"));
+            string condition1 = exemplaarid;
+            string condition2 = "datumin";
+            string verhuurid = database.ReadStringWith2Conditions("VERHUUR", "verhuurid", "ExemplaarID", condition1, condition2);
+            database.ReturnMaterial(Convert.ToInt32(verhuurid), DateTime.Now.Date.ToString("d"));
             return View("HiredMaterials", database.GetAllHiredMaterial(1));
         }
     }
