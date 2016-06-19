@@ -83,7 +83,7 @@ namespace EventsWebsite.Controllers
                 ResDB.Insertbandjes(ReserveringID, Gebruiker);
             }
 
-
+            //merge fix
             return RedirectToAction("Voltooid", "Reserveer");
         }
 
