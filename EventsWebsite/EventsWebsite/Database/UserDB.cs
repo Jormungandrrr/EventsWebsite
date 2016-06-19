@@ -27,8 +27,6 @@ namespace EventsWebsite.Database
             Insert("Persoon",PersonData);
         }
 
-
-
         public UserModel GetPerson(string username)
         {
             List<string> PersonData = new List<string>();
@@ -42,6 +40,7 @@ namespace EventsWebsite.Database
             PersonData.Add("p.huisnr");
             PersonData.Add("p.toevoeging");
             PersonData.Add("p.woonplaats");
+            PersonData.Add("a.accountid");
             //UserModel User = (UserModel)ReadObjectWithCondition("account a Join reservering_polsbandje rp on a.accountid = rp.accountid Join reservering r on rp.reserveringid = r.reserveringid Join Persoon p on r.persoonid = p.persoonid ", PersonData,"a.gebruikersnaam", username, "User");
             UserModel User = (UserModel)ReadObjectWithCondition("account a Join Persoon p ON a.accountid = p.accountid", PersonData,"a.gebruikersnaam", username, "User");
             return User;
@@ -65,11 +64,21 @@ namespace EventsWebsite.Database
             UpdateData.Add("woonplaats", User.City);
             Update("persoon", UpdateData, "accountid", ReadStringWithCondition("Account", "accountid", "gebruikersnaam", User.Username));
         }
-
-        public int GetPersoonIDByAccountID(int AccountID)
+        public List<object> GetAllUsers()
         {
-            int PersoonID = 1;
-            return PersoonID;
+            List<string> PersonData = new List<string>();
+            PersonData.Add("a.gebruikersnaam");
+            PersonData.Add("a.email");
+            PersonData.Add("p.voornaam");
+            PersonData.Add("p.tussenvoegsel");
+            PersonData.Add("p.achternaam");
+            PersonData.Add("a.accesslevel");
+            PersonData.Add("p.straat");
+            PersonData.Add("p.huisnr");
+            PersonData.Add("p.toevoeging");
+            PersonData.Add("p.woonplaats");
+            PersonData.Add("a.accountid");
+            return ReadObjects("account a Join Persoon p ON a.accountid = p.accountid", PersonData, "User");
         }
     }
 }
