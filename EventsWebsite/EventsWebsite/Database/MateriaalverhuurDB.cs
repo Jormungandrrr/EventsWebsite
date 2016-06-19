@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using EventsWebsite.Models;
+using Oracle.ManagedDataAccess.Client;
 
 namespace EventsWebsite.Database
 {
@@ -43,7 +44,7 @@ namespace EventsWebsite.Database
             }
             foreach (int id in ids)
             {
-                material = (MaterialModel)ReadObjectWithCondition("EXEMPLAAR", all, "ExemplaarID", id.ToString(),"Exemplaar");
+                material = (MaterialModel)ReadObjectWithCondition("EXEMPLAAR", all, "ExemplaarID","=", id.ToString(),"Exemplaar");
                 materials.Add(material);
             }
             return materials;
@@ -66,6 +67,39 @@ namespace EventsWebsite.Database
                 }
             }
             return materials;
+        }
+
+        public List<int> GetMaterial(int eventid)
+        {
+            List<int> ReturnData = new List<int>();
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                using (
+                    OracleCommand command =
+                        new OracleCommand(
+                            "SELECT DISTINCT(ExemplaarID) FROM VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND v.datumin IS NULL",
+                            conn)
+                    )
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(":ei", eventid);
+                    try
+                    {
+                        conn.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ReturnData.Add(reader.GetInt32(0));
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            return ReturnData;
         }
     }
 }

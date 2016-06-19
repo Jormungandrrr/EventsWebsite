@@ -37,6 +37,7 @@ namespace EventsWebsite.Database.Tests
         public void GetEventsTest()
         {
             List<EventModel> events = edb.GetEvents();
+            Assert.AreEqual(3, events.Count);
             Assert.AreEqual(events[0].City, "Tilburg");
         }
     }
