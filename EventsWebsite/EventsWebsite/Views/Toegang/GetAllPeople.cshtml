@@ -1,0 +1,42 @@
+﻿@model IEnumerable<EventsWebsite.Models.UserModel>
+
+@{
+    ViewBag.Title = "Alle aanwezigen";
+}
+<div class="intro-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+<div class="container">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Voornaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tussenvoegsel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Achternaam)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Voornaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tussenvoegsel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Achternaam)
+                </td>
+            </tr>
+        }
+
+    </table>
+    <div>
+        @Html.ActionLink("Terug naar toegangscontrole","Index")
+    </div>
+    </div>

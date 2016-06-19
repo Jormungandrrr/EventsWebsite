@@ -1,42 +1,47 @@
 ﻿@model IEnumerable<EventsWebsite.Models.SocialMediaMessageModel>
 
 @{
-    ViewBag.Title = "ShowFullPost";
+    ViewBag.Title = "Social media systeem";
 }
+<div class="intro-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+<div class="container">
+    <p>
+        <a class="btn btn-success" href="@Url.Action("Reply", new {id = Model.ElementAt(0)})"><i class="glyphicon glyphicon-edit"></i> Reageer!</a>
+    </p>
 
-<h2>ShowFullPost</h2>
 
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+        </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Message)
-        </th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Message)
-        </td>
-    </tr>
-}
-
-</table>
-
-<p>
-    @Html.ActionLink("Reply", "Reply", new { id = Model.ElementAt(0)})
-</p>
+    </table>
+    <div>
+        <a class="btn btn-success" href="@Url.Action("Index")">Terug naar de lijst</a>
+    </div>
+</div>

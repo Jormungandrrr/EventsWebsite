@@ -63,10 +63,5 @@ namespace EventsWebsite.Models
             this.MaxBezoekers = maxBezoekers;
             this.LocationID = locatieid;
         }
-
-        public override string ToString()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

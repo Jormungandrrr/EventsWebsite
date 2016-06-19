@@ -257,6 +257,7 @@
     <Content Include="Views\SocialMedia\ShowFullPost.cshtml" />
     <Content Include="Views\Reserveer\Voltooid.cshtml" />
     <Content Include="Views\SocialMedia\Reply.cshtml" />
+    <Content Include="Views\Toegang\GetAllPeople.cshtml" />
     <None Include="Views\User\Accountmanagement.cshtml" />
     <None Include="Views\User\EditProfile.cshtml" />
     <Content Include="Views\EventBeheer\CreateEvent.cshtml" />
