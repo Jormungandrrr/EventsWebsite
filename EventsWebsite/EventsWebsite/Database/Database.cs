@@ -160,6 +160,11 @@ namespace EventsWebsite.Database
                                     UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), Convert.ToInt32(reader[7]), reader[8].ToString(), reader[9].ToString(),reader.GetInt32(10));
                                     ReturnData.Add(user);
                                 }
+                                else if (type == "Event")
+                                {
+                                    EventModel e = new EventModel(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetInt32(4), reader.GetInt32(5));
+                                    ReturnData.Add(e);
+                                }
                             }
                             return ReturnData;
                         }
