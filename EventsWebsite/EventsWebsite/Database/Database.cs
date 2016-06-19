@@ -689,7 +689,72 @@ namespace EventsWebsite.Database
 
             }
         }
+        public virtual int ReserveringNieuw(int EventID, int AccountID, int PersoonID, int aantal)
+        {
+            using (OracleConnection con = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("ReserveringNieuw", con))
+                {
+                    try
+                    {
+                        con.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.BindByName = true;
+                        command.Parameters.Add("t_eventID", OracleDbType.Int32, EventID, ParameterDirection.Input);
+                        command.Parameters.Add("t_accountID", OracleDbType.Int32, AccountID, ParameterDirection.Input);
+                        command.Parameters.Add("t_persoonID", OracleDbType.Int32, PersoonID, ParameterDirection.Input);
+                        command.Parameters.Add("n_aantal", OracleDbType.Int32, aantal, ParameterDirection.Input);
+                        command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
+                        command.ExecuteNonQuery();
+                        string rt = command.Parameters["return"].Value.ToString();
+                        int ret;
+                        if (int.TryParse(rt, out ret))
+                        {
+                            if(ret > 0)
+                                return ret;
+                        }
+                        return 0;
+                    }
+                    catch
+                    {
+                        return 0;
+                    }
+                }
 
+            }
+        }
+        public virtual int ReserveringToevoegen(int ReserveringID, string Gebruikersnaam)
+        {
+            using (OracleConnection con = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("ReserveringToevoegen", con))
+                {
+                    try
+                    {
+                        con.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.BindByName = true;
+                        command.Parameters.Add("t_reserveringID", OracleDbType.Int32, ReserveringID, ParameterDirection.Input);
+                        command.Parameters.Add("t_gebruikersnaam", OracleDbType.Int32, Gebruikersnaam, ParameterDirection.Input);
+                        command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
+                        command.ExecuteNonQuery();
+                        string rt = command.Parameters["return"].Value.ToString();
+                        int ret;
+                        if (int.TryParse(rt, out ret))
+                        {
+                            if (ret == 1)
+                                return ret;
+                        }
+                        return 0;
+                    }
+                    catch
+                    {
+                        return 0;
+                    }
+                }
+
+            }
+        }
         protected string GetColumnParameter(Dictionary<string, string> values, bool Parameter)
         {
             if (!Parameter)
