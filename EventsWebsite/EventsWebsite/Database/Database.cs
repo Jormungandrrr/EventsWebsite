@@ -628,7 +628,7 @@ namespace EventsWebsite.Database
         {
             using (OracleConnection con = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand("BijdrageBericht", con))
+                using (OracleCommand command = new OracleCommand(procedure, con))
                 {
                     try
                     {
@@ -690,6 +690,94 @@ namespace EventsWebsite.Database
             }
         }
 
+        public virtual bool AddReply(string procedure, string titel, string inhoud, int userid, int messageid)
+        {
+            using (OracleConnection con = new OracleConnection())
+            {
+                using (OracleCommand command = new OracleCommand(procedure, con))
+                {
+                    try
+                    {
+                        con.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.BindByName = true;
+                        command.Parameters.Add("t_title", OracleDbType.Varchar2, titel, ParameterDirection.Input);
+                        command.Parameters.Add("t_message", OracleDbType.Varchar2, inhoud, ParameterDirection.Input);
+                        command.Parameters.Add("t_sender", OracleDbType.Int32, userid, ParameterDirection.Input);
+                        command.Parameters.Add("bijdrage", OracleDbType.Int32, messageid, ParameterDirection.Input);
+                        command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
+                        command.ExecuteNonQuery();
+                        string rt = command.Parameters["return"].Value.ToString();
+                        int ret;
+                        if (int.TryParse(rt, out ret))
+                        {
+                            return ret == 1;
+                        }
+                        return false;
+
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        public virtual List<SocialMediaMessageModel> AllPosts()
+        {
+            List<SocialMediaMessageModel> ret = new List<SocialMediaMessageModel>();
+            using (OracleConnection con = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("SELECT b.titel,a.gebruikersnaam, b.bijdrageid FROM bericht b, bijdrage bd, account a WHERE b.bijdrageid = bd.bijdrageID AND bd.accountid = a.accountid ORDER BY b.bijdrageID DESC", con))
+                {
+                    try
+                    {
+                        con.Open();
+                        OracleDataReader dr = command.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            SocialMediaMessageModel add = new SocialMediaMessageModel
+                            {
+                                Title = dr.GetString(0),
+                                Username = dr.GetString(1),
+                                Messageid = dr.GetInt32(2)
+                            };
+                            ret.Add(add);
+                        }
+                    }
+                    catch { }
+                }
+            }
+            return ret;
+        }
+        public virtual List<SocialMediaMessageModel> DetailPost(int messageid)
+        {
+            List<SocialMediaMessageModel> ret = new List<SocialMediaMessageModel>();
+            using (OracleConnection con = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand($"SELECT b.titel, b.inhoud,a.gebruikersnaam, b.bijdrageid FROM bericht b, bijdrage bd, account a, bijdrage_bericht bb WHERE b.bijdrageid = bd.bijdrageID AND bd.accountid = a.accountid AND bb.bijdrageid = b.bijdrageid AND b.bijdrageid ={messageid} OR bb.bijdrageid={messageid} ORDER BY b.bijdrageID DESC", con))
+                {
+                    try
+                    {
+                        con.Open();
+                        OracleDataReader dr = command.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            SocialMediaMessageModel add = new SocialMediaMessageModel
+                            {
+                                Title = dr.GetString(0),
+                                Username = dr.GetString(2),
+                                Messageid = dr.GetInt32(3),
+                                Message = dr.GetString(1)
+                            };
+                            ret.Add(add);
+                        }
+                    }
+                    catch { }
+                }
+            }
+            return ret;
+        }
         protected string GetColumnParameter(Dictionary<string, string> values, bool Parameter)
         {
             if (!Parameter)

@@ -251,6 +251,7 @@
     <Content Include="Views\MateriaalBeheer\HiredMaterials.cshtml" />
     <Content Include="Views\Reserveer\Reservering.cshtml" />
     <Content Include="Views\SocialMedia\CreatePost.cshtml" />
+    <Content Include="Views\SocialMedia\ShowFullPost.cshtml" />
     <None Include="Views\User\Accountmanagement.cshtml" />
     <None Include="Views\User\EditProfile.cshtml" />
     <Content Include="Views\EventBeheer\CreateEvent.cshtml" />
