@@ -11,7 +11,7 @@ namespace EventsWebsite.Database
 
         public int InsertReservering(int EventID , int AccountID , int PersoonID , int aantal)
         {
-            int ReserveringID = ReserveringNieuw(EventID, AccountID, PersoonID, aantal); // = databasemethode
+            int ReserveringID = ReserveringNieuw(EventID, AccountID, PersoonID, aantal);
             return ReserveringID;
         }
         public void Insertbandjes(int ReserveringID, string Gebruikersnaam)

@@ -16,10 +16,10 @@
             <h4>@ViewBag.Title</h4>
             <p>Kies hier het aantal vrienden waarmee u wilt reserveren</p>
             <input type="number" name="quantity" min="0" max="8" id="numinput" value="0">
-            <a class="btn btn-success" id="buttongetnum">Click me</a>
+            <a class="btn btn-success" id="buttongetnum">Voeg deelnermers toe</a>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
+            <div class="form-group " id="fg0">
                 @Html.LabelFor(model => model.Gebruikersnaam1, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-9">
                     @Html.EditorFor(model => model.Gebruikersnaam1, new {htmlAttributes = new {@class = "form-control"}})

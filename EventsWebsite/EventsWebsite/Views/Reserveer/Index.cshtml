@@ -18,14 +18,14 @@
                 </tr>
             </thead>
             <tbody>
-            <tr>
                 @foreach (EventModel Events in Model)
                 {
-                    <td><a href="@Url.Action("Event", "Reserveer", new {id = Events.EventID})">@Events.Name</a></td>
-                    <td>@Events.DateStart</td>
-                    <td>@Events.Street , @Events.City</td>
+                    <tr>
+                        <td><a href="@Url.Action("Event", "Reserveer", new {id = Events.EventID})">@Events.Name</a></td>
+                        <td>@Events.DateStart</td>
+                        <td>@Events.Street , @Events.City</td>
+                    </tr>
                 }
-            </tr>
             </tbody>
         </table>
    
