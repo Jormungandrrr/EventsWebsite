@@ -658,6 +658,7 @@ namespace EventsWebsite.Database
 
             }
         }
+
         public virtual int ReserveringToevoegen(int ReserveringID, string Gebruikersnaam)
         {
             using (OracleConnection con = new OracleConnection(Connectionstring))
@@ -669,8 +670,10 @@ namespace EventsWebsite.Database
                         con.Open();
                         command.CommandType = CommandType.StoredProcedure;
                         command.BindByName = true;
-                        command.Parameters.Add("t_reserveringID", OracleDbType.Int32, ReserveringID, ParameterDirection.Input);
-                        command.Parameters.Add("t_gebruikersnaam", OracleDbType.Int32, Gebruikersnaam, ParameterDirection.Input);
+                        command.Parameters.Add("t_reserveringID", OracleDbType.Int32, ReserveringID,
+                            ParameterDirection.Input);
+                        command.Parameters.Add("t_gebruikersnaam", OracleDbType.Int32, Gebruikersnaam,
+                            ParameterDirection.Input);
                         command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
                         command.ExecuteNonQuery();
                         string rt = command.Parameters["return"].Value.ToString();
@@ -687,8 +690,11 @@ namespace EventsWebsite.Database
                         return 0;
                     }
                 }
+            }
+        }
 
-        public virtual bool AddReply(string procedure, string titel, string inhoud, int userid, int messageid)
+        public virtual
+            bool AddReply(string procedure, string titel, string inhoud, int userid, int messageid)
         {
             using (OracleConnection con = new OracleConnection())
             {
