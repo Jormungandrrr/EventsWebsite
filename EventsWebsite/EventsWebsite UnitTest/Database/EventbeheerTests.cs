@@ -28,9 +28,17 @@ namespace EventsWebsite.Database.Tests
         [TestMethod()]
         public void GetEventByIdTest()
         {
-           EventModel evenement = edb.GetEventById(1);
-           Assert.AreEqual("Testevent",evenement.Name);
-           Assert.AreEqual("Tilburg", evenement.City);
+            EventModel evenement = edb.GetEventById(1);
+            Assert.AreEqual("Testevent", evenement.Name);
+            Assert.AreEqual("Tilburg", evenement.City);
+        }
+
+        [TestMethod()]
+        public void GetEventsTest()
+        {
+            List<EventModel> events = edb.GetAllEvents();
+            Assert.AreEqual(4, events.Count);
+            Assert.AreEqual(events[0].City, "Tilburg");
         }
     }
 }

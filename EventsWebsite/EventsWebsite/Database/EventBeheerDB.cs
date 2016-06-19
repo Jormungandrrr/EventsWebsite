@@ -55,7 +55,21 @@ namespace EventsWebsite.Database
 
         public List<EventModel> GetEvents()
         {
-            return GetAllEvents();
+            List<string> data = new List<string>();
+            List<EventModel> events = new List<EventModel>();
+            data.Add("eventid");
+            data.Add("naam");
+            data.Add("datumstart");
+            data.Add("datumeinde");
+            data.Add("maxbezoekers");
+            data.Add("locatieid");
+            foreach (EventModel e in ReadObjects("Event", data, "Event"))
+            {
+                    EventModel evenement = GetEventLocation(e);
+                    events.Add(evenement);
+            }
+            return events;
+
         }
         public List<EventModel> GetOngoingEvents()
         {
