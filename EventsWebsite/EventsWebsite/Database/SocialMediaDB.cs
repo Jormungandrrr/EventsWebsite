@@ -188,19 +188,43 @@ namespace EventsWebsite.Database
                     {
                         command.Connection = con;
                         con.Open();
-                        command.CommandText =
-                           $"SELECT b.titel, b.inhoud,a.gebruikersnaam, b.bijdrageid FROM bericht b, bijdrage bd, account a WHERE b.bijdrageid = bd.bijdrageID AND bd.accountid = a.accountid AND b.bijdrageid = {messageid}";
-                        OracleDataReader reader = command.ExecuteReader();
-                        if (reader.Read())
+                        command.CommandText = $"SELECT count(*) FROM bericht WHERE bijdrageid = {messageid}";
+                        OracleDataReader CountIsPost = command.ExecuteReader();
+                        CountIsPost.Read();
+                        int ispost = CountIsPost.GetInt32(0);
+                        if (ispost == 1)
                         {
-                            SocialMediaMessageModel add = new SocialMediaMessageModel
+                            command.CommandText =
+                                $"SELECT b.titel, b.inhoud,a.gebruikersnaam, b.bijdrageid FROM bericht b, bijdrage bd, account a WHERE b.bijdrageid = bd.bijdrageID AND bd.accountid = a.accountid AND b.bijdrageid = {messageid}";
+                            OracleDataReader reader = command.ExecuteReader();
+                            if (reader.Read())
                             {
-                                Title = reader.GetString(0),
-                                Username = reader.GetString(2),
-                                Messageid = reader.GetInt32(3),
-                                Message = reader.GetString(1)
-                            };
-                            ret.Add(add);
+                                SocialMediaMessageModel add = new SocialMediaMessageModel
+                                {
+                                    Title = reader.GetString(0),
+                                    Username = reader.GetString(2),
+                                    Messageid = reader.GetInt32(3),
+                                    Message = reader.GetString(1)
+                                };
+                                ret.Add(add);
+                            }
+                        }
+                        else
+                        {
+                            command.CommandText =
+                               $"SELECT b.bijdrageid,a.gebruikersnaam FROM bestand b, bijdrage bd, account a WHERE b.bijdrageid = bd.bijdrageid AND bd.accountID = a.accountid AND b.bijdrageid={messageid} ORDER BY b.bijdrageID DESC";
+                            OracleDataReader dr2 = command.ExecuteReader();
+                            if (dr2.Read())
+                            {
+                                SocialMediaMessageModel add = new SocialMediaMessageModel()
+                                {
+                                    Title = "Mediabestand",
+                                    Username = dr2.GetString(1),
+                                    Messageid = dr2.GetInt32(0),
+                                    Message = "Reageer hieronder op dit mediabestand!"
+                                };
+                                ret.Add(add);
+                            }
                         }
                         command.CommandText = $"SELECT berichtid FROM bijdrage_bericht WHERE bijdrageid ={messageid}";
                            
