@@ -5,9 +5,28 @@
     ViewBag.Title = "Events";
 }
 
-<h2>Events</h2>
-
-@foreach (EventModel Events in Model)
-{
-    <a href="@Url.Action("Event","Reserveer",new { id = Events.EventID})">@Events.Name></a>
-}
+<div class="intro-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+<div class="container">  
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th>Datum</th>
+                    <th>Locatie</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                @foreach (EventModel Events in Model)
+                {
+                    <td><a href="@Url.Action("Event", "Reserveer", new {id = Events.EventID})">@Events.Name</a></td>
+                    <td>@Events.DateStart</td>
+                    <td>@Events.Street , @Events.City</td>
+                }
+            </tr>
+            </tbody>
+        </table>
+   
+</div>
