@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices.Protocols;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -15,12 +16,20 @@ namespace EventsWebsite.Controllers
         // GET: SocialMedia
         public ActionResult Index()
         {
-            return View(_database.getallposts());
+            if (Session["niveau"] != null)
+            {
+                return View(_database.getallposts());
+            }
+            return RedirectToAction("Index","Home");
         }
 
         public ActionResult CreatePost()
         {
-            return View();
+            if (Session["niveau"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -44,7 +53,7 @@ namespace EventsWebsite.Controllers
                 {
                     if (_database.AddMessage(model, (int) Session["Acountid"]))
                     {
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index","SocialMedia");
                     }
                 }
             }
@@ -53,12 +62,36 @@ namespace EventsWebsite.Controllers
 
         public ActionResult ShowFullPost(int id)
         {
-            return View(_database.GetDetailView(id));
+            if (Session["niveau"] != null)
+            {
+                return View(_database.GetDetailView(id));
+            }
+            return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Reply()
+        public ActionResult Reply(int id)
         {
-            throw new NotImplementedException();
+            if (Session["niveau"] != null)
+            {
+                SocialMediaMessageModel send = new SocialMediaMessageModel();
+                send.Messageid = id;
+                return View(send);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Reply(SocialMediaMessageModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_database.Reply(model, Session["Acountid"]))
+                {
+                    return RedirectToAction("ShowFullPost", new {id = model.Messageid});
+                }
+            }
+            return View(model);
         }
     }
 }

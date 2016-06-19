@@ -29,9 +29,9 @@ namespace EventsWebsite.Database
         {
             return DetailPost(i);
         }
-        public bool Reply(SocialMediaMessageModel model, int uid, int msg)
+        public bool Reply(SocialMediaMessageModel model, int uid)
         {
-            return AddReply("BijdrageReactie", model.Title, model.Message, uid, msg);
+            return AddReply("BijdrageReactie", model.Title, model.Message, uid, model.Messageid);
         }
     }
 }
