@@ -114,8 +114,9 @@ namespace EventsWebsite.Controllers
 
             else
             {
+              
                 return View("Accountmanagement");
-        }
+            }
 
     }
         // GET: /Account/Register
