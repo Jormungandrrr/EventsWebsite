@@ -252,6 +252,7 @@
     <Content Include="Views\MateriaalBeheer\HiredMaterials.cshtml" />
     <Content Include="Views\Reserveer\Reservering.cshtml" />
     <Content Include="Views\SocialMedia\CreatePost.cshtml" />
+    <Content Include="Views\SocialMedia\ShowFullPost.cshtml" />
     <Content Include="Views\Reserveer\Voltooid.cshtml" />
     <None Include="Views\User\Accountmanagement.cshtml" />
     <None Include="Views\User\EditProfile.cshtml" />

@@ -1,7 +1,37 @@
-﻿@model dynamic
+﻿@model IEnumerable<EventsWebsite.Models.SocialMediaMessageModel>
 
 @{
-    ViewBag.Title = "Social Media";
-} 
+    ViewBag.Title = "Index";
+}
 
-<h2>@ViewBag.Title</h2>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreatePost")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "ShowFullPost", new { id=item.Messageid })
+        </td>
+    </tr>
+}
+
+</table>

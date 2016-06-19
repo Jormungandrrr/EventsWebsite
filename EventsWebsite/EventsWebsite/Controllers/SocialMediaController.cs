@@ -15,7 +15,7 @@ namespace EventsWebsite.Controllers
         // GET: SocialMedia
         public ActionResult Index()
         {
-            return View();
+            return View(_database.getallposts());
         }
 
         public ActionResult CreatePost()
@@ -49,6 +49,16 @@ namespace EventsWebsite.Controllers
                 }
             }
             return View(model);
+        }
+
+        public ActionResult ShowFullPost(int id)
+        {
+            return View(_database.GetDetailView(id));
+        }
+
+        public ActionResult Reply()
+        {
+            throw new NotImplementedException();
         }
     }
 }
