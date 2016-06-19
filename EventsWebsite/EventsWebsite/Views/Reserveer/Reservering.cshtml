@@ -1,7 +1,9 @@
 ﻿@model EventsWebsite.Models.ReserveringUsers
 @{
-    ViewBag.Title = "Nodig je vrienden uit!";
+    ViewBag.Title = "Voeg gebruikers toe";
 }
+@Scripts.Render("../Scripts/jquery-1.10.2.min.js")
+@Scripts.Render("../Scripts/nud.js")
 <div class="intro-header">
     <h1>@ViewBag.Title</h1>
 </div>
@@ -12,7 +14,9 @@
 
         <div class="form-horizontal">
             <h4>@ViewBag.Title</h4>
-            <p>Pas op de mensen die je wilt uitnodigen moeten wel een account hebben!</p>
+            <p>Kies hier het aantal vrienden waarmee u wilt reserveren</p>
+            <input type="number" name="quantity" min="0" max="8" id="numinput" value="0">
+            <a class="btn btn-success" id="buttongetnum">Click me</a>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -24,7 +28,7 @@
                
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="fg1">
                 @Html.LabelFor(model => model.Gebruikersnaam2, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Gebruikersnaam2, new { htmlAttributes = new { @class = "form-control" } })
@@ -32,7 +36,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="fg2">
                 @Html.LabelFor(model => model.Gebruikersnaam3, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Gebruikersnaam3, new { htmlAttributes = new { @class = "form-control" } })
@@ -40,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="fg3">
                 @Html.LabelFor(model => model.Gebruikersnaam4, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Gebruikersnaam4, new { htmlAttributes = new { @class = "form-control" } })
@@ -48,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group"  id="fg4">
                 @Html.LabelFor(model => model.Gebruikersnaam5, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Gebruikersnaam5, new { htmlAttributes = new { @class = "form-control" } })
@@ -56,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="fg5">
                 @Html.LabelFor(model => model.Gebruikersnaam6, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Gebruikersnaam6, new { htmlAttributes = new { @class = "form-control" } })
@@ -64,7 +68,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="fg6">
                 @Html.LabelFor(model => model.Gebruikersnaam7, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Gebruikersnaam7, new { htmlAttributes = new { @class = "form-control" } })

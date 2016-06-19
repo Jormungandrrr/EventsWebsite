@@ -49,8 +49,8 @@ namespace EventsWebsite.Database
             string querUpdateValues = "";
             foreach (string v in values.Keys)
             {
-                if (values.Keys.Last() == v){querUpdateValues += v + " = '" + values[v] + "'";}
-                else { querUpdateValues += v + " = '" + values[v] + "', "; }
+                if (values.Keys.Last() == v) { querUpdateValues += v + " = :" + v; }
+                else { querUpdateValues += v + " = :" + v + ", "; }
             }
 
             using (OracleConnection conn = new OracleConnection(Connectionstring))
@@ -62,8 +62,7 @@ namespace EventsWebsite.Database
                     command.Parameters.Add(new OracleParameter(":Condition2", condition2));
                     foreach (string c in values.Keys)
                     {
-                        string value = values[c];
-                        command.Parameters.Add(new OracleParameter(c, value));
+                        command.Parameters.Add(new OracleParameter(":"+c, values[c]));
                     }
 
                     command.Connection.Open();
