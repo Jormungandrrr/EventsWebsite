@@ -193,6 +193,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\error.png" />
+    <Content Include="Images\home-2.png" />
     <Content Include="Images\success_kid.png" />
     <Content Include="Images\barcode.png" />
     <Content Include="Images\laptop.png" />
