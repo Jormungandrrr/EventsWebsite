@@ -155,7 +155,6 @@ namespace EventsWebsite.Controllers
         [HttpPost]
         public ActionResult EditProfile(UserModel u)
         {
-
             UserDB db = new UserDB();
             u.Username = Session["Gebruikersnaam"].ToString();
             db.UpdateUser(u);
