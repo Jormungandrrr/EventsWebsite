@@ -81,6 +81,7 @@ namespace EventsWebsite.Database
             PersonData.Add("p.woonplaats");
             foreach (UserModel u in ReadObjects("account a Join Persoon p ON a.accountid = p.accountid", PersonData, "User"))
             {
+                u.Accountid = Convert.ToInt32(ReadStringWithCondition("account", "accountid", "gebruikersnaam", u.Username));
                 Users.Add(u);
             }
             return Users;
