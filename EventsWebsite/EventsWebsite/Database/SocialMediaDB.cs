@@ -104,7 +104,7 @@ namespace EventsWebsite.Database
 
         public bool AddReply(string procedure, string titel, string inhoud, int userid, int messageid)
         {
-            using (OracleConnection con = new OracleConnection())
+            using (OracleConnection con = new OracleConnection(Connectionstring))
             {
                 using (OracleCommand command = new OracleCommand(procedure, con))
                 {
