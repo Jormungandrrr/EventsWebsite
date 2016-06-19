@@ -3,19 +3,25 @@
 @{
     ViewBag.Title = "Event";
 }
-
-<h2>@Model.Name</h2>
-<p>
-    Startdatum:  @Model.DateStart<br/>
-    Einddatum:   @Model.DateEnd<br />
-    Land:        @Model.Country<br />
-    Plaats:      @Model.City<br />
-    Straat:      @Model.Street<br />
-    Postcode:    @Model.Zipcode<br />
-    Huisnummer:  @Model.HouseNumber<br />
-</p>
-<a href="@Url.Action("Reservering", "Reserveer",new { eventid = Model.EventID})">Reserveer!></a>
+<div class="intro-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+<div class="container">
 
 
+    <h2>@Model.Name</h2>
+    <p>
+        Startdatum:  @Model.DateStart<br />
+        Einddatum:   @Model.DateEnd<br />
+        Land:        @Model.Country<br />
+        Plaats:      @Model.City<br />
+        Straat:      @Model.Street<br />
+        Postcode:    @Model.Zipcode<br />
+        Huisnummer:  @Model.HouseNumber<br />
+    </p>
+    <a class="btn btn-success" href="@Url.Action("Reservering", "Reserveer", new {eventid = Model.EventID})">Reserveer!</a>
+
+
+</div>
 
 
