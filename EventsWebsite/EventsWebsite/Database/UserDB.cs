@@ -87,5 +87,12 @@ namespace EventsWebsite.Database
             }
             return Users;
         }
+
+        public void DisableUser(UserModel User)
+        {
+            Dictionary<string, string> UpdateData = new Dictionary<string, string>();
+            UpdateData.Add("geactiveerd", "0");
+            Update("account", UpdateData, "accountid", ReadStringWithCondition("Account", "accountid", "gebruikersnaam", User.Username));
+        }
     }
 }

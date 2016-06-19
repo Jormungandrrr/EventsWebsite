@@ -246,7 +246,7 @@ namespace EventsWebsite.Database
                                     }
                                     else if (type == "Event")
                                     {
-                                        EventModel e = new EventModel(reader.GetInt32(0),reader.GetString(1),reader.GetDateTime(2),reader.GetDateTime(3),reader.GetInt32(4));
+                                        EventModel e = new EventModel(reader.GetInt32(0),reader.GetString(1),reader.GetDateTime(2),reader.GetDateTime(3),reader.GetInt32(4), reader.GetInt32(5));
                                         ReturnData.Add(e);
                                     }
 
@@ -343,7 +343,7 @@ namespace EventsWebsite.Database
                                 }
                                 else if (type == "Event")
                                 {
-                                    EventModel e = new EventModel(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetInt32(4));
+                                    EventModel e = new EventModel(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetInt32(4), reader.GetInt32(5));
                                     ReturnData = e;
                                 }
 

@@ -34,8 +34,9 @@ namespace EventsWebsite.Models
         [Required(ErrorMessage = "Vul een land in")]
         [Display(Name = "Land")]
         public string Country { get; set; }
-
+        public string LocationName { get; set; }
         public int EventID { get; set; }
+        public int LocationID { get; set; }
         public int MaxBezoekers { get; set; }
 
         public EventModel(string name, DateTime dateStart, DateTime dateEnd, string street, string housenumber, string zipcode, string city, string country)
@@ -53,13 +54,14 @@ namespace EventsWebsite.Models
         public EventModel()
         {
         }
-        public EventModel(int id, string naam, DateTime start, DateTime einde, int maxBezoekers )
+        public EventModel(int id, string naam, DateTime start, DateTime einde, int maxBezoekers, int locatieid )
         {
             this.EventID = id;
             this.Name = naam;
             this.DateStart = start;
             this.DateEnd = einde;
             this.MaxBezoekers = maxBezoekers;
+            this.LocationID = locatieid;
         }
 
         public override string ToString()

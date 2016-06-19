@@ -30,7 +30,7 @@ namespace EventsWebsite.Database.Tests
         {
            EventModel evenement = edb.GetEventById(1);
            Assert.AreEqual("Testevent",evenement.Name);
-           
+           Assert.AreEqual("Tilburg", evenement.City);
         }
     }
 }
