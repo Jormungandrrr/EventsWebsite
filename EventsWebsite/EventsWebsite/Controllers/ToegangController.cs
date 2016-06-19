@@ -20,8 +20,7 @@ namespace EventsWebsite.Controllers
                     return View();
                 }
             }
-            //return RedirectToAction("Index", "Home"); 
-            return View();
+            return RedirectToAction("Index", "Home"); 
         }
 
         public ActionResult Granted()
@@ -29,6 +28,14 @@ namespace EventsWebsite.Controllers
             return View(); 
         }
 
+        public ActionResult GetAllPeople()
+        {
+            if ((int) Session["Niveau"] > 1)
+            {
+                return View(_db.GetAllPeopleOnTerrain());
+            }
+            return RedirectToAction("Index", "Home");
+        }
         public ActionResult Denied()
         {
             return View();

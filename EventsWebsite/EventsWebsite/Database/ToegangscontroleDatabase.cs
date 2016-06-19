@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EventsWebsite.Models;
 
 namespace EventsWebsite.Database
 {
@@ -19,6 +20,12 @@ namespace EventsWebsite.Database
             Dictionary<string,string> dict = new Dictionary<string,string>();
             dict.Add("Actief",value);
             Update("Polsbandje",dict,"barcode",barcode.ToString());
+        }
+
+        public List<UserModel> GetAllPeopleOnTerrain()
+        {
+            List<string> PersonData = new List<string> {"p.voornaam", "p.tussenvoegsel", "p.achternaam"};
+            return ReadObjects("persoon p Join reservering_polsbandje rp ON p.accountid = rp.accountid", PersonData, "Aanwezig", "1", "User2").Cast<UserModel>().ToList();
         }
     }
 }

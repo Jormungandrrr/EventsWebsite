@@ -238,7 +238,17 @@ namespace EventsWebsite.Database
                                         Thumbnail add = new Thumbnail(reader.GetInt32(0), reader.GetString(1),reader.GetString(2), reader.GetString(3), reader.GetString(4),reader.GetString(5),reader.GetInt32(6));
                                         ReturnData.Add(add);
                                     }
-                                    
+                                    else if (type == "User2")
+                                    {
+                                        UserModel user = new UserModel()
+                                        {
+                                            Voornaam = reader[0].ToString(),
+                                            tussenvoegsel = reader[1].ToString(),
+                                            Achternaam = reader[2].ToString()
+                                        };
+                                        ReturnData.Add(user);
+                                    }
+
                                 }
                             }
                             catch (Exception e)
