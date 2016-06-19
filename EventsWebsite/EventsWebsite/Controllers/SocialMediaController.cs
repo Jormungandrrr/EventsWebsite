@@ -86,7 +86,7 @@ namespace EventsWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_database.Reply(model, Session["Acountid"]))
+                if (_database.Reply(model, (int)Session["Acountid"]))
                 {
                     return RedirectToAction("ShowFullPost", new {id = model.Messageid});
                 }
