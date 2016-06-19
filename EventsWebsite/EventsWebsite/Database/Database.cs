@@ -279,7 +279,7 @@ namespace EventsWebsite.Database
                                 {
                                     if (type == "Materiaal")
                                     {
-                                        MaterialModel m = new MaterialModel(reader.GetInt32(0).ToString(), reader.GetInt32(1).ToString(), true, true);
+                                        MaterialModel m = new MaterialModel(reader.GetInt32(0), reader.GetInt32(1));
                                         ReturnData.Add(m);
                                     }
                                     else if (type == "Event")
