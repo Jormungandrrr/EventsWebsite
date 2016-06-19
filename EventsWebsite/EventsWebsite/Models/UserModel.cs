@@ -9,6 +9,11 @@ namespace EventsWebsite.Models
 {
     public class UserModel
     {
+        private string gebruikersnaam;
+        private int v;
+        private string straatnaam;
+        private int huisnummer;
+        private string plaatsnaam;
 
         public string Username {get; set; }
         public string Password { get; set; }
@@ -26,7 +31,7 @@ namespace EventsWebsite.Models
         public int Accountid { get; set; }
         public int PersoonId { get; set; }
 
-        public UserModel(string username, string email, string voornaam, string tussenvoegsel, string achternaam, int acceslevel, string street, int houseNumber, string toevoeging, string city)
+        public UserModel(string username, string email, string voornaam, string tussenvoegsel, string achternaam, int acceslevel, string street, int houseNumber, string toevoeging, string city, int accountid)
         {
             this.Username = username;
             this.Email = email;
@@ -38,11 +43,26 @@ namespace EventsWebsite.Models
             this.HouseNumber = houseNumber;
             this.Toevoeging = toevoeging;
             this.City = city;
+            this.Accountid = accountid;
         }
 
         public UserModel()
         {
             
+        }
+
+        public UserModel(string gebruikersnaam, string email, string voornaam, string tussenvoegsel, string achternaam, int v, string straatnaam, int huisnummer, string toevoeging, string plaatsnaam)
+        {
+            this.gebruikersnaam = gebruikersnaam;
+            Email = email;
+            Voornaam = voornaam;
+            this.tussenvoegsel = tussenvoegsel;
+            Achternaam = achternaam;
+            this.v = v;
+            this.straatnaam = straatnaam;
+            this.huisnummer = huisnummer;
+            Toevoeging = toevoeging;
+            this.plaatsnaam = plaatsnaam;
         }
 
         public string AccesLevelNaarNaam(int acceslevel)
