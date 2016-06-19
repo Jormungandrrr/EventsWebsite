@@ -47,7 +47,7 @@ namespace EventsWebsite.Database.Tests
             {
                 usercount++;
             }
-            Assert.AreEqual(12, usercount);
+            Assert.AreEqual(13, usercount);
         }
     }
 }
