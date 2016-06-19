@@ -28,13 +28,13 @@ namespace EventsWebsite.Controllers
         }
 
         // GET: /Reserveer/Reservering
-        public ActionResult Reservering()
+        public ActionResult Reservering(int EventID)
         {
             return View();
         }
         // POST: /Reserveer/Reservering
         [HttpPost]
-        public ActionResult Reservering(ReserveringUsers Users)
+        public ActionResult Reservering(int EventID , ReserveringUsers Users)
         {
             List<string> Gebruikers = new List<string>();
             if (Users.Gebruikersnaam1 != "")
@@ -76,13 +76,13 @@ namespace EventsWebsite.Controllers
 
             int AccountID = (int)Session["Acountid"];
             int PersoonID = Convert.ToInt32(userdb.ReadStringWithCondition("account", "persoonid", "accountid", AccountID.ToString()));
-            //int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID , Aantal);
+            int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID , Aantal);
 
 
-            //foreach (string Gebruiker in Gebruikers)
-            //{
-            //    ResDB.Insertbandjes(ReserveringID ,Gebruiker);
-            //}
+            foreach (string Gebruiker in Gebruikers)
+            {
+                ResDB.Insertbandjes(ReserveringID, Gebruiker);
+            }
 
             return View();
         }
