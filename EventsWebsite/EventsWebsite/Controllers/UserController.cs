@@ -119,13 +119,35 @@ namespace EventsWebsite.Controllers
             }
 
     }
+
+        [HttpGet]
+        public ActionResult EditProfileAsAdmin(UserModel u)
+        {
+            UserDB db = new UserDB();
+            UserModel curuser = db.GetPerson(Convert.ToString(Session["Gebruikersnaam"]));
+            if (curuser.AccesLevel < 4)
+            {
+                u = db.GetPerson(Convert.ToString(Session["Gebruikersnaam"]));
+            }
+            else
+            {
+
+                u = db.GetPerson(u.Username);
+            }
+
+            return View("EditProfile", u);
+        } 
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
         public ActionResult EditProfile()
         {
             UserDB db = new UserDB();
+            UserModel curuser = db.GetPerson(Convert.ToString(Session["Gebruikersnaam"]));
+           
             UserModel u = db.GetPerson(Convert.ToString(Session["Gebruikersnaam"]));
+            
+
             return View(u);
             //commit flipt
         } 

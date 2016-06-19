@@ -1,7 +1,7 @@
 ﻿@using EventsWebsite.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Login";
 
 }
 
@@ -18,19 +18,18 @@
                 <div class="panel-body">
                         @using (Html.BeginForm("Login", "User" , FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
-                            @Html.AntiForgeryToken()
-                            <hr />
+                            @Html.AntiForgeryToken() 
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Gebruikersnaam, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
+                                @Html.LabelFor(m => m.Gebruikersnaam, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-7">
                                     @Html.TextBoxFor(m => m.Gebruikersnaam, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.Gebruikersnaam, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-5 control-label" })
+                                <div class="col-md-7">
                                     @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                 </div>

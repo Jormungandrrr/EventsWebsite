@@ -4,7 +4,7 @@
 @{ 
     
     @Scripts.Render("~/Scripts/edit-user.js")
-    ViewBag.Title = "title";
+    ViewBag.Title = "Profiel";
     UserDB userdb = new UserDB();
     string user = $"{Model.Voornaam} {Model.tussenvoegsel} {Model.Achternaam}";
     string address = $"{Model.Street} {Model.HouseNumber} {Model.Toevoeging}";

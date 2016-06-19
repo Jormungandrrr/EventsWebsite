@@ -112,6 +112,39 @@ namespace EventsWebsite.Database
             }
         }
 
+        public virtual string ReadStringWith2Conditions(string table, string column, string ConditionValue1, string ConditionValue2, string ConditionValue3)
+        {
+            string ReturnData = "";
+            using (OracleConnection conn = new OracleConnection(Connectionstring))
+            {
+                string query = ("SELECT " + column + " FROM " + table + " WHERE " + ConditionValue1 + " = " + ConditionValue2 + " AND " + ConditionValue3 + " IS NULL");
+
+                using (OracleCommand command = new OracleCommand(query, conn))
+                {
+                    command.BindByName = true;
+                    command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
+                    try
+                    {
+                        command.Connection.Open();
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ReturnData = (Convert.ToString(reader[column]));
+                            }
+                            return ReturnData;
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                    return ReturnData;
+                }
+
+            }
+        }
+
         public virtual List<int> Read(string table, string column)
         {
             List<int> ReturnData = new List<int>();
@@ -159,6 +192,11 @@ namespace EventsWebsite.Database
                                 {
                                     UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), Convert.ToInt32(reader[7]), reader[8].ToString(), reader[9].ToString(),reader.GetInt32(10));
                                     ReturnData.Add(user);
+                                }
+                                else if (type == "Event")
+                                {
+                                    EventModel e = new EventModel(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetInt32(4), reader.GetInt32(5));
+                                    ReturnData.Add(e);
                                 }
                             }
                             return ReturnData;
@@ -246,7 +284,7 @@ namespace EventsWebsite.Database
                                     }
                                     else if (type == "Event")
                                     {
-                                        EventModel e = new EventModel(reader.GetInt32(0),reader.GetString(1),reader.GetDateTime(2),reader.GetDateTime(3),reader.GetInt32(4));
+                                        EventModel e = new EventModel(reader.GetInt32(0),reader.GetString(1),reader.GetDateTime(2),reader.GetDateTime(3),reader.GetInt32(4), reader.GetInt32(5));
                                         ReturnData.Add(e);
                                     }
 
@@ -343,7 +381,7 @@ namespace EventsWebsite.Database
                                 }
                                 else if (type == "Event")
                                 {
-                                    EventModel e = new EventModel(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetInt32(4));
+                                    EventModel e = new EventModel(reader.GetInt32(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3), reader.GetInt32(4), reader.GetInt32(5));
                                     ReturnData = e;
                                 }
 
@@ -506,38 +544,6 @@ namespace EventsWebsite.Database
             return ReturnData;
         }
 
-        public virtual List<EventModel> GetAllEvents()
-        {
-            List<EventModel> returnData = new List<EventModel>();
-            try
-            {
-                using (OracleConnection conn = new OracleConnection(Connectionstring))
-                {
-                    conn.Open();
-                    using (
-                        OracleCommand command =
-                            new OracleCommand(
-                                "SELECT eventid, event.naam, datumstart,datumeinde, plaats FROM event, locatie WHERE event.locatieid = locatie.locatieid",
-                                conn))
-                    {
-                        OracleDataReader dr = command.ExecuteReader();
-                        while (dr.Read())
-                        {
-                            EventModel add = new EventModel();
-                            add.EventID = dr.GetInt32(0);
-                            add.Name = dr.GetString(1);
-                            add.DateStart = dr.GetDateTime(2);
-                            add.DateEnd = dr.GetDateTime(3);
-                            add.City = dr.GetString(4);
-                            returnData.Add(add);
-                        }
-                    }
-                }
-            }
-            catch { }
-            return returnData;
-        }
-
         public virtual bool Delete(string table, string where, string equals)
         {
             using (OracleConnection conn = new OracleConnection(Connectionstring))
@@ -670,10 +676,8 @@ namespace EventsWebsite.Database
                         con.Open();
                         command.CommandType = CommandType.StoredProcedure;
                         command.BindByName = true;
-                        command.Parameters.Add("t_reserveringID", OracleDbType.Int32, ReserveringID,
-                            ParameterDirection.Input);
-                        command.Parameters.Add("t_gebruikersnaam", OracleDbType.Int32, Gebruikersnaam,
-                            ParameterDirection.Input);
+                        command.Parameters.Add("t_reserveringID", OracleDbType.Int32, ReserveringID, ParameterDirection.Input);
+                        command.Parameters.Add("t_gebruikersnaam", OracleDbType.Varchar2, Gebruikersnaam, ParameterDirection.Input);
                         command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
                         command.ExecuteNonQuery();
                         string rt = command.Parameters["return"].Value.ToString();
@@ -753,7 +757,7 @@ namespace EventsWebsite.Database
                 }
             }
             return ret;
-        }
+            }
         public virtual List<SocialMediaMessageModel> DetailPost(int messageid)
         {
             List<SocialMediaMessageModel> ret = new List<SocialMediaMessageModel>();

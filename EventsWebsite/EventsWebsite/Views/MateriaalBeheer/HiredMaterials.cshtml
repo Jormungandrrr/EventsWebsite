@@ -3,35 +3,43 @@
 @{
     ViewBag.Title = "Verhuurde materialen";
 }
+<div class="intro-header">
+    <h1>@ViewBag.Title</h1>
+</div>
+<div class="container">
+    <p>
+        <a href="@Url.Action("Index")" class="btn btn-success">Beschikbare materialen</a>
+    </p>
 
-<h2>HiredMaterials</h2>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Barcode)
+            </th>
+            <th>
+                Nummer
+            </th>
+            <td>
+                Actie
+            </td>
+        </tr>
 
-<p>
-    @Html.ActionLink("Free material", "Index")
-</p>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Barcode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Number)
-        </th>
-    </tr>
-
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Barcode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Number)
-        </td>
-        <td>
-            @Html.ActionLink("Return", "ReturnMaterial", new { number = item.Number })
-        </td>
-    </tr>
-}
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Barcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    <a href="@Url.Action("ReturnMaterial", new {number = item.Number})">
+                        Terugbrengen
+                    </a>
+                   
+                </td>
+            </tr>
+        }
+    </table>
+</div>
