@@ -157,6 +157,7 @@ namespace EventsWebsite.Controllers
         {
 
             UserDB db = new UserDB();
+            u.Username = Session["Gebruikersnaam"].ToString();
             db.UpdateUser(u);
             return View("Index",u);
 
