@@ -37,37 +37,37 @@ namespace EventsWebsite.Controllers
         public ActionResult Reservering(int EventID , ReserveringUsers Users)
         {
             List<string> Gebruikers = new List<string>();
-            if (Users.Gebruikersnaam1 != "")
+            if (Users.Gebruikersnaam1 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam1);
             }
 
-            if (Users.Gebruikersnaam2 != "")
+            if (Users.Gebruikersnaam2 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam2);
             }
 
-            if (Users.Gebruikersnaam3 != "")
+            if (Users.Gebruikersnaam3 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam3);
             }
 
-            if (Users.Gebruikersnaam4 != "")
+            if (Users.Gebruikersnaam4 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam4);
             }
 
-            if (Users.Gebruikersnaam5 != "")
+            if (Users.Gebruikersnaam5 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam5);
             }
 
-            if (Users.Gebruikersnaam6 != "")
+            if (Users.Gebruikersnaam6 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam6);
             }
 
-            if (Users.Gebruikersnaam7 != "")
+            if (Users.Gebruikersnaam7 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam7);
             }
