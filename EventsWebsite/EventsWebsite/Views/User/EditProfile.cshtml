@@ -84,7 +84,21 @@
                                      <span> <a href="#" data-original-title="Edit this user" id="email" class="edit name" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a></span>
                                  </td>
                              </tr>
-                                 <div class="panel-footer">
+                                 @{
+                                     if (Convert.ToInt32(Session["Niveau"]) >= 4)
+                                     {
+                                        <tr>
+                                            <td>Niveau</td>
+                                            <td>
+                                                @Html.TextBoxFor(m => m.AccesLevel, new { @Class = "form-control" })
+                                            </td>
+                                            <td>
+                                                <span> <a href="#" data-original-title="Edit this user" id="email" class="edit name" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a></span>
+                                            </td>
+                                        </tr>
+                                     }
+                                }
+                             <div class="panel-footer">
 
                                      <input type="submit" class="btn btn-default" value="EditProfile" />
                                  </div>
