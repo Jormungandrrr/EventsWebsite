@@ -14,8 +14,8 @@ namespace EventsWebsite.Database
             Dictionary<string, string> data = new Dictionary<string, string>
             {
                 {"Naam", model.Name},
-                {"Datumstart", model.DateStart.ToShortDateString()},
-                {"Datumeinde", model.DateEnd.ToShortDateString()}
+                {"Datumstart", model.DateStart.ToString("dd/MMM/yyyy")},
+                {"Datumeinde", model.DateEnd.ToString("dd/MMM/yyyy")}
             };
             Dictionary<string, string> locationdata = new Dictionary<string, string>
             {

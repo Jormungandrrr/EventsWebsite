@@ -46,7 +46,7 @@ namespace EventsWebsite_UnitTest.Database
         {
             EventModel add = new EventModel("FapFest",DateTime.Today,DateTime.Today, "Straatstaat","12","1234AA","StraatStraat","LandLand" );
             db.AddEvent(add);
-            Assert.AreEqual("FapFest",db.ReadStringWithCondition("Event","naam","Datumstart",DateTime.Today.ToShortDateString()));
+            Assert.AreEqual("FapFest",db.ReadStringWithCondition("Event","naam","Datumstart",DateTime.Now.ToString("dd/MMM/yyyy")));
         }
 
         [TestMethod]
