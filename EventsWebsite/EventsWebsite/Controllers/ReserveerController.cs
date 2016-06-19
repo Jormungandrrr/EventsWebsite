@@ -28,46 +28,46 @@ namespace EventsWebsite.Controllers
         }
 
         // GET: /Reserveer/Reservering
-        public ActionResult Reservering()
+        public ActionResult Reservering(int EventID)
         {
             return View();
         }
         // POST: /Reserveer/Reservering
         [HttpPost]
-        public ActionResult Reservering(ReserveringUsers Users)
+        public ActionResult Reservering(int EventID , ReserveringUsers Users)
         {
             List<string> Gebruikers = new List<string>();
-            if (Users.Gebruikersnaam1 != "")
+            if (Users.Gebruikersnaam1 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam1);
             }
 
-            if (Users.Gebruikersnaam2 != "")
+            if (Users.Gebruikersnaam2 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam2);
             }
 
-            if (Users.Gebruikersnaam3 != "")
+            if (Users.Gebruikersnaam3 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam3);
             }
 
-            if (Users.Gebruikersnaam4 != "")
+            if (Users.Gebruikersnaam4 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam4);
             }
 
-            if (Users.Gebruikersnaam5 != "")
+            if (Users.Gebruikersnaam5 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam5);
             }
 
-            if (Users.Gebruikersnaam6 != "")
+            if (Users.Gebruikersnaam6 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam6);
             }
 
-            if (Users.Gebruikersnaam7 != "")
+            if (Users.Gebruikersnaam7 != null)
             {
                 Gebruikers.Add(Users.Gebruikersnaam7);
             }
@@ -75,15 +75,20 @@ namespace EventsWebsite.Controllers
             int Aantal = 1 + Gebruikers.Count();
 
             int AccountID = (int)Session["Acountid"];
-            int PersoonID = Convert.ToInt32(userdb.ReadStringWithCondition("account", "persoonid", "accountid", AccountID.ToString()));
-            //int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID , Aantal);
+            int PersoonID = Convert.ToInt32(userdb.ReadStringWithCondition("persoon", "persoonid", "accountid", AccountID.ToString()));
+            int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID , Aantal);
+            
+            foreach (string Gebruiker in Gebruikers)
+            {
+                ResDB.Insertbandjes(ReserveringID, Gebruiker);
+            }
 
 
-            //foreach (string Gebruiker in Gebruikers)
-            //{
-            //    ResDB.Insertbandjes(ReserveringID ,Gebruiker);
-            //}
+            return RedirectToAction("Voltooid", "Reserveer");
+        }
 
+        public ActionResult Voltooid()
+        {
             return View();
         }
 

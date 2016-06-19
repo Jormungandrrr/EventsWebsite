@@ -27,15 +27,16 @@ namespace EventsWebsite.Database.Tests
         public void GetPersonTest()
         {
             Assert.AreEqual(UDB.GetPerson("Mvg013").Voornaam, "Marc");
+            Assert.AreEqual(UDB.GetPerson("Mvg013").Accountid, 1);
         }
 
         [TestMethod()]
         public void UpdateUserTest()
         {
             UserModel testuser = UDB.GetPerson("Mvg013");
-            testuser.Email = "Marc@Marc.com";
+            testuser.Email = "Marc@Marc.nl";
             UDB.UpdateUser(testuser);
-            Assert.AreEqual(UDB.GetPerson("Mvg013").Email, "Marc@Marc.com");
+            Assert.AreEqual(UDB.GetPerson("Mvg013").Email, "Marc@Marc.nl");
         }
 
         [TestMethod()]
@@ -46,7 +47,7 @@ namespace EventsWebsite.Database.Tests
             {
                 usercount++;
             }
-            Assert.AreEqual(12, usercount);
+            Assert.AreEqual(13, usercount);
         }
     }
 }

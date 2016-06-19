@@ -219,6 +219,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\nud.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -252,6 +253,7 @@
     <Content Include="Views\Reserveer\Reservering.cshtml" />
     <Content Include="Views\SocialMedia\CreatePost.cshtml" />
     <Content Include="Views\SocialMedia\ShowFullPost.cshtml" />
+    <Content Include="Views\Reserveer\Voltooid.cshtml" />
     <None Include="Views\User\Accountmanagement.cshtml" />
     <None Include="Views\User\EditProfile.cshtml" />
     <Content Include="Views\EventBeheer\CreateEvent.cshtml" />

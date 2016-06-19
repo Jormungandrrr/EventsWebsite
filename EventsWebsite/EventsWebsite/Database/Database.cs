@@ -49,8 +49,8 @@ namespace EventsWebsite.Database
             string querUpdateValues = "";
             foreach (string v in values.Keys)
             {
-                if (values.Keys.Last() == v){querUpdateValues += v + " = '" + values[v] + "'";}
-                else { querUpdateValues += v + " = '" + values[v] + "', "; }
+                if (values.Keys.Last() == v) { querUpdateValues += v + " = :" + v; }
+                else { querUpdateValues += v + " = :" + v + ", "; }
             }
 
             using (OracleConnection conn = new OracleConnection(Connectionstring))
@@ -62,8 +62,7 @@ namespace EventsWebsite.Database
                     command.Parameters.Add(new OracleParameter(":Condition2", condition2));
                     foreach (string c in values.Keys)
                     {
-                        string value = values[c];
-                        command.Parameters.Add(new OracleParameter(c, value));
+                        command.Parameters.Add(new OracleParameter(":"+c, values[c]));
                     }
 
                     command.Connection.Open();
@@ -85,7 +84,9 @@ namespace EventsWebsite.Database
             string ReturnData = "";
             using (OracleConnection conn = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand("SELECT " + column + " FROM " + table + " WHERE " + ConditionValue1 + " = " + ConditionValue2, conn))
+                string query = ("SELECT " + column + " FROM " + table + " WHERE " + ConditionValue1 + " = " + "'" + ConditionValue2 + "'");
+                
+                using (OracleCommand command = new OracleCommand(query, conn))
                 {
                     command.BindByName = true;
                     command.Parameters.Add(new OracleParameter(":Condition2", ConditionValue2));
@@ -107,6 +108,7 @@ namespace EventsWebsite.Database
                     }
                     return ReturnData;
                 }
+
             }
         }
 
@@ -504,73 +506,6 @@ namespace EventsWebsite.Database
             return ReturnData;
         }
 
-        public virtual List<int> GetFreeMaterial(int eventid, int exemplaarid)
-        {
-            List<int> ReturnData = new List<int>();
-            using (OracleConnection conn = new OracleConnection(Connectionstring))
-            {
-                using (
-                    OracleCommand command =
-                        new OracleCommand(
-                            "SELECT ex.ExemplaarID FROM EXEMPLAAR ex, VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE ex.ExemplaarID = v.ExemplaarID AND v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND EventID = :ei AND :exi NOT IN SELECT ExemplaarID FROM VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND EventID = :ei;",
-                            conn)
-                    )
-                {
-                    command.BindByName = true;
-                    command.Parameters.Add(":ei", eventid);
-                    command.Parameters.Add(":exi", eventid);
-                    try
-                    {
-                        conn.Open();
-                        using (OracleDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                ReturnData.Add(reader.GetInt32(0));
-                            }
-                        }
-                    }
-                    catch
-                    {
-                    }
-                }
-            }
-            return ReturnData;
-        }
-
-        public virtual List<int> GetAllMaterial(int eventid)
-        {
-            List<int> ReturnData = new List<int>();
-            using (OracleConnection conn = new OracleConnection(Connectionstring))
-            {
-                using (
-                    OracleCommand command =
-                        new OracleCommand(
-                            "SELECT ex.ExemplaarID FROM EXEMPLAAR ex, VERHUUR v, RESERVERING_POLSBANDJE rp, RESERVERING r, PLEK_RESERVERING pr, Plek p, LOCATIE l, EVENT e WHERE ex.ExemplaarID = v.ExemplaarID AND v.Reservering_PolsbandjeID = rp.ID AND rp.ReserveringID = r.ReserveringID AND r. ReserveringID = pr.ReserveringID AND pr.PlekID = p.PlekID AND p.LocatieID = l.LocatieID AND l.LocatieID = e.LocatieID AND EventID = 1",
-                            conn)
-                    )
-                {
-                    command.BindByName = true;
-                    command.Parameters.Add(":ei", eventid);
-                    try
-                    {
-                        conn.Open();
-                        using (OracleDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                ReturnData.Add(reader.GetInt32(0));
-                            }
-                        }
-                    }
-                    catch
-                    {
-                    }
-                }
-            }
-            return ReturnData;
-        }
-
         public virtual List<EventModel> GetAllEvents()
         {
             List<EventModel> returnData = new List<EventModel>();
@@ -689,6 +624,69 @@ namespace EventsWebsite.Database
 
             }
         }
+        public virtual int ReserveringNieuw(int EventID, int AccountID, int PersoonID, int aantal)
+        {
+            using (OracleConnection con = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("ReserveringNieuw", con))
+                {
+                    try
+                    {
+                        con.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.BindByName = true;
+                        command.Parameters.Add("t_eventID", OracleDbType.Int32, EventID, ParameterDirection.Input);
+                        command.Parameters.Add("t_accountID", OracleDbType.Int32, AccountID, ParameterDirection.Input);
+                        command.Parameters.Add("t_persoonID", OracleDbType.Int32, PersoonID, ParameterDirection.Input);
+                        command.Parameters.Add("n_aantal", OracleDbType.Int32, aantal, ParameterDirection.Input);
+                        command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
+                        command.ExecuteNonQuery();
+                        string rt = command.Parameters["return"].Value.ToString();
+                        int ret;
+                        if (int.TryParse(rt, out ret))
+                        {
+                            if(ret > 0)
+                                return ret;
+                        }
+                        return 0;
+                    }
+                    catch
+                    {
+                        return 0;
+                    }
+                }
+
+            }
+        }
+        public virtual int ReserveringToevoegen(int ReserveringID, string Gebruikersnaam)
+        {
+            using (OracleConnection con = new OracleConnection(Connectionstring))
+            {
+                using (OracleCommand command = new OracleCommand("ReserveringToevoegen", con))
+                {
+                    try
+                    {
+                        con.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.BindByName = true;
+                        command.Parameters.Add("t_reserveringID", OracleDbType.Int32, ReserveringID, ParameterDirection.Input);
+                        command.Parameters.Add("t_gebruikersnaam", OracleDbType.Int32, Gebruikersnaam, ParameterDirection.Input);
+                        command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
+                        command.ExecuteNonQuery();
+                        string rt = command.Parameters["return"].Value.ToString();
+                        int ret;
+                        if (int.TryParse(rt, out ret))
+                        {
+                            if (ret == 1)
+                                return ret;
+                        }
+                        return 0;
+                    }
+                    catch
+                    {
+                        return 0;
+                    }
+                }
 
         public virtual bool AddReply(string procedure, string titel, string inhoud, int userid, int messageid)
         {

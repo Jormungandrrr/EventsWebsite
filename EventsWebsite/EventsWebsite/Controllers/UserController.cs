@@ -114,8 +114,9 @@ namespace EventsWebsite.Controllers
 
             else
             {
-                return View("Accountmanagement");
-        }
+                List<UserModel> users = db.GetAllUsers();
+                return View("Accountmanagement",users);
+            }
 
     }
         // GET: /Account/Register

@@ -1,7 +1,34 @@
-﻿@model dynamic
+﻿@using EventsWebsite.Models
+@model List<UserModel> 
 
 @{
+
     ViewBag.Title = "Welkom, Admin";
 }
 
 <h2>@ViewBag.Title</h2>
+<div class="container">
+    <div>
+        <table class="table-hover">
+            <thead>
+            <tr>
+                <th>Voornaam</th>
+                <th>Achternaam</th>
+                <th>Email</th>
+                <th>Gebruikersnaam</th>
+            </tr>
+            </thead>
+            <tbody> 
+            @foreach (UserModel u in Model)
+            {
+                <tr>
+                    <td>@u.Voornaam</td>
+                    <td>@u.Achternaam</td>
+                    <td>@u.Email</td>
+                    <td>@u.Username</td>
+                </tr>
+            }
+             </tbody>
+        </table>
+    </div>
+</div>
