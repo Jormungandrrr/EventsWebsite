@@ -162,16 +162,33 @@ namespace EventsWebsite.Database
             }
             return ret;
         }
-        public  List<SocialMediaMessageModel> DetailPost(int messageid)
+        public List<SocialMediaMessageModel> DetailPost(int messageid)
         {
             List<SocialMediaMessageModel> ret = new List<SocialMediaMessageModel>();
             using (OracleConnection con = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand($"SELECT b.titel, b.inhoud,a.gebruikersnaam, b.bijdrageid FROM bericht b, bijdrage bd, account a, bijdrage_bericht bb WHERE b.bijdrageid = bd.bijdrageID AND bd.accountid = a.accountid AND bb.bijdrageid = b.bijdrageid AND b.bijdrageid ={messageid} OR bb.bijdrageid={messageid} ORDER BY b.bijdrageID DESC", con))
+                using (OracleCommand command = new OracleCommand())
                 {
                     try
                     {
+                        command.Connection = con;
                         con.Open();
+                        command.CommandText =
+                           $"SELECT b.titel, b.inhoud,a.gebruikersnaam, b.bijdrageid FROM bericht b, bijdrage bd, account a WHERE b.bijdrageid = bd.bijdrageID AND bd.accountid = a.accountid AND b.bijdrageid = {messageid}";
+                        OracleDataReader reader = command.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            SocialMediaMessageModel add = new SocialMediaMessageModel
+                            {
+                                Title = reader.GetString(0),
+                                Username = reader.GetString(2),
+                                Messageid = reader.GetInt32(3),
+                                Message = reader.GetString(1)
+                            };
+                            ret.Add(add);
+                        }
+                        command.CommandText =
+                            $"SELECT b.titel, b.inhoud,a.gebruikersnaam, b.bijdrageid FROM bericht b, bijdrage bd, account a, bijdrage_bericht bb WHERE b.bijdrageid = bd.bijdrageID AND bd.accountid = a.accountid AND bb.bijdrageid = b.bijdrageid AND b.bijdrageid ={messageid} OR bb.bijdrageid={messageid} ORDER BY b.bijdrageID DESC";
                         OracleDataReader dr = command.ExecuteReader();
                         while (dr.Read())
                         {
