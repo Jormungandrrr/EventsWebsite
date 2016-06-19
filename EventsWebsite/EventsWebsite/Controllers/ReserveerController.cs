@@ -76,7 +76,7 @@ namespace EventsWebsite.Controllers
 
             int AccountID = (int)Session["Acountid"];
             int PersoonID = Convert.ToInt32(userdb.ReadStringWithCondition("persoon", "persoonid", "accountid", AccountID.ToString()));
-            //int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID , Aantal);
+            int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID , Aantal);
 
 
             foreach (string Gebruiker in Gebruikers)
