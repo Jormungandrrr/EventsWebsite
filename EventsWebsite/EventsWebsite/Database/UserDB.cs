@@ -40,6 +40,7 @@ namespace EventsWebsite.Database
             PersonData.Add("p.huisnr");
             PersonData.Add("p.toevoeging");
             PersonData.Add("p.woonplaats");
+            PersonData.Add("a.accountid");
             //UserModel User = (UserModel)ReadObjectWithCondition("account a Join reservering_polsbandje rp on a.accountid = rp.accountid Join reservering r on rp.reserveringid = r.reserveringid Join Persoon p on r.persoonid = p.persoonid ", PersonData,"a.gebruikersnaam", username, "User");
             UserModel User = (UserModel)ReadObjectWithCondition("account a Join Persoon p ON a.accountid = p.accountid", PersonData,"a.gebruikersnaam", username, "User");
             return User;
@@ -76,6 +77,7 @@ namespace EventsWebsite.Database
             PersonData.Add("p.huisnr");
             PersonData.Add("p.toevoeging");
             PersonData.Add("p.woonplaats");
+            PersonData.Add("a.accountid");
             return ReadObjects("account a Join Persoon p ON a.accountid = p.accountid", PersonData, "User");
         }
     }

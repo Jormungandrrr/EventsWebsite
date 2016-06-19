@@ -155,7 +155,7 @@ namespace EventsWebsite.Database
                             {
                                 if (type == "User")
                                 {
-                                    UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), Convert.ToInt32(reader[7]), reader[8].ToString(), reader[9].ToString());
+                                    UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), Convert.ToInt32(reader[7]), reader[8].ToString(), reader[9].ToString(),reader.GetInt32(10));
                                     ReturnData.Add(user);
                                 }
                             }
@@ -331,7 +331,7 @@ namespace EventsWebsite.Database
                             {
                                 if (type == "User")
                                 {
-                                    UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), Convert.ToInt32(reader[7]), reader[8].ToString(), reader[9].ToString());
+                                    UserModel user = new UserModel(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), reader[4].ToString(), Convert.ToInt32(reader[5]), reader[6].ToString(), Convert.ToInt32(reader[7]), reader[8].ToString(), reader[9].ToString(),reader.GetInt32(10));
                                     ReturnData = user;
                                 }
                                 else if (type == "Exemplaar")
@@ -628,19 +628,26 @@ namespace EventsWebsite.Database
         {
             using (OracleConnection con = new OracleConnection(Connectionstring))
             {
-                using (OracleCommand command = new OracleCommand(procedure, con))
+                using (OracleCommand command = new OracleCommand("BijdrageBericht", con))
                 {
                     try
                     {
                         con.Open();
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.Add("Return", OracleDbType.Int32, ParameterDirection.ReturnValue);
+                        command.BindByName = true;
                         command.Parameters.Add("t_title", OracleDbType.Varchar2, titel, ParameterDirection.Input);
                         command.Parameters.Add("t_message", OracleDbType.Varchar2, inhoud, ParameterDirection.Input);
                         command.Parameters.Add("t_sender", OracleDbType.Int32, userid, ParameterDirection.Input);
+                        command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
                         command.ExecuteNonQuery();
-                        int ret = Convert.ToInt32(command.Parameters["Return"].ToString());
-                        return ret == 1;
+                        string rt = command.Parameters["return"].Value.ToString();
+                        int ret;
+                        if (int.TryParse(rt, out ret))
+                        {
+                            return ret == 1;
+                        }
+                        return false;
+
                     }
                     catch
                     {
@@ -660,13 +667,19 @@ namespace EventsWebsite.Database
                     {
                         con.Open();
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.Add("Return", OracleDbType.Int32, ParameterDirection.ReturnValue);
+                        command.BindByName = true;
                         command.Parameters.Add("t_bestandlocatie", OracleDbType.Varchar2, floc, ParameterDirection.Input);
                         command.Parameters.Add("t_message", OracleDbType.Int32, fsize, ParameterDirection.Input);
                         command.Parameters.Add("t_sender", OracleDbType.Int32, userid, ParameterDirection.Input);
+                        command.Parameters.Add("return", OracleDbType.Int32, ParameterDirection.ReturnValue);
                         command.ExecuteNonQuery();
-                        int ret = Convert.ToInt32(command.Parameters["Return"].ToString());
-                        return ret == 1;
+                        string rt = command.Parameters["return"].Value.ToString();
+                        int ret;
+                        if (int.TryParse(rt, out ret))
+                        {
+                            return ret == 1;
+                        }
+                        return false;
                     }
                     catch
                     {
