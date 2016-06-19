@@ -1,6 +1,6 @@
 ﻿@model EventsWebsite.Models.ReserveringUsers
 @{
-    ViewBag.Title = "Voeg gebruikers toe";
+    ViewBag.Title = "Nodig je vrienden uit!";
 }
 <div class="intro-header">
     <h1>@ViewBag.Title</h1>
@@ -12,6 +12,7 @@
 
         <div class="form-horizontal">
             <h4>@ViewBag.Title</h4>
+            <p>Pas op de mensen die je wilt uitnodigen moeten wel een account hebben!</p>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
