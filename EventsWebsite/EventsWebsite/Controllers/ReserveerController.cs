@@ -12,32 +12,77 @@ namespace EventsWebsite.Controllers
     {
         ReserveerDB ResDB = new ReserveerDB();
         UserDB userdb = new UserDB();
+        EventBeheerDB eventdb = new EventBeheerDB();
 
 
         public ActionResult Index()
         {
-            List<EventModel> Events = ResDB.GetEvents();
+            List<EventModel> Events = eventdb.GetOngoingEvents();
             return View(Events);
         }
 
         public ActionResult Event(int ID)
         {
-            EventModel Event = ResDB.GetEventByID(ID);
+            EventModel Event = eventdb.GetEventById(ID);
             return View(Event);
         }
 
-        public ActionResult Reservering(int AccountID , int EventID)
+        // GET: /Reserveer/Reservering
+        public ActionResult Reservering()
         {
-            AccountID = (int)Session["Acountid"];
-            int PersoonID = userdb.GetPersoonIDByAccountID(AccountID);
-            int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID);
-
-            List<UserModel> Users = new List<UserModel>();
-
-            foreach (UserModel user in Users)
+            return View();
+        }
+        // POST: /Reserveer/Reservering
+        [HttpPost]
+        public ActionResult Reservering(ReserveringUsers Users)
+        {
+            List<string> Gebruikers = new List<string>();
+            if (Users.Gebruikersnaam1 != "")
             {
-                ResDB.Insertbandjes(ReserveringID, user.Accountid, user.PersoonId);
+                Gebruikers.Add(Users.Gebruikersnaam1);
             }
+
+            if (Users.Gebruikersnaam2 != "")
+            {
+                Gebruikers.Add(Users.Gebruikersnaam2);
+            }
+
+            if (Users.Gebruikersnaam3 != "")
+            {
+                Gebruikers.Add(Users.Gebruikersnaam3);
+            }
+
+            if (Users.Gebruikersnaam4 != "")
+            {
+                Gebruikers.Add(Users.Gebruikersnaam4);
+            }
+
+            if (Users.Gebruikersnaam5 != "")
+            {
+                Gebruikers.Add(Users.Gebruikersnaam5);
+            }
+
+            if (Users.Gebruikersnaam6 != "")
+            {
+                Gebruikers.Add(Users.Gebruikersnaam6);
+            }
+
+            if (Users.Gebruikersnaam7 != "")
+            {
+                Gebruikers.Add(Users.Gebruikersnaam7);
+            }
+
+            int Aantal = 1 + Gebruikers.Count();
+
+            int AccountID = (int)Session["Acountid"];
+            int PersoonID = Convert.ToInt32(userdb.ReadStringWithCondition("account", "persoonid", "accountid", AccountID.ToString()));
+            //int ReserveringID = ResDB.InsertReservering(EventID, AccountID, PersoonID , Aantal);
+
+
+            //foreach (string Gebruiker in Gebruikers)
+            //{
+            //    ResDB.Insertbandjes(ReserveringID ,Gebruiker);
+            //}
 
             return View();
         }

@@ -21,8 +21,8 @@ namespace EventsWebsite_UnitTest
         public void ReturnMaterialTest()
         {
             MateriaalverhuurDB m = new MateriaalverhuurDB();
-            m.ReturnMaterial(1, "10-11-2016");
-            Assert.AreEqual("10-11-2016 00:00:00", m.ReadStringWithCondition("VERHUUR", "datumin", "verhuurID", "1"));
+            m.ReturnMaterial(1, "10-6-2016");
+            Assert.AreEqual("10-6-2016", m.ReadStringWithCondition("VERHUUR", "datumin", "verhuurID", "1"));
         }
 
         [TestMethod]

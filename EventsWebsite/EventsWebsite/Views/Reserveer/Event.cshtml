@@ -6,23 +6,16 @@
 
 <h2>@Model.Name</h2>
 <p>
-   Startdatum:  @Model.DateStart
-   Einddatum:   @Model.DateEnd
-   Land:        @Model.Country
-   Plaats:      @Model.City
-   Straat:      @Model.Street
-   Postcode:    @Model.Zipcode
-   Huisnummer:  @Model.HouseNumber
-
-    Aantal personen: 
-
-
-
-    <a href="@Url.Action("Reserveer", "Reservering",new { AccountID = Session["Acountid"], eventid = Model.EventID})">Reserveer!></a>
-
-
-
-    
+    Startdatum:  @Model.DateStart<br/>
+    Einddatum:   @Model.DateEnd<br />
+    Land:        @Model.Country<br />
+    Plaats:      @Model.City<br />
+    Straat:      @Model.Street<br />
+    Postcode:    @Model.Zipcode<br />
+    Huisnummer:  @Model.HouseNumber<br />
 </p>
+<a href="@Url.Action("Reservering", "Reserveer",new { eventid = Model.EventID})">Reserveer!></a>
+
+
 
 
